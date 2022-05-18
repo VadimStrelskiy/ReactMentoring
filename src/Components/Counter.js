@@ -13,18 +13,14 @@ class Counter extends React.Component {
     }
 
     up (){
-        this.state.value++;
-        this.update();
+        this.setState(() => {
+            return {value: this.state.value + 1};
+        });
     }
 
     down (){
-        this.state.value--;
-        this.update();
-    }
-
-    update(){
         this.setState(() => {
-            return {value: this.state.value};
+            return {value: this.state.value - 1};
         });
     }
 
