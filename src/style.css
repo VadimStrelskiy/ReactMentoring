@@ -1,0 +1,143 @@
+.app-container{
+    position: relative;
+    width: 1620px;
+    height: 1897px;
+    margin: auto;
+    background: #555555;
+}
+
+#hello-container h1{
+    color:#FFFFFF;
+}
+
+.page-header{
+    position: absolute;
+    width: 1200px;
+    height: 396px;
+    left: 58px;
+    top: 54px;
+    background: #000000;
+}
+
+.header-image{
+    position: absolute;
+    width: 1260px;
+    height: 683px;
+    left: 28px;
+    top: -48px;
+
+    background: url(../public/header.png);
+    mix-blend-mode: normal;
+    opacity: 0.3;
+    filter: blur(8.15485px);
+}
+
+.search{
+    position: absolute;
+    left: 150px;
+    top: 200px;
+    width: 900px;
+    height: 57px;
+}
+
+.search-input-container{
+    width: 70%;
+    height: 57px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.search-input-container label{
+    position: absolute;
+    height: 24px;
+    left: 2.66%;
+    right: 56.94%;
+    top: calc(50% - 24px/2 + 0.5px);
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #FFFFFF;
+
+    mix-blend-mode: normal;
+    opacity: 0.3;
+}
+
+.search-input{
+    width: 100%;
+    height: 57px;
+
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: rgba(50, 50, 50, 0.8);
+    mix-blend-mode: normal;
+    opacity: 0.7;
+    border-radius: 4px;
+}
+
+.search-button{
+    display: inline-block;
+    width: 233px;
+    height: 57px;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #F65261;
+    border-radius: 4px;
+}
+
+.search-button label {
+    height: 24px;
+    left: 31.76%;
+    right: 31.33%;
+    top: calc(50% - 24px/2 + 1.5px);
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+}
+
+.genre-selector{
+    margin: 10px;
+    width: 36px;
+    height: 489px;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+    height: 50px;
+}
+
+.genre-selector a{
+    margin: 15px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+}
+
+.page-body{
+    position: absolute;
+    width: 1200px;
+    height: 1396px;
+    left: 58px;
+    top: 460px;
+    background: #000000;
+}
