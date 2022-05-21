@@ -1,5 +1,3 @@
-import React from 'react';
-
 function GenreSelector() {
     return (
       <div className="genre-selector">

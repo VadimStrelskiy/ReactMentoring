@@ -1,4 +1,3 @@
-import React from 'react';
 import GenreSelector from './GenreSelector';
 
 function Body() {
