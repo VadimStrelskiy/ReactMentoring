@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     mode: 'none',
@@ -19,14 +20,9 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ["css-loader"],
-                exclude: /node_modules/,
+                use: ["style-loader", "css-loader"],
             },
         ],
-    },
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
     },
     output: {
         filename: 'bundle.js',
@@ -35,6 +31,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'public', 'index.html')
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
         })
     ]
 }
