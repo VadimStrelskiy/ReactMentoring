@@ -1,11 +1,10 @@
-import Header from './Header';
-import Body from './Body';
-import '../style.css';
+import Header from './Header/Header';
+import Body from './Body/Body';
+import './App.scss';
 
 function App() {
   return (
     <div className='app-container'>
-      <img className="header-image"/>
       <Header/>
       <Body/>
     </div>

@@ -1,0 +1,27 @@
+.page-header{
+    width: 1200px;
+    height: 396px;
+    top: 50px;
+    margin: auto;
+    background: #000000;
+
+    .header-image{
+        position: absolute;
+        width: 1260px;
+        height: 420px;
+        margin-left: -30px;
+        background: url(../../../public/header.png);
+        opacity: 0.6;
+        filter: blur(8.15485px);
+    }
+    
+    .search-container{
+        width: 900px;
+        position: absolute;
+        margin: auto;
+        left: 0; 
+        right: 0; 
+        top: 170px;
+    }
+}
+

@@ -1,3 +1,5 @@
+import './GenreSelector.scss'
+
 function GenreSelector() {
     return (
       <div className="genre-selector">

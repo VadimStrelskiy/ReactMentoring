@@ -1,4 +1,5 @@
-import GenreSelector from './GenreSelector';
+import GenreSelector from './GenreSelector/GenreSelector';
+import './Body.scss'
 
 function Body() {
     return (

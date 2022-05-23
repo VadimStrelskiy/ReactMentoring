@@ -10,7 +10,7 @@ module.exports = {
         main: path.resolve(__dirname, './src/index.tsx'),
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
+        extensions: [ '.tsx', '.ts', '.js', '.jsx', ],
     },
     module: {
         rules: [
@@ -20,8 +20,8 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, "css-loader"],
+                test: /\.s[ac]ss$/i,
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
         ],
     },
