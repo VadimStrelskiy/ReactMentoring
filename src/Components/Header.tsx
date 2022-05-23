@@ -2,11 +2,11 @@ import Search from './Search';
 
 function Header() {
     return (
-      <div className="page-header">
+      <header>
           <img className='header-image'/>
           <div id='hello-container'></div>
           <Search/>
-      </div>
+      </header>
     )
   }
 

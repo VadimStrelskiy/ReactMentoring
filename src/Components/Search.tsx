@@ -6,9 +6,7 @@ function Search() {
               <input className="search-input" />
           </div>
           
-          <button className="search-button">
-              <label>SEARCH</label>
-          </button>
+          <button className="search-button">SEARCH</button>
       </div>
     )
   }
