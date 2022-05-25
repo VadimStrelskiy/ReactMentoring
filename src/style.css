@@ -10,7 +10,7 @@
     color:#FFFFFF;
 }
 
-.page-header{
+header{
     position: absolute;
     width: 1200px;
     height: 396px;
@@ -92,13 +92,6 @@
 
     background: #F65261;
     border-radius: 4px;
-}
-
-.search-button label {
-    height: 24px;
-    left: 31.76%;
-    right: 31.33%;
-    top: calc(50% - 24px/2 + 1.5px);
 
     font-family: 'Montserrat';
     font-style: normal;
