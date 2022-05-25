@@ -1,4 +1,4 @@
-.page-header{
+header{
     width: 1200px;
     height: 396px;
     top: 50px;
@@ -22,6 +22,37 @@
         left: 0; 
         right: 0; 
         top: 170px;
+    }
+
+    .netflix-roulett-text{
+        display: inline-block;
+        margin-left: 60px;
+        margin-top: 30px;
+        color: #F65261;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .add-movie{
+        background: rgba(96, 96, 96, 0.68);
+        border-radius: 4px;
+        float:right;
+        margin-top: 20px;
+        margin-right: 20px;
+        width: 180px;
+        height: 50px;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #F65261;
+    }
+
+    .find-your-movie{
+        margin-left: 155px;
+        font-weight: 300;
+        font-size: 40px;
+        line-height: 49px;
+        color: #FFFFFF;
     }
 }
 

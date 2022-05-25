@@ -1,13 +1,15 @@
 import './GenreSelector.scss'
 
+const genres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
+
 function GenreSelector() {
     return (
-      <div className="genre-selector">
-        <a>ALL</a>
-        <a>DOCUMENTARY</a>
-        <a>COMEDY</a>
-        <a>HORROR</a>
-        <a>CRIME</a>
+      <div className='genre-selector'>
+        {
+          genres.map((i) =>
+            <a>{i}</a>
+          )
+        }
       </div>
     )
   }
