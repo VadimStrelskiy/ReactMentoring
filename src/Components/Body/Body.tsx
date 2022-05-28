@@ -1,6 +1,7 @@
 import GenreSelector from './GenreSelector/GenreSelector';
 import SortPanel from './SortPanel/SortPanel';
 import './Body.scss'
+import MoviesList from './MoviesList/MoviesList';
 
 
 
@@ -10,6 +11,7 @@ function Body() {
         <GenreSelector/>
         <SortPanel/>
         <hr/>
+        <MoviesList/>
       </div>
     )
   }
