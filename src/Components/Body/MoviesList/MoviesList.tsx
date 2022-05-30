@@ -1,4 +1,3 @@
-import './MoviesList.scss'
 import { MovieCard, Movie } from '../MovieCard/MovieCard';
 
 const movies : Movie[] =[
@@ -45,11 +44,9 @@ function MoviesList() {
   return(
   <>
     {
-      movies.map((movie) =>
+      movies.map((movie, i) =>
       (
-        <div className='movie-card-container'>
-          <MovieCard {...movie}/>
-        </div>
+        <MovieCard {...movie}/>
       )
     )}
   </>)

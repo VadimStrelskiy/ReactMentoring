@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require('webpack');
 
 module.exports = {
@@ -22,10 +23,6 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-            },
-            {
-                test: /\.(jpe?g|gif|png|svg)$/,
-                use: "file-loader?name=./public/[name].[ext]"
             }
         ],
     },
@@ -40,6 +37,12 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
-        new MiniCssExtractPlugin()
+        new MiniCssExtractPlugin(),
+        new CopyPlugin({
+            patterns: [
+              { from: "../public/static", to: "../build/static" },
+            ],
+          }),
+        
     ]
 }

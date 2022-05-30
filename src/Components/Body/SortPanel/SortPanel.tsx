@@ -8,7 +8,7 @@ function SortPanel() {
       <select>
         {
           sortOptions.map((i) =>
-            <option>{i}</option>
+            <option key={i}>{i}</option>
           )
         }
       </select>

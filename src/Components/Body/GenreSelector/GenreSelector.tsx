@@ -7,7 +7,7 @@ function GenreSelector() {
       <div className='genre-selector'>
         {
           genres.map((i) =>
-            <a>{i}</a>
+            <a key={i}>{i}</a>
           )
         }
       </div>
