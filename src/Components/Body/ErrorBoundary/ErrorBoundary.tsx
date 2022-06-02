@@ -1,17 +1,10 @@
-import './ErrorBoundary.scss';
+import {ErrorView} from '../ErrorView/ErrorView';
 
 type ErrorBoundaryProps = {
     children: React.ReactNode
 }
 
-export default function ErrorBoundary(props: ErrorBoundaryProps) {
-  const ErrorText = () => (
-    <h2>
-            Oops, something went wrong...
-            We are doing our best to fix the issue.
-    </h2>
-  );
-
+export function ErrorBoundary(props: ErrorBoundaryProps) {
   const isOk = true;
-  return <>{isOk ? props.children : <ErrorText/>}</>;
+  return <>{isOk ? props.children : <ErrorView/>}</>;
 }

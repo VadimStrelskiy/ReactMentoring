@@ -1,31 +1,20 @@
+@import '../../../common.scss';
+
 .sort-panel{
     float: right;
     margin: 10px;
     opacity: 0.8;
 
     label{
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 20px;
-        letter-spacing: 0.888889px;
-        color: #FFFFFF;
+        @include white-text-small;
         opacity: 0.6;
     }
 
     select{
         margin-left: 5px;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
+        @include white-text-small;
         letter-spacing: 0.888889px;
-        background: #232323;
+        background: $grey;
         border: none;
-        color: #FFFFFF;
-
-        option{
-            color: #FFFFFF;
-            border: none;
-        }
     }
 }

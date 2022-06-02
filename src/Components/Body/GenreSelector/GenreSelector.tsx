@@ -2,7 +2,7 @@ import './GenreSelector.scss';
 
 const genres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
 
-function GenreSelector() {
+export function GenreSelector() {
   return (
     <div className='genre-selector'>
       {
@@ -14,4 +14,3 @@ function GenreSelector() {
   );
 }
 
-export default GenreSelector;

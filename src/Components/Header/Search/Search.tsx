@@ -1,6 +1,6 @@
 import './Search.scss';
 
-function Search() {
+export function Search() {
   return (
     <>
       <input className='search-input' placeholder='What do you want to watch?'/>
@@ -8,5 +8,3 @@ function Search() {
     </>
   );
 }
-
-export default Search;

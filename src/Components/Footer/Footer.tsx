@@ -4,7 +4,7 @@ type FooterProps = {
     children: React.ReactNode
 }
 
-export default function Footer(props : FooterProps) {
+export function Footer(props : FooterProps) {
   return (
     <footer>{props.children}</footer>
   );

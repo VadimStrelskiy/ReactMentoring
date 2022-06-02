@@ -1,22 +1,21 @@
-import GenreSelector from './GenreSelector/GenreSelector';
-import SortPanel from './SortPanel/SortPanel';
+import {GenreSelector} from './GenreSelector/GenreSelector';
+import {SortPanel} from './SortPanel/SortPanel';
+import {MoviesList} from './MoviesList/MoviesList';
+import {ErrorBoundary} from './ErrorBoundary/ErrorBoundary';
 import './Body.scss';
-import MoviesList from './MoviesList/MoviesList';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
-const movieCount = 39;
 
-function Body() {
+const MOVIE_COUNT = 39;
+
+export function Body() {
   return (
-    <div className="page-body">
+    <main className="page-body">
       <ErrorBoundary>
         <GenreSelector/>
         <SortPanel/>
         <hr/>
-        <p className='movie-count'>{movieCount} movies found</p>
+        <p className='movie-count'>{MOVIE_COUNT} movies found</p>
         <MoviesList/>
       </ErrorBoundary>
-    </div>
+    </main>
   );
 }
-
-export default Body;

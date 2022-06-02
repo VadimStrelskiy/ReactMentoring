@@ -1,17 +1,21 @@
+@import '../../../common.scss';
+
+$element-height: 57px;
+$element-border-radius: 4px;
+
 .search-input{
     width: 70%;
-    height: 57px;
+    height: $element-height;
     display: inline-block;
     margin-right: 20px;
     background: rgba(50, 50, 50, 0.8);
     opacity: 0.7;
-    border-radius: 4px;
+    border-radius: $element-border-radius;
+    vertical-align: bottom;
 
     &::placeholder{
+        @include white-text;
         padding-left: 10px;
-        font-size: 20px;
-        line-height: 24px;
-        color: #FFFFFF;
         opacity: 0.3;
     }
 
@@ -23,11 +27,8 @@
 .search-button{
     position: relative;
     width: 233px;
-    height: 57px;
-    background: #F65261;
-    border-radius: 4px;
-    color: #FFFFFF;
-
-    font-size: 20px;
-    line-height: 24px;
+    height: $element-height;
+    background: $red;
+    border-radius: $element-border-radius;
+    @include white-text;
 }

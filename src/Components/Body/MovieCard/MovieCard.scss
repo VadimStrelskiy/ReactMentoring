@@ -12,19 +12,17 @@
     }
     
     .movie-title{
-        font-weight: 500;
         font-size: 18px;
         line-height: 22px;
-        color: #FFFFFF;
+        color: white;
         opacity: 0.7;
         display: inline-block;
     }
     
     .movie-year{
-        font-weight: 500;
         font-size: 14px;
         line-height: 17px;
-        color: #FFFFFF;
+        color: white;
         opacity: 0.7;
         float: right;
         border: 1px solid #979797;
@@ -33,10 +31,9 @@
     }
     
     .movie-genre{
-        font-weight: 500;
         font-size: 14px;
         line-height: 17px;
-        color: #FFFFFF;
+        color: white;
         opacity: 0.5;
     }
 }

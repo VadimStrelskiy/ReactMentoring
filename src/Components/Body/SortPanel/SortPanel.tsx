@@ -7,8 +7,8 @@ export function SortPanel() {
     <label>SORT BY</label>
     <select>
       {
-        sortOptions.map((i) =>
-          <option key={i}>{i}</option>,
+        sortOptions.map((value) =>
+          <option key={value}>{value}</option>,
         )
       }
     </select>

@@ -1,9 +1,11 @@
+@import '../../common.scss';
+
 header{
     width: 1200px;
     height: 396px;
     top: 50px;
     margin: auto;
-    background: #000000;
+    background: black;
 
     .header-image{
         position: absolute;
@@ -28,9 +30,7 @@ header{
         display: inline-block;
         margin-left: 60px;
         margin-top: 30px;
-        color: #F65261;
-        font-size: 20px;
-        line-height: 24px;
+        @include red-text;
     }
 
     .add-movie{
@@ -41,10 +41,7 @@ header{
         margin-right: 20px;
         width: 180px;
         height: 50px;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 24px;
-        color: #F65261;
+        @include red-text;
     }
 
     .find-your-movie{
@@ -52,7 +49,7 @@ header{
         font-weight: 300;
         font-size: 40px;
         line-height: 49px;
-        color: #FFFFFF;
+        color: white;
     }
 }
 

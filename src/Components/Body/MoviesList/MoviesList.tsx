@@ -40,7 +40,7 @@ const movies : Movie[] =[
 ];
 
 
-function MoviesList() {
+export function MoviesList() {
   return (
     <>
       {
@@ -52,4 +52,3 @@ function MoviesList() {
     </>);
 }
 
-export default MoviesList;
