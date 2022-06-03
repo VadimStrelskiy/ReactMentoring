@@ -1,6 +1,7 @@
 .movie-card-container{
     display: inline-block;
     margin: 30px;
+    position: relative;
 
     .movie-image{
         display: block;
@@ -35,6 +36,37 @@
         line-height: 17px;
         color: white;
         opacity: 0.5;
+    }
+
+    .movie-menu-button{
+        display: none;
+        width: 36px;
+        height: 36px;
+        right: 10px;
+        top: 10px;
+        background: #2A202D;
+        border-radius: 50%;
+        position: absolute;
+
+        .movie-menu-button-dot{
+            display: none;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: white;
+            margin: 6px auto 0 auto;
+        }
+    }
+
+    &:hover 
+    {
+        .movie-menu-button{
+            display: block;
+        }
+
+        .movie-menu-button-dot{
+            display: block;
+        }
     }
 }
 
