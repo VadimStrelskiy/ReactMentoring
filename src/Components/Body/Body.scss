@@ -1,0 +1,19 @@
+@import '../../common.scss';
+
+.page-body {
+    margin: 20 auto 0 auto;
+    width: 1200px;
+    height: 1396px;
+    background: $grey;
+
+    hr{
+        margin: 0;
+    }
+
+    .movie-count{
+        font-weight: 600;
+        @include white-text;
+        margin-left: 30px;
+        margin-top: 20px;
+    }
+}

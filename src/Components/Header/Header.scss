@@ -1,0 +1,55 @@
+@import '../../common.scss';
+
+header{
+    width: 1200px;
+    height: 396px;
+    top: 50px;
+    margin: auto;
+    background: black;
+
+    .header-image{
+        position: absolute;
+        width: 1260px;
+        height: 420px;
+        margin-left: -30px;
+        background: url(../../../public/header.png);
+        opacity: 0.6;
+        filter: blur(8.15485px);
+    }
+    
+    .search-container{
+        width: 900px;
+        position: absolute;
+        margin: auto;
+        left: 0; 
+        right: 0; 
+        top: 170px;
+    }
+
+    .netflix-roulett-text{
+        display: inline-block;
+        margin-left: 60px;
+        margin-top: 30px;
+        @include red-text;
+    }
+
+    .add-movie{
+        background: rgba(96, 96, 96, 0.68);
+        border-radius: 4px;
+        float:right;
+        margin-top: 20px;
+        margin-right: 20px;
+        width: 180px;
+        height: 50px;
+        @include red-text;
+    }
+
+    .find-your-movie{
+        margin-left: 155px;
+        font-weight: 300;
+        font-size: 40px;
+        line-height: 49px;
+        color: white;
+    }
+}
+

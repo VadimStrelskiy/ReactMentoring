@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require('webpack');
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
         main: path.resolve(__dirname, './src/index.tsx'),
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
+        extensions: [ '.tsx', '.ts', '.js', '.jsx', ],
     },
     module: {
         rules: [
@@ -20,9 +21,9 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, "css-loader"],
-            },
+                test: /\.s[ac]ss$/i,
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+            }
         ],
     },
     output: {
@@ -36,6 +37,12 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
-        new MiniCssExtractPlugin()
+        new MiniCssExtractPlugin(),
+        new CopyPlugin({
+            patterns: [
+              { from: "../public/static", to: "../build/static" },
+            ],
+          }),
+        
     ]
 }

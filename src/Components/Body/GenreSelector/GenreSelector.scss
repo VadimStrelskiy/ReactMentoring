@@ -1,0 +1,14 @@
+@import '../../../common.scss';
+
+.genre-selector{
+    display: inline-block;
+    margin: 10px;
+    opacity: 0.8;
+
+    a{
+        margin: 15px;
+        @include white-text;    
+        text-transform: uppercase;
+
+    }
+}

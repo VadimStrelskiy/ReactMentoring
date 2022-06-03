@@ -1,15 +1,16 @@
-import Header from './Header';
-import Body from './Body';
-import '../style.css';
+import {Header} from './Header/Header';
+import {Body} from './Body/Body';
+import {Footer} from './Footer/Footer';
+import './App.scss';
 
-function App() {
+export function App() {
   return (
     <div className='app-container'>
-      <img className="header-image"/>
       <Header/>
       <Body/>
+      <Footer>
+        <p className='netflix-roulett-text'><b>netflix</b>roulette</p>
+      </Footer>
     </div>
   );
 }
-
-export default App;
