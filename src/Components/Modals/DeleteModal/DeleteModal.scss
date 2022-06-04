@@ -1,0 +1,45 @@
+@import '../../../common.scss';
+
+.delete-modal{
+    width: 690px;
+    height: 350px;
+    background: $grey;
+    position: relative;
+
+    .delete-close{
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 35px;
+        color: white;
+        float: right;
+    }
+
+    h1{
+        position: absolute;
+        color: white;
+        font-size: 40px;
+        line-height: 50px;
+        left: 100px;
+        top: 70px;
+    }
+
+    p{
+        position: absolute;
+        color: white;
+        @include white-text;
+        left: 100px;
+        top: 150px;
+    }
+
+    .delete-confirm{
+        background: $red;
+        position: absolute;
+        left: 480px;
+        top: 250px;
+        width: 180px;
+        height: 60px;
+        border-radius: 4px;
+        border: none;
+    }
+}

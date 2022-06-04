@@ -1,17 +1,16 @@
 import { MovieCard } from '../MovieCard/MovieCard';
-import { Movie } from '../Body';
+import { MoviesListProps } from '../../App';
 
-interface MoviesList{
-  movies: Movie[]
-}
 
-export function MoviesList({movies}: MoviesList) {
+
+export function MoviesList({movies, onEdit, onDelete}: MoviesListProps) {
+
   return (
     <>
       {
         movies.map((movie) =>
           (
-            <MovieCard key={movie.title} {...movie}/>
+            <MovieCard key={movie.title} movie={movie} onDelete={onDelete} onEdit={onEdit}/>
           ),
         )}
     </>);
