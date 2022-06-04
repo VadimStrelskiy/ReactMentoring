@@ -20,7 +20,7 @@ $grey: #232323;
     color: $red;
 }
 
-.popup-overlay{
+.popup-overlay[data-popup='modal']{
     backdrop-filter: blur(4px);
     background: rgba(0, 0, 0, 0.8);
 }

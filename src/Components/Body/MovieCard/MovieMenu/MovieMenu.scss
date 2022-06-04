@@ -9,14 +9,13 @@
     right: 10px;
 
     .movie-menu-close{
+        background: transparent;
+        border: none;
+        color: white;
         width:10px;
         height: 30px;
-        margin-left: 170px;
-        &:after{
-            content: "\00d7";
-            color: white;
-            font-size: 26;
-        }
+        margin-left: 164px;
+        font-size: 25px;
     }
 
     .movie-menu-edit, .movie-menu-delete{
