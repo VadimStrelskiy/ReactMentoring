@@ -1,7 +1,7 @@
 import {Header} from './Header/Header';
 import {Body} from './Body/Body';
 import {Footer} from './Footer/Footer';
-import {useEffect, useState} from "react";
+import {useEffect, useState} from 'react';
 import {SortOptionType} from './Body/SortPanel/SortPanel';
 import './App.scss';
 
@@ -25,7 +25,7 @@ export interface MoviesListProps{
 
 const moviesData : Movie[] =[
   {
-    id : 0,
+    id: 0,
     title: 'Pulp Fiction',
     genre: 'Action & Adventure',
     image: 'PulpFiction.png',
@@ -33,10 +33,10 @@ const moviesData : Movie[] =[
     url: 'PulpFiction.com',
     rating: 9.9,
     runtime: 120,
-    description: 'Pulp Fiction DESCRIPTION'
+    description: 'Pulp Fiction DESCRIPTION',
   },
   {
-    id : 1,
+    id: 1,
     title: 'Bohemian Rhapsody',
     genre: 'Drama, Biographt, Music',
     image: 'BohemianRhapsody.png',
@@ -44,10 +44,10 @@ const moviesData : Movie[] =[
     url: 'BohemianRhapsody.com',
     rating: 8.0,
     runtime: 150,
-    description: 'Bohemian Rhapsody DESCRIPTION'
+    description: 'Bohemian Rhapsody DESCRIPTION',
   },
   {
-    id : 2,
+    id: 2,
     title: 'Kill Bill: Vol 2',
     genre: 'Oscar winning Movie',
     image: 'KillBill.png',
@@ -55,10 +55,10 @@ const moviesData : Movie[] =[
     url: 'KillBill.com',
     rating: 7.6,
     runtime: 123,
-    description: 'Kill Bill: Vol 2 DESCRIPTION'
+    description: 'Kill Bill: Vol 2 DESCRIPTION',
   },
   {
-    id : 3,
+    id: 3,
     title: 'Avengers: War of Infinity',
     genre: 'Action & Adventure',
     image: 'Avenger.png',
@@ -66,10 +66,10 @@ const moviesData : Movie[] =[
     url: 'Avenger.com',
     rating: 3.1,
     runtime: 131,
-    description: 'Avengers: War of Infinity DESCRIPTION'
+    description: 'Avengers: War of Infinity DESCRIPTION',
   },
   {
-    id : 4,
+    id: 4,
     title: 'Inception',
     genre: 'Action & Adventure',
     image: 'Inception.png',
@@ -77,10 +77,10 @@ const moviesData : Movie[] =[
     url: 'Inception.com',
     rating: 7.6,
     runtime: 119,
-    description: ' DESCRIPTION'
+    description: ' DESCRIPTION',
   },
   {
-    id : 5,
+    id: 5,
     title: 'Reservoir dogs',
     genre: 'Oscar winning Movie',
     image: 'ReservoirDogs.png',
@@ -88,18 +88,17 @@ const moviesData : Movie[] =[
     url: 'ReservoirDogs.com',
     rating: 7.9,
     runtime: 99,
-    description: 'Reservoir dogs DESCRIPTION'
+    description: 'Reservoir dogs DESCRIPTION',
   },
-]
+];
 
 export function App() {
-
   const [movies, setMovies] = useState<Movie[]>([]);
 
-  function onDelete(id:number){
+  function onDelete(id:number) {
     const newMovies = [...movies];
     newMovies.forEach( (item, index) => {
-      if(item.id === id) newMovies.splice(index, 1);
+      if (item.id === id) newMovies.splice(index, 1);
     });
 
     setMovies(newMovies);
@@ -111,14 +110,13 @@ export function App() {
     }, 1000);
   }, []);
 
-  function sortMoviesHandler(sortOrder: SortOptionType){
+  function sortMoviesHandler(sortOrder: SortOptionType) {
     setMovies(sortMovies(movies, sortOrder));
   }
 
   function sortMovies(moviesToSort: Movie[], sortOrder: SortOptionType) : Movie[] {
-
     let sortedMovies;
-    switch(sortOrder){
+    switch (sortOrder) {
       case SortOptionType.ReleaseDateAsc:
         sortedMovies = [...moviesToSort].sort((a, b) => a.date < b.date ? -1 : 1);
         break;

@@ -1,9 +1,8 @@
-import { MovieCard } from '../MovieCard/MovieCard';
-import { MoviesListProps } from '../../App';
+import {MovieCard} from '../MovieCard/MovieCard';
+import {MoviesListProps} from '../../App';
 
 
 export function MoviesList({movies, onDelete}: MoviesListProps) {
-
   return (
     <>
       {

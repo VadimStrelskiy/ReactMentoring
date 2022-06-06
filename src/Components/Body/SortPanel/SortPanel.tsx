@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import './SortPanel.scss';
 
 export enum SortOptionType {
@@ -13,23 +15,23 @@ export interface SortOption{
   label: string
 }
 
-const sortOptions : SortOption[] = 
+const sortOptions : SortOption[] =
 [
   {
     value: SortOptionType.ReleaseDateAsc,
-    label: 'RELEASE DATE ASC'
+    label: 'RELEASE DATE ASC',
   },
   {
     value: SortOptionType.ReleaseDateDesc,
-    label: 'RELEASE DATE DESC'
+    label: 'RELEASE DATE DESC',
   },
   {
     value: SortOptionType.TitleAsc,
-    label: 'TITLE ASC'
+    label: 'TITLE ASC',
   },
   {
     value: SortOptionType.TitleDesc,
-    label: 'TITLE DESC'
+    label: 'TITLE DESC',
   },
 ];
 

@@ -1,0 +1,32 @@
+@import '../../../../common.scss';
+
+.movie-menu{
+    width: 190px;
+    height: 110px;
+    background: $grey;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    .movie-menu-close{
+        background: transparent;
+        border: none;
+        color: white;
+        width:10px;
+        height: 30px;
+        margin-left: 164px;
+        font-size: 25px;
+    }
+
+    .movie-menu-edit, .movie-menu-delete{
+        width: 160px;
+        height: 30px;
+        padding-left: 30px;
+        padding-top: 5px;
+        @include white-text;
+        
+        &:hover{
+            background: $red;
+        }
+    }
+}

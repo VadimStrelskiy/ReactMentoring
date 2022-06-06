@@ -2,7 +2,7 @@ import {GenreSelector} from './GenreSelector/GenreSelector';
 import {SortPanel} from './SortPanel/SortPanel';
 import {MoviesList} from './MoviesList/MoviesList';
 import {ErrorBoundary} from './ErrorBoundary/ErrorBoundary';
-import { MoviesListProps} from '../App';
+import {MoviesListProps} from '../App';
 import './Body.scss';
 
 const MOVIE_COUNT = 39;
