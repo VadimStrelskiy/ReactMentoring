@@ -7,7 +7,7 @@ import './Body.scss';
 
 const MOVIE_COUNT = 39;
 
-export function Body({movies, onEdit, onDelete, sortMoviesHandler}: MoviesListProps) {
+export function Body({movies, onDelete, sortMoviesHandler}: MoviesListProps) {
   return (
     <main className="page-body">
       <ErrorBoundary>
@@ -15,7 +15,7 @@ export function Body({movies, onEdit, onDelete, sortMoviesHandler}: MoviesListPr
         <SortPanel onValueChanged={sortMoviesHandler}/>
         <hr/>
         <p className='movie-count'>{MOVIE_COUNT} movies found</p>
-        <MoviesList movies={movies} onEdit={onEdit} onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
+        <MoviesList movies={movies} onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
       </ErrorBoundary>
     </main>
   );

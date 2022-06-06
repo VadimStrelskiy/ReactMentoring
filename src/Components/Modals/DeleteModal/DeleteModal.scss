@@ -17,9 +17,7 @@
 
     h1{
         position: absolute;
-        color: white;
-        font-size: 40px;
-        line-height: 50px;
+        @include white-text-large;
         left: 100px;
         top: 70px;
     }
@@ -32,14 +30,9 @@
         top: 150px;
     }
 
-    .delete-confirm{
-        background: $red;
+    .red-button{
         position: absolute;
         left: 480px;
         top: 250px;
-        width: 180px;
-        height: 60px;
-        border-radius: 4px;
-        border: none;
     }
 }

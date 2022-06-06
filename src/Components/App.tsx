@@ -19,7 +19,6 @@ export interface Movie {
 
 export interface MoviesListProps{
   movies: Movie[],
-  onEdit: (number) => void,
   onDelete: (number) => void,
   sortMoviesHandler: (option: SortOptionType) => void
 }
@@ -97,9 +96,6 @@ export function App() {
 
   const [movies, setMovies] = useState<Movie[]>([]);
 
-  function onEdit(id:number){
-  }
-
   function onDelete(id:number){
     const newMovies = [...movies];
     newMovies.forEach( (item, index) => {
@@ -143,7 +139,7 @@ export function App() {
   return (
     <div className='app-container'>
       <Header/>
-      <Body movies={movies} onDelete={onDelete} onEdit={onEdit} sortMoviesHandler={sortMoviesHandler}/>
+      <Body movies={movies} onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
       <Footer>
         <p className='netflix-roulett-text'><b>netflix</b>roulette</p>
       </Footer>

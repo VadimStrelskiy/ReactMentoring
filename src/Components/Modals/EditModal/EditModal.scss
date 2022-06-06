@@ -1,7 +1,80 @@
 @import '../../../common.scss';
 
+$margin-left: 40px;
+$input-backgroupnd: rgba(50, 50, 50, 0.948044);
+
 .edit-modal{
     background: $grey;
     width: 915px;
     height: 975px;
+
+    h1{
+        @include white-text-large;
+        margin-left: $margin-left;
+        margin-top: 100px;
+        display: inline-block;
+    }
+
+    .edit-close{
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 35px;
+        color: white;
+        float: right;
+    }
+
+    .first-column{
+        margin-left: $margin-left;
+        width: 60%;
+    }
+
+    .second-column{
+        width: 30%;
+        margin-left: 30px;
+    }
+
+    .first-column, .second-column{
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+    input, select{
+        display: block;
+        width: 100%;
+        background: $input-backgroupnd;
+        opacity: 0.8;
+        border-radius: 4px;
+        @include white-text;
+        height: 57px;
+        padding-left: 10px;
+    }
+
+    label{
+        @include red-text-small;
+    }
+
+    .overview{
+        margin-left: 40px;
+        margin-top: 20px;
+        margin-right: 21px;
+
+        textarea {
+            height: 200px;
+            padding-left: 10px;
+            background: $input-backgroupnd;
+            opacity: 0.8;
+            @include white-text;
+            width: 100%;
+        }
+    }
+
+    .reset-button{
+        margin-top: 150px;
+        margin-left: 500px;
+    }
+
+    .submit-button{
+        margin-left: 30px;
+    }
 }

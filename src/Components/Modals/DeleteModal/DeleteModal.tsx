@@ -11,7 +11,7 @@ export function DeleteModal({onDelete, onClose} : DeleteModalProps) {
         <button className='delete-close' onClick={onClose}>&times;</button>
         <h1>DELETE MOVIE</h1>
         <p>Are you sure you want to delete this movie?</p>
-        <button className='delete-confirm' onClick={onDelete}>CONFIRM</button>
+        <button className='red-button' onClick={onDelete}>CONFIRM</button>
     </div>
   );
 }

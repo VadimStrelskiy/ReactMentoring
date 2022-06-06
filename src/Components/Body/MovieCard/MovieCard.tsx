@@ -6,20 +6,19 @@ import {MovieMenu} from './MovieMenu/MovieMenu';
 
 interface MovieCardProps{
   movie: Movie,
-  onEdit: (number) => void,
   onDelete: (number) => void,
 }
 
-export function MovieCard({movie, onEdit, onDelete}: MovieCardProps) {
+export function MovieCard({movie, onDelete}: MovieCardProps) {
 
-  const [menuOpen, setMenuOpen] = useState(false);
-  
+  const [menuOpenState, setMenuOpen] = useState(false);
+
   function onDeleteId(){
     onDelete(movie.id);
   }
 
-  function onEditId(){
-    onEdit(movie.id);
+  function onModalClose(){
+    setMenuOpen(false);
   }
 
   return (
@@ -28,18 +27,18 @@ export function MovieCard({movie, onEdit, onDelete}: MovieCardProps) {
       <p className='movie-title'>{movie.title}</p>
       <p className='movie-year'>{movie.date.getFullYear()}</p>
       <p className='movie-genre'>{movie.genre}</p>
-      <Popup arrow={false} closeOnDocumentClick={false} trigger={
+      <Popup arrow={false} trigger={
         <button className='movie-menu-button'>
           <div className='movie-menu-button-dot first'/>
           <div className='movie-menu-button-dot'/>
           <div className='movie-menu-button-dot'/>
         </button>}
-        open={menuOpen} onOpen={() => setMenuOpen(true)}>
+        open={menuOpenState} onOpen={() => setMenuOpen(true)}>
         <MovieMenu
             movie={movie}
             onClose={()=> setMenuOpen(false)}
             onDelete={onDeleteId}
-            onEdit={onEditId}/>
+            onModalClose = {onModalClose}/>
       </Popup>
     </div>
   );
