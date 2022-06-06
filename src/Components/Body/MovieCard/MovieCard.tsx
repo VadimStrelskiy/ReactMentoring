@@ -2,7 +2,8 @@ import './MovieCard.scss';
 import Popup from "reactjs-popup";
 import {useState} from "react";
 import {Movie} from '../../App';
-import {MovieMenu} from './MovieMenu/MovieMenu';
+import {DeleteModal} from "../../Modals/DeleteModal/DeleteModal"
+import {EditModal} from "../../Modals/EditModal/EditModal"
 
 interface MovieCardProps{
   movie: Movie,
@@ -12,6 +13,8 @@ interface MovieCardProps{
 export function MovieCard({movie, onDelete}: MovieCardProps) {
 
   const [menuOpenState, setMenuOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   function onDeleteId(){
     onDelete(movie.id);
@@ -34,12 +37,14 @@ export function MovieCard({movie, onDelete}: MovieCardProps) {
           <div className='movie-menu-button-dot'/>
         </button>}
         open={menuOpenState} onOpen={() => setMenuOpen(true)}>
-        <MovieMenu
-            movie={movie}
-            onClose={()=> setMenuOpen(false)}
-            onDelete={onDeleteId}
-            onModalClose = {onModalClose}/>
+          <div className="movie-menu">
+            <button className='movie-menu-close' onClick={() => setMenuOpen(false)}>&times;</button>
+            <div className='movie-menu-edit' onClick={() => setEditOpen(true)}>Edit</div>
+            <div className='movie-menu-delete' onClick={() => setDeleteOpen(true)}>Delete</div>
+          </div>
       </Popup>
+      <Popup modal closeOnDocumentClick={false} open={editOpen} onClose={() => setEditOpen(false)}><EditModal onClose={() => setEditOpen(false)} movie={movie}/></Popup>
+      <Popup modal closeOnDocumentClick={false} open={deleteOpen} onClose={() => setDeleteOpen(false)}>{<DeleteModal onDelete={onDeleteId} onClose={() => setDeleteOpen(false)}/>}</Popup>
     </div>
   );
 }
