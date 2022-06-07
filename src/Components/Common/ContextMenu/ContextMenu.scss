@@ -1,0 +1,30 @@
+@import '../../../common.scss';
+
+.context-menu{
+    background: $grey;
+
+    .context-menu-close{
+        background: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        float: right;
+        font-size: 25px;
+    }
+
+    ul{
+        padding-left: 0px;
+    }
+
+    li{
+        height: 30px;
+        padding-top: 5px;
+        padding-left: 30px;
+        @include white-text;
+        list-style-type: none;
+        
+        &:hover{
+            background: $red;
+        }
+    }
+}
