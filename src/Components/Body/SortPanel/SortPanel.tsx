@@ -1,14 +1,7 @@
 /* eslint-disable no-unused-vars */
 
+import {SortOptionType} from '../../App';
 import './SortPanel.scss';
-
-export enum SortOptionType {
-  ReleaseDateAsc,
-  ReleaseDateDesc,
-  TitleAsc,
-  TitleDesc
-};
-
 
 export interface SortOption{
   value: SortOptionType,
