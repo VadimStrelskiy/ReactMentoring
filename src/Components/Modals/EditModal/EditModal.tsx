@@ -1,6 +1,6 @@
 import './EditModal.scss';
 import {Movie} from '../../App';
-import {useState} from 'react';
+import {useReducer} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -14,23 +14,43 @@ const genres = ['Action & Adventure', 'Drama, Biographt, Music', 'Oscar winning 
 export function EditModal({onClose, movie} : EditModalProps) {
   const isNew = movie === null;
 
-  const [title, setTitle] = useState(movie && movie.title || '');
-  const [date, setDate] = useState(movie && movie.date || null);
-  const [url, setUrl] = useState(movie && movie.url || '');
-  const [rating, setRating] = useState(movie && movie.rating || null);
-  const [genre, setGenre] = useState(movie && movie.genre || '');
-  const [runtime, setRuntime] = useState(movie && movie.runtime || null);
-  const [description, setDescription] = useState(movie && movie.description || '');
+  const reducer = (state : Movie, action) : Movie => {
+    switch (action.type) {
+      case 'title': {
+        return { ...state, title: action.payload };
+      }
+      case 'date': {
+        return { ...state, date: action.payload };
+      }
+      case 'url': {
+        return { ...state, url: action.payload };
+      }
+      case 'rating': {
+        return { ...state, rating: action.payload };
+      }
+      case 'genre': {
+        return { ...state, genre: action.payload };
+      }
+      case 'runtime': {
+        return { ...state, runtime: action.payload };
+      }
+      case 'description': {
+        return { ...state, description: action.payload };
+      }
+      case 'reset': {
+        state.title = '';
+        state.date = null;
+        state.url = '';
+        state.rating = null;
+        state.genre = '';
+        state.runtime = null;
+        state.description = '';
+        return {...state};
+      }
+    }
+  };
 
-  function onReset() {
-    setTitle('');
-    setDate(null);
-    setUrl('');
-    setRating(null);
-    setGenre('');
-    setRuntime(null);
-    setDescription('');
-  }
+  const [form, dispatch] = useReducer(reducer, movie);
 
   return (
     <div className="edit-modal">
@@ -40,28 +60,28 @@ export function EditModal({onClose, movie} : EditModalProps) {
       <br/>
       <div className="first-column">
         <label>TITLE</label>
-        <input value={title} placeholder="Movie title" onChange={(e) => setTitle(e.target.value)}/>
+        <input value={form.title} placeholder="Movie title" onChange={(e) => dispatch({ type: 'title', payload: e.target.value })}/>
       </div>
 
       <div className="second-column">
         <label>RELEASE DATE</label>
-        <DatePicker selected={date} placeholderText="Select Date" onChange={(e) => setDate(e)}/>
+        <DatePicker selected={form.date} placeholderText="Select Date" onChange={(e) => dispatch({ type: 'date', payload: e.target.value })}/>
       </div>
 
       <div className="first-column">
         <label>MOVIE URL</label>
-        <input value={url} placeholder="https://" onChange={(e) => setUrl(e.target.value)}/>
+        <input value={form.url} placeholder="https://" onChange={(e) => dispatch({ type: 'url', payload: e.target.value })}/>
       </div>
 
       <div className="second-column">
         <label>RATING</label>
-        <input value={rating || ''} placeholder="7.8" onChange={(e) => setRating(+e.target.value)}/>
+        <input value={form.rating || ''} placeholder="7.8" onChange={(e) => dispatch({ type: 'rating', payload: e.target.value })}/>
       </div>
 
       <div className="first-column">
         <label>GENRE</label>
 
-        <select value={genre} onChange={(e) => setGenre(e.target.value)}>
+        <select value={form.genre} onChange={(e) => dispatch({ type: 'genre', payload: e.target.value })}>
           <option value="" disabled>Select Genre</option>
           {
             genres.map((option) =>
@@ -73,15 +93,15 @@ export function EditModal({onClose, movie} : EditModalProps) {
 
       <div className="second-column">
         <label>RUNTIME</label>
-        <input value={runtime || ''} placeholder="minutes" onChange={(e) => setRuntime(+e.target.value)}/>
+        <input value={form.runtime || ''} placeholder="minutes" onChange={(e) => dispatch({ type: 'runtime', payload: e.target.value })}/>
       </div>
 
       <div className="overview">
         <label>OVERVIEW</label>
-        <textarea value={description} placeholder="Movie description" onChange={(e) => setDescription(e.target.value)}/>
+        <textarea value={form.description} placeholder="Movie description" onChange={(e) => dispatch({ type: 'description', payload: e.target.value })}/>
       </div>
 
-      <button className='transparent-button reset-button' onClick={onReset}>RESET</button>
+      <button className='transparent-button reset-button' onClick={(e) => dispatch({ type: 'reset'})}>RESET</button>
       <button className='red-button submit-button'>SUBMIT</button>
     </div>
   );
