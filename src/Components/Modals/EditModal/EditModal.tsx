@@ -55,7 +55,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
   return (
     <div className="edit-modal">
       <button className='edit-close' onClick={onClose}>&times;</button>
-      <h1>{isNew ? 'ADD MOVIE' : 'EDIT MOVIE'}</h1>
+      <h2>{isNew ? 'ADD MOVIE' : 'EDIT MOVIE'}</h2>
 
       <br/>
       <div className="first-column">
