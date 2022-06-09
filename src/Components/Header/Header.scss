@@ -5,18 +5,8 @@ header{
     height: 396px;
     top: 50px;
     margin: auto;
-    background: black;
+    background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(../../../public/header.png);
 
-    .header-image{
-        position: absolute;
-        width: 1260px;
-        height: 420px;
-        margin-left: -30px;
-        background: url(../../../public/header.png);
-        opacity: 0.6;
-        filter: blur(8.15485px);
-    }
-    
     .search-container{
         width: 900px;
         position: absolute;
@@ -42,6 +32,8 @@ header{
         width: 180px;
         height: 50px;
         @include red-text;
+        z-index: 99999;
+
     }
 
     .find-your-movie{

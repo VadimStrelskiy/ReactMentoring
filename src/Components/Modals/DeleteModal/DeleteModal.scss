@@ -1,0 +1,38 @@
+@import '../../../common.scss';
+
+.delete-modal{
+    width: 690px;
+    height: 350px;
+    background: $grey;
+    position: relative;
+
+    .delete-close{
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 35px;
+        color: white;
+        float: right;
+    }
+
+    h2{
+        position: absolute;
+        @include white-text-large;
+        left: 100px;
+        top: 40px;
+    }
+
+    p{
+        position: absolute;
+        color: white;
+        @include white-text;
+        left: 100px;
+        top: 150px;
+    }
+
+    .red-button{
+        position: absolute;
+        left: 480px;
+        top: 250px;
+    }
+}

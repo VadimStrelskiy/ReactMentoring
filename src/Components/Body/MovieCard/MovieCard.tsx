@@ -1,19 +1,52 @@
 import './MovieCard.scss';
+import Popup from 'reactjs-popup';
+import {useState} from 'react';
+import {Movie} from '../../App';
+import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
+import {EditModal} from '../../Modals/EditModal/EditModal';
+import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
 
-export interface Movie {
-    image: string,
-    title: string,
-    genre: string,
-    year: number,
+
+interface MovieCardProps{
+  movie: Movie,
+  onDelete: (number) => void,
 }
 
-export function MovieCard(movie: Movie) {
+export function MovieCard({movie, onDelete}: MovieCardProps) {
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  function onDeleteId() {
+    onDelete(movie.id);
+  }
+
+  const elements : ContextMenuElement[] = [
+    {
+      label: 'Edit',
+      onClick: () => setEditOpen(true),
+    },
+    {
+      label: 'Delete',
+      onClick: () => setDeleteOpen(true),
+    },
+  ];
+
   return (
     <div className='movie-card-container'>
       <img className='movie-image' src={`/static/${movie.image}`}/>
       <p className='movie-title'>{movie.title}</p>
-      <p className='movie-year'>{movie.year}</p>
+      <p className='movie-year'>{movie.date.getFullYear()}</p>
       <p className='movie-genre'>{movie.genre}</p>
+      <ContextMenu trigger={<svg className='movie-menu-button'>
+        <circle fill="#2A202D" r="18px" cx="18px" cy="18px"/>
+        <circle fill="white" r="2px" cx="18px" cy="10px"/>
+        <circle fill="white" r="2px" cx="18px" cy="18px"/>
+        <circle fill="white" r="2px" cx="18px" cy="26px"/>
+      </svg>}
+      elements = {elements}/>
+
+      <Popup modal closeOnDocumentClick={false} open={editOpen} onClose={() => setEditOpen(false)}><EditModal onClose={() => setEditOpen(false)} movie={movie}/></Popup>
+      <Popup modal closeOnDocumentClick={false} open={deleteOpen} onClose={() => setDeleteOpen(false)}>{<DeleteModal onDelete={onDeleteId} onClose={() => setDeleteOpen(false)}/>}</Popup>
     </div>
   );
 }
