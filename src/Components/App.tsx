@@ -1,7 +1,7 @@
 import {Header} from './Header/Header';
 import {Body} from './Body/Body';
 import {Footer} from './Footer/Footer';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, createContext } from 'react';
 import {MovieService} from '../Services/MovieService';
 import './App.scss';
 
@@ -30,7 +30,12 @@ export interface MoviesListProps{
   sortMoviesHandler: (option: SortOptionType) => void
 }
 
+export const Context = createContext(null);
+
 export function App() {
+
+  const [isInSearchMode, setIsInSearchMode] = useState(true);
+  const [movieDetail, setMovieDetail] = useState(null);
   const [movies, setMovies] = useState<Movie[]>([]);
 
   const movieService = new MovieService();
@@ -51,11 +56,25 @@ export function App() {
   function sortMoviesHandler(sortOrder: SortOptionType) {
     setMovies(movieService.sortMovies(movies, sortOrder));
   }
+  
+  function activateMovieDetail(movie : Movie){
+    setMovieDetail(movie);
+    setIsInSearchMode(false);
+  }
 
   return (
     <div className='app-container'>
-      <Header/>
-      <Body movies={movies} onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
+      <Context.Provider value={
+        {
+          movie: movieDetail,
+          movieClicked: activateMovieDetail,
+          searchClicked: () => setIsInSearchMode(true),
+          isInSearchMode: isInSearchMode
+        }}>
+        <Header/>
+        <Body movies={movies} onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
+      </Context.Provider>
+      
       <Footer>
         <p className='netflix-roulett-text'><b>netflix</b>roulette</p>
       </Footer>

@@ -1,0 +1,57 @@
+@import '../../../common.scss';
+
+.movie-details-image{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.movie-details{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.movie-title{
+    @include white-text-large;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.movie-rating{
+    @include white-text;
+    display: inline-block;
+    border-color: white;
+    border-radius: 100%;
+    margin-left: 20px;
+    border: solid;
+    padding: 5px;
+    vertical-align: top;
+    margin-top: 5px;
+    width: 25px;
+    text-align: center;
+}
+
+.movie-genre{
+    @include white-text-small;
+    opacity: 0.6;
+    margin-bottom: 0px;
+}
+
+.movie-year{
+    @include red-text;
+    display: inline-block;
+}
+
+.movie-runtime{
+    @include red-text;
+    display: inline-block;
+    margin-left: 40px;
+}
+
+.movie-description{
+    @include white-text;
+    width: 600px;
+    display: block;
+    opacity: 0.6;
+}

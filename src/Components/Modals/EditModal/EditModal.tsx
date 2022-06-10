@@ -12,6 +12,21 @@ interface EditModalProps{
 const genres = ['Action & Adventure', 'Drama, Biographt, Music', 'Oscar winning Movie'];
 
 export function EditModal({onClose, movie} : EditModalProps) {
+
+  if(movie == null){
+    movie = {
+      date: null,
+      description: '',
+      genre: '',
+      id : -1,
+      image: '',
+      rating: null,
+      runtime: null,
+      title: '',
+      url: ''
+    }
+  }
+
   const isNew = movie === null;
 
   const reducer = (state : Movie, action) : Movie => {

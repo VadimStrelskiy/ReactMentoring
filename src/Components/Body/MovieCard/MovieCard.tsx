@@ -1,7 +1,7 @@
 import './MovieCard.scss';
 import Popup from 'reactjs-popup';
-import {useState} from 'react';
-import {Movie} from '../../App';
+import {useState, useContext} from 'react';
+import {Movie, Context} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
@@ -15,6 +15,8 @@ interface MovieCardProps{
 export function MovieCard({movie, onDelete}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const movieClicked = useContext(Context).movieClicked;
 
   function onDeleteId() {
     onDelete(movie.id);
@@ -33,7 +35,7 @@ export function MovieCard({movie, onDelete}: MovieCardProps) {
 
   return (
     <div className='movie-card-container'>
-      <img className='movie-image' src={`/static/${movie.image}`}/>
+      <img className='movie-image' src={`/static/${movie.image}`} onClick={() => movieClicked(movie)}/>
       <p className='movie-title'>{movie.title}</p>
       <p className='movie-year'>{movie.date.getFullYear()}</p>
       <p className='movie-genre'>{movie.genre}</p>
