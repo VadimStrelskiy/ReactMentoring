@@ -15,7 +15,7 @@ export function Header() {
   return (
     <header>
       <p className='netflix-roulett-text'><strong>netflix</strong>roulette</p>
-      
+
       {isInSearchMode ?
         (
           <>

@@ -1,7 +1,8 @@
 import {Header} from './Header/Header';
 import {Body} from './Body/Body';
 import {Footer} from './Footer/Footer';
-import {useEffect, useState, createContext } from 'react';
+import {useEffect, useState, createContext} from 'react';
+import {useToggle} from '../Hooks/useToggle';
 import {MovieService} from '../Services/MovieService';
 import './App.scss';
 
@@ -33,8 +34,7 @@ export interface MoviesListProps{
 export const Context = createContext(null);
 
 export function App() {
-
-  const [isInSearchMode, setIsInSearchMode] = useState(true);
+  const [isInSearchMode, toggleIsInSearchMode] = useToggle(true);
   const [movieDetail, setMovieDetail] = useState(null);
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -56,10 +56,10 @@ export function App() {
   function sortMoviesHandler(sortOrder: SortOptionType) {
     setMovies(movieService.sortMovies(movies, sortOrder));
   }
-  
-  function activateMovieDetail(movie : Movie){
+
+  function activateMovieDetail(movie : Movie) {
     setMovieDetail(movie);
-    setIsInSearchMode(false);
+    toggleIsInSearchMode();
   }
 
   return (
@@ -68,13 +68,13 @@ export function App() {
         {
           movie: movieDetail,
           movieClicked: activateMovieDetail,
-          searchClicked: () => setIsInSearchMode(true),
-          isInSearchMode: isInSearchMode
+          searchClicked: toggleIsInSearchMode,
+          isInSearchMode: isInSearchMode,
         }}>
         <Header/>
         <Body movies={movies} onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
       </Context.Provider>
-      
+
       <Footer>
         <p className='netflix-roulett-text'><b>netflix</b>roulette</p>
       </Footer>

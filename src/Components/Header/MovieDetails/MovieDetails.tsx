@@ -1,16 +1,15 @@
 import './MovieDetails.scss';
 import {Context} from '../../App';
-import { useContext } from 'react';
+import {useContext} from 'react';
 
 export function MovieDetails() {
-
   const movie = useContext(Context).movie;
 
   function formatRuntime(allMinutes: number) : string {
-      const hours = Math.floor(movie.runtime/60);
-      const minutes = movie.runtime%60;
+    const hours = Math.floor(movie.runtime/60);
+    const minutes = movie.runtime%60;
 
-      return `${hours}h ${minutes}min`;
+    return `${hours}h ${minutes}min`;
   }
 
   return (
