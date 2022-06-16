@@ -59,7 +59,10 @@ export function App() {
 
   function activateMovieDetail(movie : Movie) {
     setMovieDetail(movie);
-    toggleIsInSearchMode();
+    if(isInSearchMode){
+      toggleIsInSearchMode();
+    }
+    window.scrollTo(0, 0);
   }
 
   return (
