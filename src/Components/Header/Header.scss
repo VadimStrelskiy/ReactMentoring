@@ -2,7 +2,7 @@
 
 header{
     width: 1200px;
-    height: 396px;
+    height: 596px;
     top: 50px;
     margin: auto;
     background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(../../../public/header.png);
@@ -13,7 +13,7 @@ header{
         margin: auto;
         left: 0; 
         right: 0; 
-        top: 170px;
+        top: 250px;
     }
 
     .netflix-roulett-text{
@@ -43,5 +43,11 @@ header{
         line-height: 49px;
         color: white;
     }
-}
 
+    .search-toggle{
+        display: inline-block;
+        float: right;
+        margin-top: 20px;
+        margin-right: 40px;
+    }
+}
