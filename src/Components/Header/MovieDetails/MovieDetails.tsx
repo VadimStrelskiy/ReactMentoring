@@ -8,7 +8,7 @@ export function MovieDetails() {
 
   return (
     <>
-      <img className='movie-details-image' src={`/static/${movie.image}`}/>
+      <img className='movie-details-image' src={movie.image}/>
       <div className='movie-details'>
         <p className='movie-title'>{movie.title}</p>
         <p className='movie-rating'>{movie.rating}</p>

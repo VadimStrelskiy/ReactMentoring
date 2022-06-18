@@ -14,15 +14,15 @@ const genres = ['Action & Adventure', 'Drama, Biographt, Music', 'Oscar winning 
 export function EditModal({onClose, movie} : EditModalProps) {
   if (movie == null) {
     movie = {
-      date: null,
-      description: '',
-      genre: '',
+      release_date: null,
+      overview: '',
+      //genre: '',
       id: -1,
-      image: '',
-      rating: null,
+      poster_path: '',
+      vote_average: null,
       runtime: null,
       title: '',
-      url: '',
+      genres: [],
     };
   }
 
@@ -33,32 +33,32 @@ export function EditModal({onClose, movie} : EditModalProps) {
       case 'title': {
         return {...state, title: action.payload};
       }
-      case 'date': {
-        return {...state, date: action.payload};
+      case 'release_date': {
+        return {...state, release_date: action.payload};
       }
-      case 'url': {
-        return {...state, url: action.payload};
+      case 'poster_path': {
+        return {...state, poster_path: action.payload};
       }
-      case 'rating': {
-        return {...state, rating: action.payload};
+      case 'vote_average': {
+        return {...state, vote_average: action.payload};
       }
-      case 'genre': {
-        return {...state, genre: action.payload};
+      case 'genres': {
+        return {...state, genres: action.payload};
       }
       case 'runtime': {
         return {...state, runtime: action.payload};
       }
-      case 'description': {
-        return {...state, description: action.payload};
+      case 'overview': {
+        return {...state, overview: action.payload};
       }
       case 'reset': {
         state.title = '';
-        state.date = null;
-        state.url = '';
-        state.rating = null;
-        state.genre = '';
+        state.release_date = null;
+        state.poster_path = '';
+        state.vote_average = null;
+        state.genres = [];
         state.runtime = null;
-        state.description = '';
+        state.overview = '';
         return {...state};
       }
     }
@@ -79,30 +79,30 @@ export function EditModal({onClose, movie} : EditModalProps) {
 
       <div className="second-column">
         <label>RELEASE DATE</label>
-        <DatePicker selected={form.date} placeholderText="Select Date" onChange={(e) => dispatch({type: 'date', payload: e.target.value})}/>
+        <DatePicker selected={form.release_date} placeholderText="Select Date" onChange={(e) => dispatch({type: 'release_date', payload: e.target.value})}/>
       </div>
 
       <div className="first-column">
         <label>MOVIE URL</label>
-        <input value={form.url} placeholder="https://" onChange={(e) => dispatch({type: 'url', payload: e.target.value})}/>
+        <input value={form.poster_path} placeholder="https://" onChange={(e) => dispatch({type: 'poster_path', payload: e.target.value})}/>
       </div>
 
       <div className="second-column">
         <label>RATING</label>
-        <input value={form.rating || ''} placeholder="7.8" onChange={(e) => dispatch({type: 'rating', payload: e.target.value})}/>
+        <input value={form.vote_average || ''} placeholder="7.8" onChange={(e) => dispatch({type: 'vote_average', payload: e.target.value})}/>
       </div>
 
       <div className="first-column">
         <label>GENRE</label>
 
-        <select value={form.genre} onChange={(e) => dispatch({type: 'genre', payload: e.target.value})}>
+        {/* <select value={form.genre} onChange={(e) => dispatch({type: 'genre', payload: e.target.value})}>
           <option value="" disabled>Select Genre</option>
           {
             genres.map((option) =>
               <option key={option} value={option}>{option}</option>,
             )
           }
-        </select>
+        </select> */}
       </div>
 
       <div className="second-column">
@@ -112,7 +112,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
 
       <div className="overview">
         <label>OVERVIEW</label>
-        <textarea value={form.description} placeholder="Movie description" onChange={(e) => dispatch({type: 'description', payload: e.target.value})}/>
+        <textarea value={form.overview} placeholder="Movie description" onChange={(e) => dispatch({type: 'overview', payload: e.target.value})}/>
       </div>
 
       <button className='transparent-button reset-button' onClick={(e) => dispatch({type: 'reset'})}>RESET</button>

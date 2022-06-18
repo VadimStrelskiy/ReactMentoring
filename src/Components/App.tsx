@@ -3,19 +3,19 @@ import {Body} from './Body/Body';
 import {Footer} from './Footer/Footer';
 import {useEffect, useState, createContext} from 'react';
 import {useToggle} from '../Hooks/useToggle';
-import {MovieService} from '../Services/MovieService';
 import './App.scss';
 
 export interface Movie {
   id: number,
-  image: string,
+  poster_path: string,
   title: string,
-  genre: string,
-  date: Date,
-  url: string,
-  rating: number,
+  //tagline: string,
+  release_date: Date,
+  vote_average: number,
   runtime: number,
-  description: string
+  overview: string,
+  genres: string[],
+
 }
 
 export const enum SortOptionType {
@@ -26,7 +26,6 @@ export const enum SortOptionType {
 };
 
 export interface MoviesListProps{
-  movies: Movie[],
   onDelete: (number) => void,
   sortMoviesHandler: (option: SortOptionType) => void
 }
@@ -38,7 +37,6 @@ export function App() {
   const [movieDetail, setMovieDetail] = useState(null);
   const [movies, setMovies] = useState<Movie[]>([]);
 
-  const movieService = new MovieService();
 
   function onDelete(id:number) {
     const newMovies = [...movies];
@@ -49,12 +47,10 @@ export function App() {
     setMovies(newMovies);
   }
 
-  useEffect(() => {
-    setMovies(movieService.getMovies());
-  }, []);
+
 
   function sortMoviesHandler(sortOrder: SortOptionType) {
-    setMovies(movieService.sortMovies(movies, sortOrder));
+    //setMovies(movieService.sortMovies(movies, sortOrder));
   }
 
   function activateMovieDetail(movie : Movie) {
@@ -75,7 +71,7 @@ export function App() {
           isInSearchMode: isInSearchMode,
         }}>
         <Header/>
-        <Body movies={movies} onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
+        <Body onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
       </Context.Provider>
 
       <Footer>
