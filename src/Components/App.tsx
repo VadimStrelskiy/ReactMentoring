@@ -25,6 +25,8 @@ export const enum SortOptionType {
   TitleDesc
 };
 
+export const test = 1;
+
 export interface MoviesListProps{
   onDelete: (number) => void,
   sortMoviesHandler: (option: SortOptionType) => void

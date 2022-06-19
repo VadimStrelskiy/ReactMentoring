@@ -4,7 +4,7 @@ import { Movie } from '../Components/App';
 
 export interface State{
     error : string,
-    movies : Movie[]
+    movies : Movie[],
 };
 
 const initialState : State = {
@@ -13,10 +13,21 @@ const initialState : State = {
 }
 
 
-export const getMovies = createAsyncThunk('getMovies', async () => {
+export const getMovies = createAsyncThunk('getMovies', async (genres : string[])  => {
     var data;
     try {
-        const response = await window.fetch('http://localhost:4000/movies');
+
+        let filter;
+        if(genres.length > 0){
+            filter = 'filter=' + genres.join(',');
+        }
+
+        var url = 'http://localhost:4000/movies';
+        if(filter){
+            url+= '?' + filter;
+        }
+
+        const response = await window.fetch(url);
         data = await response.json();
         if (response.ok) {
           return data.data;
@@ -31,10 +42,10 @@ export const getMovies = createAsyncThunk('getMovies', async () => {
 export const movieReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getMovies.fulfilled, (state, action) => {
-        state.movies = state.movies.concat(action.payload)
+        
+        state.movies = action.payload;
     })
     .addCase(getMovies.rejected, (state, action) => {
         state.error = action.error.message;
     })
 });
-

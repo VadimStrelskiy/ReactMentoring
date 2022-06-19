@@ -3,20 +3,19 @@ import {Movie} from '../../App';
 import {useReducer} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {Genres} from '../../../Store/genres';
+import {MultiSelect} from "react-multi-select-component";
 
 interface EditModalProps{
   movie?: Movie,
   onClose: () => void
 }
 
-const genres = ['Action & Adventure', 'Drama, Biographt, Music', 'Oscar winning Movie'];
-
 export function EditModal({onClose, movie} : EditModalProps) {
   if (movie == null) {
     movie = {
       release_date: null,
       overview: '',
-      //genre: '',
       id: -1,
       poster_path: '',
       vote_average: null,
@@ -34,7 +33,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
         return {...state, title: action.payload};
       }
       case 'release_date': {
-        return {...state, release_date: action.payload};
+        return {...state, release_date: action.payload};                                                                                                                                                                                                                                                                                              
       }
       case 'poster_path': {
         return {...state, poster_path: action.payload};
@@ -43,7 +42,8 @@ export function EditModal({onClose, movie} : EditModalProps) {
         return {...state, vote_average: action.payload};
       }
       case 'genres': {
-        return {...state, genres: action.payload};
+
+        return {...state, genres: action.payload.map(g => g.value)};
       }
       case 'runtime': {
         return {...state, runtime: action.payload};
@@ -74,40 +74,36 @@ export function EditModal({onClose, movie} : EditModalProps) {
       <br/>
       <div className="first-column">
         <label>TITLE</label>
-        <input value={form.title} placeholder="Movie title" onChange={(e) => dispatch({type: 'title', payload: e.target.value})}/>
+        <input className='form-input' value={form.title} placeholder="Movie title" onChange={(e) => dispatch({type: 'title', payload: e.target.value})}/>
       </div>
 
       <div className="second-column">
         <label>RELEASE DATE</label>
-        <DatePicker selected={form.release_date} placeholderText="Select Date" onChange={(e) => dispatch({type: 'release_date', payload: e.target.value})}/>
+        <DatePicker className='form-input' selected={new Date(form.release_date)} placeholderText="Select Date" onChange={(e) => dispatch({type: 'release_date', payload: e.target.value.ToString()})}/>
       </div>
 
       <div className="first-column">
-        <label>MOVIE URL</label>
-        <input value={form.poster_path} placeholder="https://" onChange={(e) => dispatch({type: 'poster_path', payload: e.target.value})}/>
+        <label>POSTER URL</label>
+        <input className='form-input' value={form.poster_path} placeholder="https://" onChange={(e) => dispatch({type: 'poster_path', payload: e.target.value})}/>
       </div>
 
       <div className="second-column">
         <label>RATING</label>
-        <input value={form.vote_average || ''} placeholder="7.8" onChange={(e) => dispatch({type: 'vote_average', payload: e.target.value})}/>
+        <input className='form-input' value={form.vote_average || ''} placeholder="7.8" onChange={(e) => dispatch({type: 'vote_average', payload: e.target.value})}/>
       </div>
 
-      <div className="first-column">
+      <div className="first-column multiselect">
         <label>GENRE</label>
-
-        {/* <select value={form.genre} onChange={(e) => dispatch({type: 'genre', payload: e.target.value})}>
-          <option value="" disabled>Select Genre</option>
-          {
-            genres.map((option) =>
-              <option key={option} value={option}>{option}</option>,
-            )
-          }
-        </select> */}
+        <MultiSelect hasSelectAll={false}
+          options={Genres.map(g => {return {label: g, value: g}})}
+          value={form.genres.map(g => {return {label: g, value: g}})}
+          onChange={(e) => dispatch({type: 'genres', payload: e})}
+          labelledBy="Select" />
       </div>
 
       <div className="second-column">
         <label>RUNTIME</label>
-        <input value={form.runtime || ''} placeholder="minutes" onChange={(e) => dispatch({type: 'runtime', payload: e.target.value})}/>
+        <input className='form-input' value={form.runtime || ''} placeholder="minutes" onChange={(e) => dispatch({type: 'runtime', payload: e.target.value})}/>
       </div>
 
       <div className="overview">

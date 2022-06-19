@@ -37,8 +37,8 @@ export function MovieCard({movie, onDelete}: MovieCardProps) {
     <div className='movie-card-container'>
       <img className='movie-image' src={movie.poster_path} onClick={() => movieClicked(movie)}/>
       <p className='movie-title'>{movie.title}</p>
-      {/* <p className='movie-year'>{movie.release_date.getFullYear()}</p> */}
-      <p className='movie-genre'>{movie.genres}</p>
+      <p className='movie-year'>{new Date(movie.release_date).getFullYear()}</p>
+      <p className='movie-genre'>{movie.genres.join(', ')}</p>
       <ContextMenu trigger={<svg className='movie-menu-button'>
         <circle fill="#2A202D" r="18px" cx="18px" cy="18px"/>
         <circle fill="white" r="2px" cx="18px" cy="10px"/>

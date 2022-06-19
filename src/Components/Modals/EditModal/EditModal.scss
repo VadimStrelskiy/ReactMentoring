@@ -1,6 +1,8 @@
 @import '../../../common.scss';
 
 $margin-left: 40px;
+$input-height: 57px;
+$input-opacity: 0.8;
 $input-backgroupnd: rgba(50, 50, 50, 0.948044);
 
 .edit-modal{
@@ -39,15 +41,51 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
         margin-top: 20px;
     }
 
-    input, select{
+    .first-column.multiselect{
+        margin-top: 0px;
+
+        label{
+            margin-bottom: 6px;
+            display: block;
+        }
+    }
+
+    .form-input{
         display: block;
         width: 100%;
         background: $input-backgroupnd;
-        opacity: 0.8;
+        opacity: $input-opacity;
         border-radius: 4px;
         @include white-text;
         height: 57px;
         padding-left: 10px;
+    }
+
+    .multi-select{
+        display: block;
+        width: 100%;
+        .dropdown-container{
+            background: $input-backgroupnd;
+            @include white-text;
+            height: 42px;
+
+            span{
+                opacity: $input-opacity;
+            }
+        }
+
+        .select-panel{
+            background: $input-backgroupnd;
+            @include white-text;
+            
+            .select-item:hover, .select-item.selected{
+                background: $red;
+            }
+        }
+
+        label{
+            @include white-text;
+        }
     }
 
     label{
