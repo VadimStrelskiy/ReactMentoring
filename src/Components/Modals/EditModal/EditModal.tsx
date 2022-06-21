@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {Genres} from '../../../Store/genres';
 import {MultiSelect} from "react-multi-select-component";
+import { updateMovie, getMovies, useAppDispatch } from '../../../Store/movieReducer';
 
 interface EditModalProps{
   movie?: Movie,
@@ -12,6 +13,12 @@ interface EditModalProps{
 }
 
 export function EditModal({onClose, movie} : EditModalProps) {
+  const reduxDispatch = useAppDispatch();
+
+  function onSave(){
+    reduxDispatch(updateMovie(form)).then(() => reduxDispatch(getMovies()));
+  }
+
   if (movie == null) {
     movie = {
       release_date: null,
@@ -52,14 +59,15 @@ export function EditModal({onClose, movie} : EditModalProps) {
         return {...state, overview: action.payload};
       }
       case 'reset': {
-        state.title = '';
-        state.release_date = null;
-        state.poster_path = '';
-        state.vote_average = null;
-        state.genres = [];
-        state.runtime = null;
-        state.overview = '';
-        return {...state};
+        var newState = {...state};
+        newState.title = '';
+        newState.release_date = null;
+        newState.poster_path = '';
+        newState.vote_average = null;
+        newState.genres = [];
+        newState.runtime = null;
+        newState.overview = '';
+        return {...newState};
       }
     }
   };
@@ -112,7 +120,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
       </div>
 
       <button className='transparent-button reset-button' onClick={(e) => dispatch({type: 'reset'})}>RESET</button>
-      <button className='red-button submit-button'>SUBMIT</button>
+      <button className='red-button submit-button' onClick={onSave}>SUBMIT</button>
     </div>
   );
 }

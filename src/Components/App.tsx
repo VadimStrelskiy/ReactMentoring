@@ -26,10 +26,6 @@ export const enum SortOptionType {
 
 export const test = 1;
 
-export interface MoviesListProps{
-  onDelete: (number) => void
-}
-
 export const Context = createContext(null);
 
 export function App() {
@@ -65,7 +61,7 @@ export function App() {
           isInSearchMode: isInSearchMode,
         }}>
         <Header/>
-        <Body onDelete={onDelete}/>
+        <Body />
       </Context.Provider>
 
       <Footer>

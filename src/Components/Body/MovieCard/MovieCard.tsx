@@ -9,18 +9,13 @@ import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextM
 
 interface MovieCardProps{
   movie: Movie,
-  onDelete: (number) => void,
 }
 
-export function MovieCard({movie, onDelete}: MovieCardProps) {
+export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const movieClicked = useContext(Context).movieClicked;
-
-  function onDeleteId() {
-    onDelete(movie.id);
-  }
 
   const elements : ContextMenuElement[] = [
     {
@@ -48,7 +43,7 @@ export function MovieCard({movie, onDelete}: MovieCardProps) {
       elements = {elements}/>
 
       <Popup modal closeOnDocumentClick={false} open={editOpen} onClose={() => setEditOpen(false)}><EditModal onClose={() => setEditOpen(false)} movie={movie}/></Popup>
-      <Popup modal closeOnDocumentClick={false} open={deleteOpen} onClose={() => setDeleteOpen(false)}>{<DeleteModal onDelete={onDeleteId} onClose={() => setDeleteOpen(false)}/>}</Popup>
+      <Popup modal closeOnDocumentClick={false} open={deleteOpen} onClose={() => setDeleteOpen(false)}>{<DeleteModal onClose={() => setDeleteOpen(false)} id={movie.id}/>}</Popup>
     </div>
   );
 }

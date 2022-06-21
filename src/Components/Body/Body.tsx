@@ -2,12 +2,11 @@ import {GenreSelector} from './GenreSelector/GenreSelector';
 import {SortPanel} from './SortPanel/SortPanel';
 import {MoviesList} from './MoviesList/MoviesList';
 import {ErrorBoundary} from './ErrorBoundary/ErrorBoundary';
-import {MoviesListProps} from '../App';
 import './Body.scss';
-import {useAppSelector} from '../../Store/hooks';
+import {useAppSelector} from '../../Store/movieReducer';
 
 
-export function Body({onDelete}: MoviesListProps) {
+export function Body() {
 
   const moviesCount =  useAppSelector((state) => state.movies.length);
 
@@ -18,7 +17,7 @@ export function Body({onDelete}: MoviesListProps) {
         <SortPanel/>
         <hr/>
         <p className='movie-count'>{moviesCount} movies found</p>
-        <MoviesList onDelete={onDelete}/>
+        <MoviesList />
       </ErrorBoundary>
     </main>
   );

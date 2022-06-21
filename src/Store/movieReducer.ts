@@ -1,6 +1,7 @@
 import { createReducer, createAction, createAsyncThunk, PayloadAction, configureStore } from '@reduxjs/toolkit';
 import { getMoviesApi } from '../Services/MovieService';
 import { Movie, SortOptionType } from '../Components/App';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 export interface State{
     error : string,
@@ -64,29 +65,40 @@ export const getMovies = createAsyncThunk('getMovies', async (_, thunkAPI)  => {
     }
 });
 
-export const deleteMovie = createAsyncThunk('deleteMovie', async (_, thunkAPI)  => {
-    var data;
+export const deleteMovie = createAsyncThunk('deleteMovie', async (id : number)  => {
     try {
-
-        var url = 'http://localhost:4000/movies?';
-
-        const state = thunkAPI.getState() as RootState;
-        let filter;
-        if(state.genres.length > 0){
-            filter = '&filter=' + state.genres.join(',');
-        }
-
-        const response = await window.fetch(url);
-        data = await response.json();
+        var url = 'http://localhost:4000/movies/' + id;
+        const response = await window.fetch(url, {method: 'DELETE'});
         if (response.ok) {
-          return data.data;
+          return;
         }
 
         throw new Error(response.statusText)
     } catch (err) {
-        return Promise.reject(err.message ? err.message : data)
+        return Promise.reject(err.message)
     }
-}
+});
+
+export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie)  => {
+    try {
+        const url = 'http://localhost:4000/movies/';
+        const body = JSON.stringify(movie);
+        const method = movie.id > 0 ? 'PUT' : 'POST';
+        const headers = {
+            'Content-Type': 'application/json'
+        }
+
+        debugger;
+        const response = await window.fetch(url, {method, body, headers});
+        if (response.ok) {
+          return;
+        }
+
+        throw new Error(response.statusText)
+    } catch (err) {
+        return Promise.reject(err.message)
+    }
+});
 
 export const setFilter = createAction<string[]>('setFilter');
 export const setSortBy = createAction<SortOptionType>('setSortBy');
@@ -105,11 +117,16 @@ export const movieReducer = createReducer(initialState, (builder) => {
     .addCase(setSortBy, (state, action) => {
         state.sortBy = action.payload;
     })
+    .addCase(deleteMovie.fulfilled, (state, action) => {
+        
+    })
 });
 
-const store = configureStore({
+export const store = configureStore({
   reducer: movieReducer
 });
   
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

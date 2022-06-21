@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import {useAppDispatch} from '../../../Store/hooks';
-import {getMovies, setSortBy} from '../../../Store/movieReducer';
+import {getMovies, setSortBy, useAppDispatch} from '../../../Store/movieReducer';
 import {SortOptionType} from '../../App';
 import './SortPanel.scss';
 

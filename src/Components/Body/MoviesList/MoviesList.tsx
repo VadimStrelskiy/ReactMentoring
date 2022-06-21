@@ -1,11 +1,8 @@
 import {MovieCard} from '../MovieCard/MovieCard';
-import {MoviesListProps} from '../../App';
 import {useEffect} from 'react';
-import {getMovies} from '../../../Store/movieReducer';
-import {useAppDispatch, useAppSelector} from '../../../Store/hooks';
+import {getMovies, useAppDispatch, useAppSelector} from '../../../Store/movieReducer';
 
-
-export function MoviesList({onDelete}: MoviesListProps) {
+export function MoviesList() {
 
   const movies =  useAppSelector((state) => state.movies);
   const dispatch = useAppDispatch();
@@ -18,7 +15,7 @@ export function MoviesList({onDelete}: MoviesListProps) {
       {
         movies.map((movie) =>
           (
-            <MovieCard key={movie.title} movie={movie} onDelete={onDelete}/>
+            <MovieCard key={movie.title} movie={movie}/>
           ),
         )}
     </>);
