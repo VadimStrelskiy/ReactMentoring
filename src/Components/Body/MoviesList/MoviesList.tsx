@@ -10,7 +10,7 @@ export function MoviesList({onDelete}: MoviesListProps) {
   const movies =  useAppSelector((state) => state.movies);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getMovies([]));
+    dispatch(getMovies());
   }, []);
 
   return (

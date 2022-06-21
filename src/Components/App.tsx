@@ -1,7 +1,7 @@
 import {Header} from './Header/Header';
 import {Body} from './Body/Body';
 import {Footer} from './Footer/Footer';
-import {useEffect, useState, createContext} from 'react';
+import {useState, createContext} from 'react';
 import {useToggle} from '../Hooks/useToggle';
 import './App.scss';
 
@@ -9,7 +9,6 @@ export interface Movie {
   id: number,
   poster_path: string,
   title: string,
-  //tagline: string,
   release_date: Date,
   vote_average: number,
   runtime: number,
@@ -21,15 +20,14 @@ export interface Movie {
 export const enum SortOptionType {
   ReleaseDateAsc,
   ReleaseDateDesc,
-  TitleAsc,
-  TitleDesc
+  RatingAsc,
+  RatingDesc
 };
 
 export const test = 1;
 
 export interface MoviesListProps{
-  onDelete: (number) => void,
-  sortMoviesHandler: (option: SortOptionType) => void
+  onDelete: (number) => void
 }
 
 export const Context = createContext(null);
@@ -47,12 +45,6 @@ export function App() {
     });
 
     setMovies(newMovies);
-  }
-
-
-
-  function sortMoviesHandler(sortOrder: SortOptionType) {
-    //setMovies(movieService.sortMovies(movies, sortOrder));
   }
 
   function activateMovieDetail(movie : Movie) {
@@ -73,7 +65,7 @@ export function App() {
           isInSearchMode: isInSearchMode,
         }}>
         <Header/>
-        <Body onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
+        <Body onDelete={onDelete}/>
       </Context.Provider>
 
       <Footer>

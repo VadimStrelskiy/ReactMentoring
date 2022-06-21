@@ -7,7 +7,7 @@ import './Body.scss';
 import {useAppSelector} from '../../Store/hooks';
 
 
-export function Body({onDelete, sortMoviesHandler}: MoviesListProps) {
+export function Body({onDelete}: MoviesListProps) {
 
   const moviesCount =  useAppSelector((state) => state.movies.length);
 
@@ -15,10 +15,10 @@ export function Body({onDelete, sortMoviesHandler}: MoviesListProps) {
     <main className="page-body">
       <ErrorBoundary>
         <GenreSelector/>
-        <SortPanel onValueChanged={sortMoviesHandler}/>
+        <SortPanel/>
         <hr/>
         <p className='movie-count'>{moviesCount} movies found</p>
-        <MoviesList onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
+        <MoviesList onDelete={onDelete}/>
       </ErrorBoundary>
     </main>
   );

@@ -2,7 +2,7 @@ import './GenreSelector.scss';
 import {Genres} from '../../../Store/genres';
 import {useState} from 'react';
 import {useAppDispatch} from '../../../Store/hooks';
-import {getMovies} from '../../../Store/movieReducer';
+import {getMovies, setFilter} from '../../../Store/movieReducer';
 
 const ALL = "ALL";
 const allGenres = [ALL, ...Genres.sort()]
@@ -34,10 +34,12 @@ export function GenreSelector() {
     setGenres(newGenres);
 
     if(newGenres.includes(ALL)){
-      dispatch(getMovies([]));
+      dispatch(setFilter([]));
+      dispatch(getMovies());
     }
     else{
-      dispatch(getMovies(genres));
+      dispatch(setFilter([...newGenres.filter(g => g !== ALL)]));
+      dispatch(getMovies());
     }
   }
 
