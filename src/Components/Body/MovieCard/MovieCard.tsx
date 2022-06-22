@@ -1,11 +1,11 @@
 import './MovieCard.scss';
 import Popup from 'reactjs-popup';
 import {useState, useContext} from 'react';
-import {Movie, Context} from '../../App';
+import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
-
+import {showMovieDetails, useAppDispatch} from '../../../Store/movieReducer';
 
 interface MovieCardProps{
   movie: Movie,
@@ -14,8 +14,11 @@ interface MovieCardProps{
 export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const movieClicked = useContext(Context).movieClicked;
+  function movieClicked(){
+    dispatch(showMovieDetails(movie));
+  }
 
   const elements : ContextMenuElement[] = [
     {
@@ -30,7 +33,7 @@ export function MovieCard({movie}: MovieCardProps) {
 
   return (
     <div className='movie-card-container'>
-      <img className='movie-image' src={movie.poster_path} onClick={() => movieClicked(movie)}/>
+      <img className='movie-image' src={movie.poster_path} onClick={movieClicked}/>
       <p className='movie-title'>{movie.title}</p>
       <p className='movie-year'>{new Date(movie.release_date).getFullYear()}</p>
       <p className='movie-genre'>{movie.genres.join(', ')}</p>

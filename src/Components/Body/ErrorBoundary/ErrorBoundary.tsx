@@ -5,6 +5,8 @@ type ErrorBoundaryProps = {
 }
 
 export function ErrorBoundary(props: ErrorBoundaryProps) {
+  //const error =  useAppSelector((state) => state.movieDetails);
+
   const isOk = true;
   return <>{isOk ? props.children : <ErrorView/>}</>;
 }

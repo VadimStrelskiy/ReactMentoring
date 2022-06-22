@@ -15,13 +15,22 @@ interface EditModalProps{
 export function EditModal({onClose, movie} : EditModalProps) {
   const reduxDispatch = useAppDispatch();
 
-  function onSave(){
-    reduxDispatch(updateMovie(form)).then(() => reduxDispatch(getMovies()));
+  const onSave = async () => {
+
+    try{
+      await reduxDispatch(updateMovie(form)).unwrap().then(() => reduxDispatch(getMovies()));
+      onClose();
+    }
+    catch (err){
+      alert(err.message);
+    }
   }
+
+  const isNew = movie === null;
 
   if (movie == null) {
     movie = {
-      release_date: null,
+      release_date: new Date(),
       overview: '',
       id: -1,
       poster_path: '',
@@ -32,15 +41,13 @@ export function EditModal({onClose, movie} : EditModalProps) {
     };
   }
 
-  const isNew = movie === null;
-
   const reducer = (state : Movie, action) : Movie => {
     switch (action.type) {
       case 'title': {
         return {...state, title: action.payload};
       }
       case 'release_date': {
-        return {...state, release_date: action.payload};                                                                                                                                                                                                                                                                                              
+        return {...state, release_date: action.payload.toISOString()};                                                                                                                                                                                                                                                                                              
       }
       case 'poster_path': {
         return {...state, poster_path: action.payload};
@@ -49,7 +56,6 @@ export function EditModal({onClose, movie} : EditModalProps) {
         return {...state, vote_average: action.payload};
       }
       case 'genres': {
-
         return {...state, genres: action.payload.map(g => g.value)};
       }
       case 'runtime': {
@@ -87,7 +93,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
 
       <div className="second-column">
         <label>RELEASE DATE</label>
-        <DatePicker className='form-input' selected={new Date(form.release_date)} placeholderText="Select Date" onChange={(e) => dispatch({type: 'release_date', payload: e.target.value.ToString()})}/>
+        <DatePicker className='form-input' selected={new Date(form.release_date)} placeholderText="Select Date" onChange={(e) => dispatch({type: 'release_date', payload: e})}/>
       </div>
 
       <div className="first-column">
@@ -97,7 +103,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
 
       <div className="second-column">
         <label>RATING</label>
-        <input className='form-input' value={form.vote_average || ''} placeholder="7.8" onChange={(e) => dispatch({type: 'vote_average', payload: e.target.value})}/>
+        <input className='form-input' value={form.vote_average || ''} placeholder="7.8" onChange={(e) => dispatch({type: 'vote_average', payload: +e.target.value})}/>
       </div>
 
       <div className="first-column multiselect">
@@ -111,7 +117,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
 
       <div className="second-column">
         <label>RUNTIME</label>
-        <input className='form-input' value={form.runtime || ''} placeholder="minutes" onChange={(e) => dispatch({type: 'runtime', payload: e.target.value})}/>
+        <input className='form-input' value={form.runtime || ''} placeholder="minutes" onChange={(e) => dispatch({type: 'runtime', payload: +e.target.value})}/>
       </div>
 
       <div className="overview">

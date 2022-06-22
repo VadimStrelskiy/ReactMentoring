@@ -8,14 +8,15 @@ export interface State{
     movies : Movie[],
     genres : string[],
     sortBy : SortOptionType
-    
+    movieDetails : Movie
 };
 
 const initialState : State = {
     error: null,
     movies : [],
     genres: [],
-    sortBy: SortOptionType.ReleaseDateAsc
+    sortBy: SortOptionType.ReleaseDateAsc,
+    movieDetails: null
 }
 
 
@@ -82,19 +83,26 @@ export const deleteMovie = createAsyncThunk('deleteMovie', async (id : number)  
 export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie)  => {
     try {
         const url = 'http://localhost:4000/movies/';
-        const body = JSON.stringify(movie);
+        
         const method = movie.id > 0 ? 'PUT' : 'POST';
         const headers = {
             'Content-Type': 'application/json'
         }
 
-        debugger;
+        if(movie.id <= 0){
+            movie.id = undefined;    
+        }
+        
+        const body = JSON.stringify(movie);
+
         const response = await window.fetch(url, {method, body, headers});
         if (response.ok) {
           return;
         }
 
-        throw new Error(response.statusText)
+        var messages = (await response.json()).messages;
+
+        throw new Error(messages.join('\r\n'))
     } catch (err) {
         return Promise.reject(err.message)
     }
@@ -102,6 +110,7 @@ export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie)
 
 export const setFilter = createAction<string[]>('setFilter');
 export const setSortBy = createAction<SortOptionType>('setSortBy');
+export const showMovieDetails = createAction<Movie>('showMovieDetails');
 
 export const movieReducer = createReducer(initialState, (builder) => {
   builder
@@ -117,8 +126,10 @@ export const movieReducer = createReducer(initialState, (builder) => {
     .addCase(setSortBy, (state, action) => {
         state.sortBy = action.payload;
     })
-    .addCase(deleteMovie.fulfilled, (state, action) => {
-        
+    .addCase(deleteMovie.fulfilled, () => {
+    })
+    .addCase(showMovieDetails, (state, action) => {
+        state.movieDetails = action.payload;
     })
 });
 

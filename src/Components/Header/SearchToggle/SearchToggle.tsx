@@ -1,9 +1,11 @@
 import './SearchToggle.scss';
-import {useContext} from 'react';
-import {Context} from '../../App';
+import {showMovieDetails, useAppDispatch} from '../../../Store/movieReducer';
 
 export function SearchToggle() {
-  const searchClicked = useContext(Context).searchClicked;
+  const dispatch = useAppDispatch();
+  function searchClicked(){
+    dispatch(showMovieDetails(null));
+  }
 
   return (
     <button className='search-toggle' onClick={searchClicked}>
