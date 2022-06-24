@@ -9,9 +9,9 @@ import {useAppSelector} from '../../Store/movieReducer';
 
 export function Header() {
   const [editOpen, setEditOpen] = useState(false);
-  const movie =  useAppSelector((state) => state.movieDetails);
+  const movie = useAppSelector((state) => state.movieDetails);
 
-  
+
   return (
     <header>
       <p className='netflix-roulett-text'><strong>netflix</strong>roulette</p>

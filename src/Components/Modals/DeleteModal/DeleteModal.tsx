@@ -1,5 +1,5 @@
 import './DeleteModal.scss';
-import { deleteMovie, getMovies, useAppDispatch } from '../../../Store/movieReducer';
+import {deleteMovie, getMovies, useAppDispatch} from '../../../Store/movieReducer';
 
 interface DeleteModalProps{
   id: number,
@@ -9,7 +9,7 @@ interface DeleteModalProps{
 export function DeleteModal({id, onClose} : DeleteModalProps) {
   const dispatch = useAppDispatch();
 
-  function onDelete(){
+  function onDelete() {
     dispatch(deleteMovie(id)).then(() => dispatch(getMovies()));
   }
 

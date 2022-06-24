@@ -1,6 +1,6 @@
 import './MovieCard.scss';
 import Popup from 'reactjs-popup';
-import {useState, useContext} from 'react';
+import {useState} from 'react';
 import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
@@ -16,7 +16,7 @@ export function MovieCard({movie}: MovieCardProps) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const dispatch = useAppDispatch();
 
-  function movieClicked(){
+  function movieClicked() {
     dispatch(showMovieDetails(movie));
   }
 

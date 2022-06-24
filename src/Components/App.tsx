@@ -14,14 +14,13 @@ export interface Movie {
   genres: string[],
 }
 
+/* eslint-disable no-unused-vars */
 export const enum SortOptionType {
   ReleaseDateAsc,
   ReleaseDateDesc,
   RatingAsc,
   RatingDesc
 };
-
-export const test = 1;
 
 export function App() {
   return (

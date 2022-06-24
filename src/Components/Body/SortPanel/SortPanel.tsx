@@ -30,10 +30,9 @@ const sortOptions : SortOption[] =
 ];
 
 export function SortPanel() {
-
   const dispatch = useAppDispatch();
 
-  function sortByChanged(sortBy : SortOptionType){
+  function sortByChanged(sortBy : SortOptionType) {
     dispatch(setSortBy(sortBy));
     dispatch(getMovies());
   }

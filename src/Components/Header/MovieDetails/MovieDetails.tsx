@@ -1,6 +1,6 @@
 import './MovieDetails.scss';
 
-import {stringUtil} from '../../../Utils/stringUtil'
+import {stringUtil} from '../../../Utils/stringUtil';
 import {Movie} from '../../App';
 
 interface MovieDetailsProps{
@@ -8,7 +8,6 @@ interface MovieDetailsProps{
 }
 
 export function MovieDetails({movie} : MovieDetailsProps) {
-
   return (
     <>
       <img className='movie-details-image' src={movie.poster_path}/>

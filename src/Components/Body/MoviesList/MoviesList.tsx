@@ -3,8 +3,7 @@ import {useEffect} from 'react';
 import {getMovies, useAppDispatch, useAppSelector} from '../../../Store/movieReducer';
 
 export function MoviesList() {
-
-  const movies =  useAppSelector((state) => state.movies);
+  const movies = useAppSelector((state) => state.movies);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getMovies());

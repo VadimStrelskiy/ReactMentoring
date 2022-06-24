@@ -3,7 +3,7 @@ import {showMovieDetails, useAppDispatch} from '../../../Store/movieReducer';
 
 export function SearchToggle() {
   const dispatch = useAppDispatch();
-  function searchClicked(){
+  function searchClicked() {
     dispatch(showMovieDetails(null));
   }
 

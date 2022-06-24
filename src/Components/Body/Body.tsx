@@ -7,8 +7,7 @@ import {useAppSelector} from '../../Store/movieReducer';
 
 
 export function Body() {
-
-  const moviesCount =  useAppSelector((state) => state.movies.length);
+  const moviesCount = useAppSelector((state) => state.movies.length);
 
   return (
     <main className="page-body">

@@ -4,8 +4,8 @@ import {useReducer} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {Genres} from '../../../Store/genres';
-import {MultiSelect} from "react-multi-select-component";
-import { updateMovie, getMovies, useAppDispatch } from '../../../Store/movieReducer';
+import {MultiSelect} from 'react-multi-select-component';
+import {updateMovie, getMovies, useAppDispatch} from '../../../Store/movieReducer';
 
 interface EditModalProps{
   movie?: Movie,
@@ -16,15 +16,13 @@ export function EditModal({onClose, movie} : EditModalProps) {
   const reduxDispatch = useAppDispatch();
 
   const onSave = async () => {
-
-    try{
+    try {
       await reduxDispatch(updateMovie(form)).unwrap().then(() => reduxDispatch(getMovies()));
       onClose();
-    }
-    catch (err){
+    } catch (err) {
       alert(err.message);
     }
-  }
+  };
 
   const isNew = movie === null;
 
@@ -47,7 +45,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
         return {...state, title: action.payload};
       }
       case 'release_date': {
-        return {...state, release_date: action.payload.toISOString()};                                                                                                                                                                                                                                                                                              
+        return {...state, release_date: action.payload.toISOString()};
       }
       case 'poster_path': {
         return {...state, poster_path: action.payload};
@@ -56,7 +54,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
         return {...state, vote_average: action.payload};
       }
       case 'genres': {
-        return {...state, genres: action.payload.map(g => g.value)};
+        return {...state, genres: action.payload.map((g) => g.value)};
       }
       case 'runtime': {
         return {...state, runtime: action.payload};
@@ -65,7 +63,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
         return {...state, overview: action.payload};
       }
       case 'reset': {
-        var newState = {...state};
+        const newState = {...state};
         newState.title = '';
         newState.release_date = null;
         newState.poster_path = '';
@@ -109,8 +107,12 @@ export function EditModal({onClose, movie} : EditModalProps) {
       <div className="first-column multiselect">
         <label>GENRE</label>
         <MultiSelect hasSelectAll={false}
-          options={Genres.map(g => {return {label: g, value: g}})}
-          value={form.genres.map(g => {return {label: g, value: g}})}
+          options={Genres.map((g) => {
+            return {label: g, value: g};
+          })}
+          value={form.genres.map((g) => {
+            return {label: g, value: g};
+          })}
           onChange={(e) => dispatch({type: 'genres', payload: e})}
           labelledBy="Select" />
       </div>
