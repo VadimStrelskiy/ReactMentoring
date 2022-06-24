@@ -1,12 +1,13 @@
 import {ErrorView} from '../ErrorView/ErrorView';
+import {useAppSelector} from '../../../Store/movieReducer';
+import { useEffect } from 'react';
 
 type ErrorBoundaryProps = {
     children: React.ReactNode
 }
 
 export function ErrorBoundary(props: ErrorBoundaryProps) {
-  //const error =  useAppSelector((state) => state.movieDetails);
+  var error =  useAppSelector((state) => state.error);
 
-  const isOk = true;
-  return <>{isOk ? props.children : <ErrorView/>}</>;
+  return <>{error === null ? props.children : <ErrorView/>}</>;
 }
