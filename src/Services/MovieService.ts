@@ -4,7 +4,7 @@ import {SortOptionType} from '../Components/App';
 const baseUrl = 'http://localhost:4000/movies';
 
 export async function getMoviesApi(genres : string[], sortBy : SortOptionType) : Promise<Movie[]> {
-  return await HandleError(async () =>{
+  return await handleError(async () =>{
     let sort;
     switch (sortBy) {
       case SortOptionType.RatingAsc:
@@ -43,7 +43,7 @@ export async function getMoviesApi(genres : string[], sortBy : SortOptionType) :
 
 
 export async function deleteMovieApi(id : number) {
-  return await HandleError(async () => {
+  return await handleError(async () => {
     const url = baseUrl + '/' + id;
     const response = await window.fetch(url, {method: 'DELETE'});
     if (response.ok) {
@@ -55,7 +55,7 @@ export async function deleteMovieApi(id : number) {
 };
 
 export async function createOrUpdateMovieApi(movie : Movie) {
-  return await HandleError(async () => {
+  return await handleError(async () => {
     const method = movie.id > 0 ? 'PUT' : 'POST';
     const headers = {
       'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export async function createOrUpdateMovieApi(movie : Movie) {
   });
 };
 
-async function HandleError(execute : () => Promise<any>) : Promise<any>{
+async function handleError(execute : () => Promise<any>) : Promise<any> {
   try {
     return await execute();
   } catch (err) {
