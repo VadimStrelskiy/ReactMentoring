@@ -1,5 +1,5 @@
 import {createReducer, createAction, createAsyncThunk, configureStore} from '@reduxjs/toolkit';
-import {getMoviesApi, deleteMovieApi, updateMovieApi} from '../Services/MovieService';
+import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi} from '../Services/MovieService';
 import {Movie, SortOptionType} from '../Components/App';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 
@@ -29,7 +29,7 @@ export const deleteMovie = createAsyncThunk('deleteMovie', async (id : number) =
 });
 
 export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie) => {
-  return updateMovieApi(movie);
+  return createOrUpdateMovieApi(movie);
 });
 
 export const setFilter = createAction<string[]>('setFilter');

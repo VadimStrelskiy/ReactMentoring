@@ -4,8 +4,7 @@ import {SortOptionType} from '../Components/App';
 const baseUrl = 'http://localhost:4000/movies';
 
 export async function getMoviesApi(genres : string[], sortBy : SortOptionType) : Promise<Movie[]> {
-  let data;
-  try {
+  return await HandleError(async () =>{
     let sort;
     switch (sortBy) {
       case SortOptionType.RatingAsc:
@@ -33,20 +32,18 @@ export async function getMoviesApi(genres : string[], sortBy : SortOptionType) :
     }
 
     const response = await window.fetch(url);
-    data = await response.json();
+    const data = await response.json();
     if (response.ok) {
       return data.data;
     }
 
-    throw new Error(response.statusText);
-  } catch (err) {
-    return Promise.reject(err.message ? err.message : data);
-  }
+    throw new Error(response.statusText ? response.statusText : data);
+  });
 }
 
 
 export async function deleteMovieApi(id : number) {
-  try {
+  return await HandleError(async () => {
     const url = baseUrl + '/' + id;
     const response = await window.fetch(url, {method: 'DELETE'});
     if (response.ok) {
@@ -54,13 +51,11 @@ export async function deleteMovieApi(id : number) {
     }
 
     throw new Error(response.statusText);
-  } catch (err) {
-    return Promise.reject(err.message);
-  }
+  });
 };
 
-export async function updateMovieApi(movie : Movie) {
-  try {
+export async function createOrUpdateMovieApi(movie : Movie) {
+  return await HandleError(async () => {
     const method = movie.id > 0 ? 'PUT' : 'POST';
     const headers = {
       'Content-Type': 'application/json',
@@ -80,7 +75,13 @@ export async function updateMovieApi(movie : Movie) {
     const messages = (await response.json()).messages;
 
     throw new Error(messages.join('\r\n'));
+  });
+};
+
+async function HandleError(execute : () => Promise<any>) : Promise<any>{
+  try {
+    return await execute();
   } catch (err) {
     return Promise.reject(err.message);
   }
-};
+}

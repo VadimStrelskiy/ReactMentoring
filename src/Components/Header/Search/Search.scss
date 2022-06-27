@@ -12,6 +12,7 @@ $element-border-radius: 4px;
     opacity: 0.7;
     border-radius: $element-border-radius;
     vertical-align: bottom;
+    @include white-text;
 
     &::placeholder{
         @include white-text;
