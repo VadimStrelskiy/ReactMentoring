@@ -4,9 +4,13 @@
     display: inline-block;
     margin: 30px;
     position: relative;
+    vertical-align: top;
+    width: 322px;
 
     .movie-image{
         display: block;
+        width: 322px;
+        height: 455px;
     }
     
     p{

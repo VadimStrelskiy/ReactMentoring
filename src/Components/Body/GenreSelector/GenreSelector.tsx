@@ -1,13 +1,15 @@
 import './GenreSelector.scss';
+import {useGenres, allGenres} from './GenreSelectorHook';
 
-const genres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
 
 export function GenreSelector() {
+  const {genres, updateGenres} = useGenres();
+
   return (
     <div className='genre-selector'>
       {
-        genres.map((i) =>
-          <a key={i}>{i}</a>,
+        allGenres.map((g) =>
+          <a key={g} onClick={() => updateGenres(g)} className={genres.includes(g) ? 'selected' : ''}>{g}</a>,
         )
       }
     </div>

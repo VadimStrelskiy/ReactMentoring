@@ -1,25 +1,23 @@
 import './MovieCard.scss';
 import Popup from 'reactjs-popup';
-import {useState, useContext} from 'react';
-import {Movie, Context} from '../../App';
+import {useState} from 'react';
+import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
-
+import {showMovieDetails, useAppDispatch} from '../../../Store/movieReducer';
 
 interface MovieCardProps{
   movie: Movie,
-  onDelete: (number) => void,
 }
 
-export function MovieCard({movie, onDelete}: MovieCardProps) {
+export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const movieClicked = useContext(Context).movieClicked;
-
-  function onDeleteId() {
-    onDelete(movie.id);
+  function movieClicked() {
+    dispatch(showMovieDetails(movie));
   }
 
   const elements : ContextMenuElement[] = [
@@ -35,10 +33,10 @@ export function MovieCard({movie, onDelete}: MovieCardProps) {
 
   return (
     <div className='movie-card-container'>
-      <img className='movie-image' src={`/static/${movie.image}`} onClick={() => movieClicked(movie)}/>
+      <img className='movie-image' src={movie.poster_path} onClick={movieClicked}/>
       <p className='movie-title'>{movie.title}</p>
-      <p className='movie-year'>{movie.date.getFullYear()}</p>
-      <p className='movie-genre'>{movie.genre}</p>
+      <p className='movie-year'>{new Date(movie.release_date).getFullYear()}</p>
+      <p className='movie-genre'>{movie.genres.join(', ')}</p>
       <ContextMenu trigger={<svg className='movie-menu-button'>
         <circle fill="#2A202D" r="18px" cx="18px" cy="18px"/>
         <circle fill="white" r="2px" cx="18px" cy="10px"/>
@@ -48,7 +46,7 @@ export function MovieCard({movie, onDelete}: MovieCardProps) {
       elements = {elements}/>
 
       <Popup modal closeOnDocumentClick={false} open={editOpen} onClose={() => setEditOpen(false)}><EditModal onClose={() => setEditOpen(false)} movie={movie}/></Popup>
-      <Popup modal closeOnDocumentClick={false} open={deleteOpen} onClose={() => setDeleteOpen(false)}>{<DeleteModal onDelete={onDeleteId} onClose={() => setDeleteOpen(false)}/>}</Popup>
+      <Popup modal closeOnDocumentClick={false} open={deleteOpen} onClose={() => setDeleteOpen(false)}>{<DeleteModal onClose={() => setDeleteOpen(false)} id={movie.id}/>}</Popup>
     </div>
   );
 }

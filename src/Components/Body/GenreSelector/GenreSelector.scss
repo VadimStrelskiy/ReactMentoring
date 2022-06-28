@@ -4,11 +4,17 @@
     display: inline-block;
     margin: 10px;
     opacity: 0.8;
+    width: 70%;
 
     a{
-        margin: 15px;
+        margin: 5 15 0 15;
         @include white-text;    
         text-transform: uppercase;
+        display: inline-block;
 
+        &.selected{
+            @include red-text;
+            text-decoration: underline;
+        }
     }
 }

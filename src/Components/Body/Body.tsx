@@ -2,20 +2,21 @@ import {GenreSelector} from './GenreSelector/GenreSelector';
 import {SortPanel} from './SortPanel/SortPanel';
 import {MoviesList} from './MoviesList/MoviesList';
 import {ErrorBoundary} from './ErrorBoundary/ErrorBoundary';
-import {MoviesListProps} from '../App';
 import './Body.scss';
+import {useAppSelector} from '../../Store/movieReducer';
 
-const MOVIE_COUNT = 39;
 
-export function Body({movies, onDelete, sortMoviesHandler}: MoviesListProps) {
+export function Body() {
+  const moviesCount = useAppSelector((state) => state.movies.length);
+
   return (
     <main className="page-body">
       <ErrorBoundary>
         <GenreSelector/>
-        <SortPanel onValueChanged={sortMoviesHandler}/>
+        <SortPanel/>
         <hr/>
-        <p className='movie-count'>{MOVIE_COUNT} movies found</p>
-        <MoviesList movies={movies} onDelete={onDelete} sortMoviesHandler={sortMoviesHandler}/>
+        <p className='movie-count'>{moviesCount} movies found</p>
+        <MoviesList />
       </ErrorBoundary>
     </main>
   );

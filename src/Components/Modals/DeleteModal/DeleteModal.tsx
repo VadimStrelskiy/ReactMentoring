@@ -1,11 +1,18 @@
 import './DeleteModal.scss';
+import {deleteMovie, getMovies, useAppDispatch} from '../../../Store/movieReducer';
 
 interface DeleteModalProps{
-  onDelete: () => void,
+  id: number,
   onClose: () => void
 }
 
-export function DeleteModal({onDelete, onClose} : DeleteModalProps) {
+export function DeleteModal({id, onClose} : DeleteModalProps) {
+  const dispatch = useAppDispatch();
+
+  function onDelete() {
+    dispatch(deleteMovie(id)).then(() => dispatch(getMovies()));
+  }
+
   return (
     <div className="delete-modal">
       <button className='delete-close' onClick={onClose}>&times;</button>

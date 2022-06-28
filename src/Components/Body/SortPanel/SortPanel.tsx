@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 
+import {getMovies, setSortBy, useAppDispatch} from '../../../Store/movieReducer';
 import {SortOptionType} from '../../App';
 import './SortPanel.scss';
 
@@ -19,23 +20,26 @@ const sortOptions : SortOption[] =
     label: 'RELEASE DATE DESC',
   },
   {
-    value: SortOptionType.TitleAsc,
-    label: 'TITLE ASC',
+    value: SortOptionType.RatingAsc,
+    label: 'RATING ASC',
   },
   {
-    value: SortOptionType.TitleDesc,
-    label: 'TITLE DESC',
+    value: SortOptionType.RatingDesc,
+    label: 'RATING DESC',
   },
 ];
 
-export interface SortPanelProps{
-  onValueChanged: (option: SortOptionType) => void
-}
+export function SortPanel() {
+  const dispatch = useAppDispatch();
 
-export function SortPanel({onValueChanged} : SortPanelProps) {
+  function sortByChanged(sortBy : SortOptionType) {
+    dispatch(setSortBy(sortBy));
+    dispatch(getMovies());
+  }
+
   return (<div className='sort-panel'>
     <label>SORT BY</label>
-    <select onChange={(e) => onValueChanged(+e.target.value)}>
+    <select onChange={(e) => sortByChanged(+e.target.value)}>
       {
         sortOptions.map((option) =>
           <option key={option.value} value={option.value}>{option.label}</option>,

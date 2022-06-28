@@ -2,21 +2,21 @@ import {Search} from './Search/Search';
 import {SearchToggle} from './SearchToggle/SearchToggle';
 import {MovieDetails} from './MovieDetails/MovieDetails';
 import './Header.scss';
-import {useState, useContext} from 'react';
+import {useState} from 'react';
 import Popup from 'reactjs-popup';
 import {EditModal} from '../Modals/EditModal/EditModal';
-import {Context} from '../App';
+import {useAppSelector} from '../../Store/movieReducer';
 
 export function Header() {
   const [editOpen, setEditOpen] = useState(false);
+  const movie = useAppSelector((state) => state.movieDetails);
 
-  const isInSearchMode = useContext(Context).isInSearchMode;
 
   return (
     <header>
       <p className='netflix-roulett-text'><strong>netflix</strong>roulette</p>
 
-      {isInSearchMode ?
+      {movie == null ?
         (
           <>
             <button className='add-movie' onClick={() => setEditOpen(true)}>+ ADD MOVIE</button>
@@ -28,7 +28,7 @@ export function Header() {
           (<>
             <SearchToggle/>
             <br/>
-            <MovieDetails/>
+            <MovieDetails movie={movie}/>
           </>)
       }
 
