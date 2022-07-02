@@ -10,6 +10,11 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
     width: 915px;
     height: 975px;
 
+    form{
+        display: grid;
+        grid-template-columns: 430px 430px;
+    }
+
     h2{
         @include white-text-large;
         margin-left: $margin-left;
@@ -28,17 +33,17 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
 
     .first-column{
         margin-left: $margin-left;
-        width: 60%;
+        grid-column: 1;
     }
 
     .second-column{
-        width: 30%;
+        grid-column: 2;
         margin-left: 30px;
     }
 
     .first-column, .second-column{
-        display: inline-block;
         margin-top: 20px;
+        height: 105px;
     }
 
     .first-column.multiselect{
@@ -57,45 +62,53 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
         opacity: $input-opacity;
         border-radius: 4px;
         @include white-text;
-        height: 57px;
+        height: $input-height;
         padding-left: 10px;
     }
 
-    .multi-select{
-        display: block;
-        width: 100%;
-        .dropdown-container{
-            background: $input-backgroupnd;
-            @include white-text;
-            height: 42px;
-
-            span{
-                opacity: $input-opacity;
-            }
-        }
-
-        .select-panel{
-            background: $input-backgroupnd;
-            @include white-text;
-            
-            .select-item:hover, .select-item.selected{
-                background: $red;
-            }
-        }
-
+    .multiselect{
         label{
-            @include white-text;
+            margin-top: 15px;
+        }
+
+        .multi-select{
+            display: block;
+            width: 100%;
+            
+            .dropdown-container{
+                background: $input-backgroupnd;
+                @include white-text;
+                height: $input-height;
+                padding-top: 7px;
+    
+                span{
+                    opacity: $input-opacity;
+                }
+            }
+    
+            .select-panel{
+                background: $input-backgroupnd;
+                @include white-text;
+                
+                .select-item:hover, .select-item.selected{
+                    background: $red;
+                }
+            }
+    
+            label{
+                @include white-text;
+            }
         }
     }
 
-    label{
+    label, .error{
         @include red-text-small;
     }
 
     .overview{
         margin-left: 40px;
         margin-top: 20px;
-        margin-right: 21px;
+        grid-column: 1/3;
 
         textarea {
             height: 200px;
@@ -108,11 +121,16 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
     }
 
     .reset-button{
-        margin-top: 150px;
-        margin-left: 500px;
+        margin-left: 50px;
     }
 
     .submit-button{
-        margin-left: 30px;
+        margin-left: 250px;
+    }
+
+    .reset-button, .submit-button{
+        margin-top: 50px;
+        grid-column: 2;
+        grid-row: 5;
     }
 }
