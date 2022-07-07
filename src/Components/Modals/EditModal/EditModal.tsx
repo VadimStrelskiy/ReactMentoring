@@ -20,7 +20,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
 
   const onSave = async (form) => {
     try {
-      await reduxDispatch(updateMovie(form)).unwrap().then(() => reduxDispatch(getMovies()));
+      await reduxDispatch(updateMovie(form)).unwrap().then(() => reduxDispatch(getMovies(null)));
       onClose();
     } catch (err) {
       alert(err.message);

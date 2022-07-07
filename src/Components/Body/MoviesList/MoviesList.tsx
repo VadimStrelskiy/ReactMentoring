@@ -4,10 +4,6 @@ import {getMovies, useAppDispatch, useAppSelector} from '../../../Store/movieRed
 
 export function MoviesList() {
   const movies = useAppSelector((state) => state.movies);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getMovies());
-  }, []);
 
   return (
     <>

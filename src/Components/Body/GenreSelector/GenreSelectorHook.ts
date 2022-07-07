@@ -1,14 +1,11 @@
 import {useCallback, useState} from 'react';
-import {Genres} from '../../../Store/genres';
-import {getMovies, setFilter, useAppDispatch} from '../../../Store/movieReducer';
+import {ALL, allGenres} from './GenreSelector';
+import {useNavigate} from "react-router-dom";
 
-const ALL = 'ALL';
-export const allGenres = [ALL, ...Genres.sort()];
-
-export const useGenres = () => {
-  const dispatch = useAppDispatch();
-  const [genres, setGenres] = useState(allGenres);
-
+export const useGenres = (initialValues) => {
+  const [genres, setGenres] = useState(initialValues);
+  const navigate = useNavigate();
+  
   const updateGenres = useCallback((genre : string) => {
     let newGenres;
     if (genre === ALL) {
@@ -26,14 +23,12 @@ export const useGenres = () => {
 
     setGenres(newGenres);
 
-    if (newGenres.includes(ALL)) {
-      dispatch(setFilter([]));
-      dispatch(getMovies());
+    if (newGenres.includes(ALL) || newGenres.length == 0) {
+      navigate('/search');
     } else {
-      dispatch(setFilter([...newGenres.filter((g) => g !== ALL)]));
-      dispatch(getMovies());
+      navigate('/search/filter=' + newGenres.filter((g) => g !== ALL).join(','));
     }
   }, [genres]);
 
-  return {genres, updateGenres};
+  return [genres, setGenres, updateGenres];
 };

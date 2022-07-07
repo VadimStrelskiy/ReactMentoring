@@ -7,47 +7,10 @@ header{
     margin: auto;
     background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(../../../public/header.png);
 
-    .search-container{
-        width: 900px;
-        position: absolute;
-        margin: auto;
-        left: 0; 
-        right: 0; 
-        top: 250px;
-    }
-
     .netflix-roulett-text{
         display: inline-block;
         margin-left: 60px;
         margin-top: 30px;
         @include red-text;
-    }
-
-    .add-movie{
-        background: rgba(96, 96, 96, 0.68);
-        border-radius: 4px;
-        float:right;
-        margin-top: 20px;
-        margin-right: 20px;
-        width: 180px;
-        height: 50px;
-        @include red-text;
-        z-index: 99999;
-
-    }
-
-    .find-your-movie{
-        margin-left: 155px;
-        font-weight: 300;
-        font-size: 40px;
-        line-height: 49px;
-        color: white;
-    }
-
-    .search-toggle{
-        display: inline-block;
-        float: right;
-        margin-top: 20px;
-        margin-right: 40px;
     }
 }

@@ -3,34 +3,38 @@ import {SortOptionType} from '../Components/App';
 
 const baseUrl = 'http://localhost:4000/movies';
 
-export async function getMoviesApi(genres : string[], sortBy : SortOptionType) : Promise<Movie[]> {
+export async function getMoviesApi(searchQuery : string) : Promise<Movie[]> {
   return await handleError(async () =>{
-    let sort;
-    switch (sortBy) {
-      case SortOptionType.RatingAsc:
-        sort = 'sortOrder=asc&sortBy=vote_average';
-        break;
-      case SortOptionType.RatingDesc:
-        sort = 'sortOrder=desc&sortBy=vote_average';
-        break;
-      case SortOptionType.ReleaseDateAsc:
-        sort = 'sortOrder=asc&sortBy=release_date';
-        break;
-      case SortOptionType.ReleaseDateDesc:
-        sort = 'sortOrder=desc&sortBy=release_date';
-        break;
-    }
+    // let sort;
+    // switch (sortBy) {
+    //   case SortOptionType.RatingAsc:
+    //     sort = 'sortOrder=asc&sortBy=vote_average';
+    //     break;
+    //   case SortOptionType.RatingDesc:
+    //     sort = 'sortOrder=desc&sortBy=vote_average';
+    //     break;
+    //   case SortOptionType.ReleaseDateAsc:
+    //     sort = 'sortOrder=asc&sortBy=release_date';
+    //     break;
+    //   case SortOptionType.ReleaseDateDesc:
+    //     sort = 'sortOrder=desc&sortBy=release_date';
+    //     break;
+    // }
 
-    let url = baseUrl + '?' + sort;
-    let filter;
-    if (genres.length > 0) {
-      filter = '&filter=' + genres.join(',');
-    }
+    // let url = baseUrl + '?' + sort;
+    // let filter;
+    // if (genres.length > 0) {
+    //   filter = '&filter=' + genres.join(',');
+    // }
 
-    if (filter) {
-      url+= filter;
-    }
+    // if (filter) {
+    //   url+= filter;
+    // }
 
+    let url = baseUrl;
+    if(searchQuery){
+      url += '?' + searchQuery;
+    }
     const response = await window.fetch(url);
     const data = await response.json();
     if (response.ok) {
@@ -40,7 +44,6 @@ export async function getMoviesApi(genres : string[], sortBy : SortOptionType) :
     throw new Error(response.statusText ? response.statusText : data);
   });
 }
-
 
 export async function deleteMovieApi(id : number) {
   return await handleError(async () => {

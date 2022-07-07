@@ -10,7 +10,7 @@ export function DeleteModal({id, onClose} : DeleteModalProps) {
   const dispatch = useAppDispatch();
 
   function onDelete() {
-    dispatch(deleteMovie(id)).then(() => dispatch(getMovies()));
+    dispatch(deleteMovie(id)).then(() => dispatch(getMovies(null)));
   }
 
   return (
