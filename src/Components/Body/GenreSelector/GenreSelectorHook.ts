@@ -1,11 +1,24 @@
-import {useCallback, useState} from 'react';
-import {ALL, allGenres} from './GenreSelector';
-import {useNavigate} from "react-router-dom";
+import {useCallback, useState, useEffect, useRef} from 'react';
+import {useNavigate, useMatch} from "react-router-dom";
+import {Genres} from '../../../Store/genres';
 
-export const useGenres = (initialValues) => {
-  const [genres, setGenres] = useState(initialValues);
+const ALL = 'ALL';
+export const allGenres = [ALL, ...Genres.sort()];
+
+export const useGenres = () => {
+  const match =  useMatch("search/:searchQuery");
+  let genresQuery = null;
+  const [genres, setGenres] = useState(genresQuery ? genresQuery : allGenres);
   const navigate = useNavigate();
+  const mounted = useRef(null);
   
+  if(match) {
+    const filter = new URLSearchParams(match.params.searchQuery).get('filter');
+    if(filter){
+      genresQuery = filter.split(',');
+    }
+  }
+
   const updateGenres = useCallback((genre : string) => {
     let newGenres;
     if (genre === ALL) {
@@ -23,12 +36,41 @@ export const useGenres = (initialValues) => {
 
     setGenres(newGenres);
 
+    let urlSearchParams;
+    if(match){
+      urlSearchParams = new URLSearchParams(match.params.searchQuery);
+    }
+    else{
+      urlSearchParams = new URLSearchParams();
+    }
+
     if (newGenres.includes(ALL) || newGenres.length == 0) {
-      navigate('/search');
+      if(!urlSearchParams.get('sortBy')){
+        navigate('/search');
+      }
+      else{
+        urlSearchParams.delete('filter');
+        navigate('/search/' + urlSearchParams.toString());
+      }
     } else {
-      navigate('/search/filter=' + newGenres.filter((g) => g !== ALL).join(','));
+      urlSearchParams.set('filter', newGenres.filter((g) => g !== ALL).join(','));
+      navigate('/search/' + urlSearchParams.toString());
     }
   }, [genres]);
 
-  return [genres, setGenres, updateGenres];
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      setGenres(genresQuery ? genresQuery : allGenres);
+    } else {
+      if(match){
+        setGenres(genresQuery ? genresQuery : allGenres);
+      }
+      else{
+        setGenres(allGenres);
+      }
+    }
+  }, [match]);
+
+  return [genres, updateGenres];
 };

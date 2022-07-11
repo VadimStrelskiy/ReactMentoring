@@ -1,10 +1,12 @@
 import './SearchToggle.scss';
-import {showMovieDetails, useAppDispatch} from '../../../Store/movieReducer';
+import {useNavigate, useParams} from "react-router-dom";
 
 export function SearchToggle() {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const {searchQuery} = useParams();
+  
   function searchClicked() {
-    dispatch(showMovieDetails(null));
+    navigate('/search' + (searchQuery ? ('/' + searchQuery) : ''));
   }
 
   return (

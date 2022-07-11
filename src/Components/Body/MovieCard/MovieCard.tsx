@@ -5,7 +5,7 @@ import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
-import {showMovieDetails, useAppDispatch} from '../../../Store/movieReducer';
+import {hideMovieDetails, useAppDispatch} from '../../../Store/movieReducer';
 
 interface MovieCardProps{
   movie: Movie,
@@ -17,7 +17,7 @@ export function MovieCard({movie}: MovieCardProps) {
   const dispatch = useAppDispatch();
 
   function movieClicked() {
-    dispatch(showMovieDetails(movie));
+    //dispatch(showMovieDetails(movie));
   }
 
   const elements : ContextMenuElement[] = [

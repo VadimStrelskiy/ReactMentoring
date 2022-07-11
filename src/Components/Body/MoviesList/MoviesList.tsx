@@ -1,6 +1,5 @@
 import {MovieCard} from '../MovieCard/MovieCard';
-import {useEffect} from 'react';
-import {getMovies, useAppDispatch, useAppSelector} from '../../../Store/movieReducer';
+import {useAppSelector} from '../../../Store/movieReducer';
 
 export function MoviesList() {
   const movies = useAppSelector((state) => state.movies);

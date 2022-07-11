@@ -1,20 +1,26 @@
 import {createReducer, createAction, createAsyncThunk, configureStore} from '@reduxjs/toolkit';
-import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi} from '../Services/MovieService';
+import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi, getMovieApi} from '../Services/MovieService';
 import {Movie} from '../Components/App';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 
 export interface State{
     error : string,
-    movies : Movie[]
+    movies : Movie[],
+    movie : Movie
 };
 
 const initialState : State = {
   error: null,
-  movies: []
+  movies: [],
+  movie: null
 };
 
 export const getMovies = createAsyncThunk('getMovies', async (searchQuery : string) => {
   return getMoviesApi(searchQuery);
+});
+
+export const getMovie = createAsyncThunk('getMovie', async (id : string) => {
+  return getMovieApi(id);
 });
 
 export const deleteMovie = createAsyncThunk('deleteMovie', async (id : number) => {
@@ -25,7 +31,7 @@ export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie)
   return createOrUpdateMovieApi(movie);
 });
 
-export const showMovieDetails = createAction<Movie>('showMovieDetails');
+export const hideMovieDetails = createAction<Movie>('hideMovieDetails');
 
 export const movieReducer = createReducer(initialState, (builder) => {
   builder
@@ -36,8 +42,16 @@ export const movieReducer = createReducer(initialState, (builder) => {
       .addCase(getMovies.rejected, (state, action) => {
         state.error = action.error.message;
       })
-      .addCase(deleteMovie.fulfilled, () => {
-      });
+      .addCase(getMovie.fulfilled, (state, action) => {
+        state.movie = action.payload;
+        state.error = null;
+      })
+      .addCase(getMovie.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(hideMovieDetails, (state) => {
+        state.movie = null;
+      })
 });
 
 export const store = configureStore({
