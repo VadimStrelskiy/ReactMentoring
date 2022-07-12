@@ -1,13 +1,12 @@
 import {Search} from './Search/Search';
 import {SearchToggle} from './SearchToggle/SearchToggle';
 import {MovieDetails} from './MovieDetails/MovieDetails';
-import {getMovie, hideMovieDetails, useAppDispatch, useAppSelector} from '../../Store/movieReducer';
+import {getMovie, useAppDispatch, useAppSelector} from '../../Store/movieReducer';
 import './Header.scss';
 import {useState} from 'react';
 import {useParams, useSearchParams} from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import {EditModal} from '../Modals/EditModal/EditModal';
-
 
 export function Header() {
   const [editOpen, setEditOpen] = useState(false);

@@ -5,7 +5,8 @@ import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
-import {hideMovieDetails, useAppDispatch} from '../../../Store/movieReducer';
+import {useSearchParams} from 'react-router-dom';
+
 
 interface MovieCardProps{
   movie: Movie,
@@ -14,10 +15,10 @@ interface MovieCardProps{
 export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const dispatch = useAppDispatch();
+  const [_, setSearchParams] = useSearchParams();
 
-  function movieClicked() {
-    //dispatch(showMovieDetails(movie));
+  function movieClicked(id) {
+    setSearchParams({movie : id});
   }
 
   const elements : ContextMenuElement[] = [
@@ -33,7 +34,7 @@ export function MovieCard({movie}: MovieCardProps) {
 
   return (
     <div className='movie-card-container'>
-      <img className='movie-image' src={movie.poster_path} onClick={movieClicked}/>
+      <img className='movie-image' src={movie.poster_path} onClick={() => movieClicked(movie.id)}/>
       <p className='movie-title'>{movie.title}</p>
       <p className='movie-year'>{new Date(movie.release_date).getFullYear()}</p>
       <p className='movie-genre'>{movie.genres.join(', ')}</p>
