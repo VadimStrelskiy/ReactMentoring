@@ -4,9 +4,8 @@ import {MovieDetails} from './MovieDetails/MovieDetails';
 import {getMovie, useAppDispatch, useAppSelector} from '../../Store/movieReducer';
 import './Header.scss';
 import {useState} from 'react';
-import {useParams, useSearchParams} from 'react-router-dom';
-import Popup from 'reactjs-popup';
-import {EditModal} from '../Modals/EditModal/EditModal';
+import {useSearchParams} from 'react-router-dom';
+
 
 export function Header() {
   const [editOpen, setEditOpen] = useState(false);
@@ -32,8 +31,6 @@ export function Header() {
           <MovieDetails movie={movie}/>
         </>)
       }
-
-      <Popup modal closeOnDocumentClick={false} open={editOpen} onClose={() => setEditOpen(false)}>{<EditModal onClose={() => setEditOpen(false)} movie={null}/>}</Popup>
     </header>
   );
 }

@@ -35,23 +35,20 @@ export const hideMovieDetails = createAction<Movie>('hideMovieDetails');
 
 export const movieReducer = createReducer(initialState, (builder) => {
   builder
-      .addCase(getMovies.fulfilled, (state, action) => {
-        state.movies = action.payload;
-        state.error = null;
-      })
-      .addCase(getMovies.rejected, (state, action) => {
-        state.error = action.error.message;
-      })
-      .addCase(getMovie.fulfilled, (state, action) => {
-        state.movie = action.payload;
-        state.error = null;
-      })
-      .addCase(getMovie.rejected, (state, action) => {
-        state.error = action.error.message;
-      })
-      .addCase(hideMovieDetails, (state) => {
-        state.movie = null;
-      })
+    .addCase(getMovies.fulfilled, (state, action) => {
+      state.movies = action.payload;
+      state.error = null;
+    })
+    .addCase(getMovies.rejected, (state, action) => {
+      state.error = action.error.message;
+    })
+    .addCase(getMovie.fulfilled, (state, action) => {
+      state.movie = action.payload;
+      state.error = null;
+    })
+    .addCase(getMovie.rejected, (state, action) => {
+      state.error = action.error.message;
+    })
 });
 
 export const store = configureStore({

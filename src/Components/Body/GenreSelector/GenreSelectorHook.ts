@@ -1,19 +1,21 @@
 import {useCallback, useState, useEffect, useRef} from 'react';
-import {useNavigate, useMatch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {Genres} from '../../../Store/genres';
+import {useNavigateMovie} from '../../../Hooks/useNavigateMoive'; 
 
 const ALL = 'ALL';
 export const allGenres = [ALL, ...Genres.sort()];
 
 export const useGenres = () => {
-  const match =  useMatch("search/:searchQuery");
+
   let genresQuery = null;
   const [genres, setGenres] = useState(genresQuery ? genresQuery : allGenres);
-  const navigate = useNavigate();
+  const navigate = useNavigateMovie();
   const mounted = useRef(null);
-  
-  if(match) {
-    const filter = new URLSearchParams(match.params.searchQuery).get('filter');
+  const params = useParams();
+
+  if(params.searchQuery) {
+    const filter = new URLSearchParams(params.searchQuery).get('filter');
     if(filter){
       genresQuery = filter.split(',');
     }
@@ -21,6 +23,7 @@ export const useGenres = () => {
 
   const updateGenres = useCallback((genre : string) => {
     let newGenres;
+
     if (genre === ALL) {
       if (genres.includes(ALL)) {
         newGenres = [];
@@ -31,14 +34,18 @@ export const useGenres = () => {
       newGenres = [...genres.filter((g) => g !== genre && g !== ALL)];
     } else {
       genres.push(genre);
+      if(genres.length == allGenres.length - 1){
+        genres.push(ALL);
+      }
+
       newGenres = [...genres];
     }
 
     setGenres(newGenres);
 
     let urlSearchParams;
-    if(match){
-      urlSearchParams = new URLSearchParams(match.params.searchQuery);
+    if(params.searchQuery){
+      urlSearchParams = new URLSearchParams(params.searchQuery);
     }
     else{
       urlSearchParams = new URLSearchParams();
@@ -46,15 +53,15 @@ export const useGenres = () => {
 
     if (newGenres.includes(ALL) || newGenres.length == 0) {
       if(!urlSearchParams.get('sortBy')){
-        navigate('/search');
+        navigate('');
       }
       else{
         urlSearchParams.delete('filter');
-        navigate('/search/' + urlSearchParams.toString());
+        navigate(urlSearchParams.toString());
       }
     } else {
       urlSearchParams.set('filter', newGenres.filter((g) => g !== ALL).join(','));
-      navigate('/search/' + urlSearchParams.toString());
+      navigate(urlSearchParams.toString());
     }
   }, [genres]);
 
@@ -63,14 +70,14 @@ export const useGenres = () => {
       mounted.current = true;
       setGenres(genresQuery ? genresQuery : allGenres);
     } else {
-      if(match){
+      if(params.searchQuery){
         setGenres(genresQuery ? genresQuery : allGenres);
       }
       else{
         setGenres(allGenres);
       }
     }
-  }, [match]);
+  }, [params]);
 
   return [genres, updateGenres];
 };

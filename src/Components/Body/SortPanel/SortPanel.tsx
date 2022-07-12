@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 
-import { useMatch } from "react-router-dom";
 import {SortOptionType} from '../../App';
 import {useEffect, useRef, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {useNavigateMovie} from '../../../Hooks/useNavigateMoive'; 
 import './SortPanel.scss';
 
 export interface SortOption{
@@ -32,17 +32,17 @@ const sortOptions : SortOption[] =
 ];
 
 export function SortPanel() {
-  const navigate = useNavigate();
+  const navigate = useNavigateMovie();
     
-  const match =  useMatch("search/:searchQuery");
+  const params =  useParams();
   let sortBy = null;
   let sortOrder = null;
   const mounted = useRef(null);
 
   let parsedSortOption;
-  if(match) {
-    sortBy = new URLSearchParams(match.params.searchQuery).get('sortBy');
-    sortOrder = new URLSearchParams(match.params.searchQuery).get('sortOrder');
+  if(params.searchQuery) {
+    sortBy = new URLSearchParams(params.searchQuery).get('sortBy');
+    sortOrder = new URLSearchParams(params.searchQuery).get('sortOrder');
     if(sortBy && sortOrder){
       if(sortBy == 'vote_average'){
         if(sortOrder == 'asc'){
@@ -68,8 +68,8 @@ export function SortPanel() {
 
   function sortByChanged(sortBy : SortOptionType) {
     let urlSearchParams;
-    if(match){
-      urlSearchParams = new URLSearchParams(match.params.searchQuery);
+    if(params.searchQuery){
+      urlSearchParams = new URLSearchParams(params.searchQuery);
     }
     else{
       urlSearchParams = new URLSearchParams();
@@ -94,18 +94,18 @@ export function SortPanel() {
         break;
     }
 
-    navigate('/search/' + urlSearchParams.toString());
+    navigate(urlSearchParams.toString());
   }
 
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
     } else {
-      if(match && parsedSortOption){
+      if(params.searchQuery && parsedSortOption){
         setSortOption(defaultSort);
       }
     }
-  }, [match]);
+  }, [params]);
 
 
   return (<div className='sort-panel'>
