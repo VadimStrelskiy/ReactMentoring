@@ -1,22 +1,21 @@
 import {useCallback, useState, useEffect, useRef} from 'react';
-import {useParams} from "react-router-dom";
+import {useParams} from 'react-router-dom';
 import {Genres} from '../../../Store/genres';
-import {useNavigateMovie} from '../../../Hooks/useNavigateMoive'; 
+import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 
 const ALL = 'ALL';
 export const allGenres = [ALL, ...Genres.sort()];
 
 export const useGenres = () => {
-
   let genresQuery = null;
   const [genres, setGenres] = useState(genresQuery ? genresQuery : allGenres);
   const navigate = useNavigateMovie();
   const mounted = useRef(null);
   const params = useParams();
 
-  if(params.searchQuery) {
+  if (params.searchQuery) {
     const filter = new URLSearchParams(params.searchQuery).get('filter');
-    if(filter){
+    if (filter) {
       genresQuery = filter.split(',');
     }
   }
@@ -34,7 +33,7 @@ export const useGenres = () => {
       newGenres = [...genres.filter((g) => g !== genre && g !== ALL)];
     } else {
       genres.push(genre);
-      if(genres.length == allGenres.length - 1){
+      if (genres.length == allGenres.length - 1) {
         genres.push(ALL);
       }
 
@@ -44,18 +43,16 @@ export const useGenres = () => {
     setGenres(newGenres);
 
     let urlSearchParams;
-    if(params.searchQuery){
+    if (params.searchQuery) {
       urlSearchParams = new URLSearchParams(params.searchQuery);
-    }
-    else{
+    } else {
       urlSearchParams = new URLSearchParams();
     }
 
     if (newGenres.includes(ALL) || newGenres.length == 0) {
-      if(!urlSearchParams.get('sortBy')){
+      if (!urlSearchParams.get('sortBy')) {
         navigate('');
-      }
-      else{
+      } else {
         urlSearchParams.delete('filter');
         navigate(urlSearchParams.toString());
       }
@@ -70,10 +67,9 @@ export const useGenres = () => {
       mounted.current = true;
       setGenres(genresQuery ? genresQuery : allGenres);
     } else {
-      if(params.searchQuery){
+      if (params.searchQuery) {
         setGenres(genresQuery ? genresQuery : allGenres);
-      }
-      else{
+      } else {
         setGenres(allGenres);
       }
     }

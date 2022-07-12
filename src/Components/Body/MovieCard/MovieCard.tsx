@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import './MovieCard.scss';
 import Popup from 'reactjs-popup';
 import {useState} from 'react';
@@ -15,10 +17,10 @@ interface MovieCardProps{
 export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function movieClicked(id) {
-    setSearchParams({movie : id});
+    setSearchParams({movie: id});
   }
 
   const elements : ContextMenuElement[] = [

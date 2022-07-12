@@ -1,12 +1,11 @@
 import {Movie} from '../Components/App';
-import {SortOptionType} from '../Components/App';
 
 const baseUrl = 'http://localhost:4000/movies';
 
 export async function getMoviesApi(searchQuery : string) : Promise<Movie[]> {
   return await handleError(async () =>{
     let url = baseUrl;
-    if(searchQuery){
+    if (searchQuery) {
       url += '?' + searchQuery;
     }
     const response = await window.fetch(url);
@@ -21,7 +20,7 @@ export async function getMoviesApi(searchQuery : string) : Promise<Movie[]> {
 
 export async function getMovieApi(id : string) : Promise<Movie> {
   return await handleError(async () =>{
-    let url = baseUrl + '/' + id;
+    const url = baseUrl + '/' + id;
     const response = await window.fetch(url);
     const data = await response.json();
     if (response.ok) {

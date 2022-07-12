@@ -2,8 +2,8 @@ import {Header} from './Header/Header';
 import {Body} from './Body/Body';
 import {NotFound} from './NotFound/NotFound';
 import {Footer} from './Footer/Footer';
-import {HashRouter} from "react-router-dom";
-import {Routes, Route, Navigate} from "react-router-dom";
+import {HashRouter} from 'react-router-dom';
+import {Routes, Route, Navigate} from 'react-router-dom';
 import './App.scss';
 
 export interface Movie {
@@ -29,21 +29,21 @@ export function App() {
   return (
     <HashRouter>
       <div className='app-container'>
-      <Routes>
+        <Routes>
           <Route path="/search" element={
             <>
               <Header/>
               <Body />
             </>} />
-           <Route path="/search/:searchQuery" element={
+          <Route path="/search/:searchQuery" element={
             <>
               <Header/>
               <Body />
             </>} />
           <Route path="/" element={<Navigate to="/search" />}/>
           <Route path="*" element={<NotFound/>}/>
-      </Routes>
-      <Footer><p className='netflix-roulett-text'><b>netflix</b>roulette</p></Footer>
+        </Routes>
+        <Footer><p className='netflix-roulett-text'><b>netflix</b>roulette</p></Footer>
       </div>
     </HashRouter>
   );

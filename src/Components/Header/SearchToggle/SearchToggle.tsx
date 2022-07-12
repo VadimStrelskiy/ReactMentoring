@@ -1,10 +1,10 @@
 import './SearchToggle.scss';
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from 'react-router-dom';
 
 export function SearchToggle() {
   const navigate = useNavigate();
   const {searchQuery} = useParams();
-  
+
   function searchClicked() {
     navigate('/search' + (searchQuery ? ('/' + searchQuery) : ''));
   }
