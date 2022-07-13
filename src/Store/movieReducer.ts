@@ -16,7 +16,7 @@ const initialState : State = {
 };
 
 export const getMovies = createAsyncThunk('getMovies', async (searchQuery : string) => {
-  return getMoviesApi(searchQuery);
+  return getMoviesApi(searchQuery ? searchQuery : '');
 });
 
 export const getMovie = createAsyncThunk('getMovie', async (id : string) => {
@@ -30,8 +30,6 @@ export const deleteMovie = createAsyncThunk('deleteMovie', async (id : number) =
 export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie) => {
   return createOrUpdateMovieApi(movie);
 });
-
-export const hideMovieDetails = createAction<Movie>('hideMovieDetails');
 
 export const movieReducer = createReducer(initialState, (builder) => {
   builder

@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import {DatePickerInput} from '../../Forms/DatePickerInput';
 import {MultiSelectInput} from '../../Forms/MultiSelectInput';
 import {TextAreaInput} from '../../Forms/TextAreaInput';
+import {useParams} from 'react-router-dom';
 
 interface EditModalProps{
   movie?: Movie,
@@ -17,10 +18,11 @@ interface EditModalProps{
 
 export function EditModal({onClose, movie} : EditModalProps) {
   const reduxDispatch = useAppDispatch();
+  const params = useParams();
 
   const onSave = async (form) => {
     try {
-      await reduxDispatch(updateMovie(form)).unwrap().then(() => reduxDispatch(getMovies(null)));
+      await reduxDispatch(updateMovie(form)).unwrap().then(() => reduxDispatch(getMovies(params.searchQuery)));
       onClose();
     } catch (err) {
       alert(err.message);
@@ -83,7 +85,6 @@ export function EditModal({onClose, movie} : EditModalProps) {
         })}
         onSubmit={async (values) => {
           const id = movie.id;
-          debugger;
           await onSave({...values, id});
         }}>
 

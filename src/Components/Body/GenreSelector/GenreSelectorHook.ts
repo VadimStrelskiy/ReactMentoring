@@ -63,14 +63,13 @@ export const useGenres = () => {
   }, [genres]);
 
   useEffect(() => {
+
     if (!mounted.current) {
       mounted.current = true;
       setGenres(genresQuery ? genresQuery : allGenres);
     } else {
       if (params.searchQuery) {
         setGenres(genresQuery ? genresQuery : allGenres);
-      } else {
-        setGenres(allGenres);
       }
     }
   }, [params]);
