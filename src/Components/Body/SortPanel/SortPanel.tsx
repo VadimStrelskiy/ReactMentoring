@@ -2,7 +2,7 @@
 
 import {SortOptionType} from '../../App';
 import {useEffect, useRef, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 import './SortPanel.scss';
 
@@ -34,28 +34,27 @@ const sortOptions : SortOption[] =
 export function SortPanel() {
   const navigate = useNavigateMovie();
 
-  const params = useParams();
-  let sortBy = null;
-  let sortOrder = null;
+  const {searchQuery} = useParams();
+  const [searchParams] = useSearchParams();
+
   const mounted = useRef(null);
 
   let parsedSortOption;
-  if (params.searchQuery) {
-    sortBy = new URLSearchParams(params.searchQuery).get('sortBy');
-    sortOrder = new URLSearchParams(params.searchQuery).get('sortOrder');
-    if (sortBy && sortOrder) {
-      if (sortBy == 'vote_average') {
-        if (sortOrder == 'asc') {
-          parsedSortOption = SortOptionType.RatingAsc;
-        } else if (sortOrder == 'desc') {
-          parsedSortOption = SortOptionType.RatingDesc;
-        }
-      } else if (sortBy == 'release_date') {
-        if (sortOrder == 'asc') {
-          parsedSortOption = SortOptionType.ReleaseDateAsc;
-        } else if (sortOrder == 'desc') {
-          parsedSortOption = SortOptionType.ReleaseDateDesc;
-        }
+
+  const sortBy = searchParams.get('sortBy');
+  const sortOrder = searchParams.get('sortOrder');
+  if (sortBy && sortOrder) {
+    if (sortBy == 'vote_average') {
+      if (sortOrder == 'asc') {
+        parsedSortOption = SortOptionType.RatingAsc;
+      } else if (sortOrder == 'desc') {
+        parsedSortOption = SortOptionType.RatingDesc;
+      }
+    } else if (sortBy == 'release_date') {
+      if (sortOrder == 'asc') {
+        parsedSortOption = SortOptionType.ReleaseDateAsc;
+      } else if (sortOrder == 'desc') {
+        parsedSortOption = SortOptionType.ReleaseDateDesc;
       }
     }
   }
@@ -64,44 +63,37 @@ export function SortPanel() {
   const [sortOption, setSortOption] = useState(defaultSort);
 
   function sortByChanged(sortBy : SortOptionType) {
-    let urlSearchParams;
-    if (params.searchQuery) {
-      urlSearchParams = new URLSearchParams(params.searchQuery);
-    } else {
-      urlSearchParams = new URLSearchParams();
-    }
-
     switch (sortBy) {
       case SortOptionType.RatingAsc:
-        urlSearchParams.set('sortOrder', 'asc');
-        urlSearchParams.set('sortBy', 'vote_average');
+        searchParams.set('sortOrder', 'asc');
+        searchParams.set('sortBy', 'vote_average');
         break;
       case SortOptionType.RatingDesc:
-        urlSearchParams.set('sortOrder', 'desc');
-        urlSearchParams.set('sortBy', 'vote_average');
+        searchParams.set('sortOrder', 'desc');
+        searchParams.set('sortBy', 'vote_average');
         break;
       case SortOptionType.ReleaseDateAsc:
-        urlSearchParams.set('sortOrder', 'asc');
-        urlSearchParams.set('sortBy', 'release_date');
+        searchParams.set('sortOrder', 'asc');
+        searchParams.set('sortBy', 'release_date');
         break;
       case SortOptionType.ReleaseDateDesc:
-        urlSearchParams.set('sortOrder', 'desc');
-        urlSearchParams.set('sortBy', 'release_date');
+        searchParams.set('sortOrder', 'desc');
+        searchParams.set('sortBy', 'release_date');
         break;
     }
 
-    navigate(urlSearchParams.toString());
+    navigate(searchQuery, searchParams);
   }
 
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
     } else {
-      if (params.searchQuery && parsedSortOption) {
+      if (searchParams && parsedSortOption) {
         setSortOption(defaultSort);
       }
     }
-  }, [params]);
+  }, [searchParams]);
 
 
   return (<div className='sort-panel'>

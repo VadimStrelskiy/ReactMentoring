@@ -2,12 +2,19 @@ import {Movie} from '../Components/App';
 
 const baseUrl = 'http://localhost:4000/movies';
 
-export async function getMoviesApi(searchQuery : string) : Promise<Movie[]> {
+export async function getMoviesApi(searchQuery : string, searchParams : string) : Promise<Movie[]> {
   return await handleError(async () =>{
     let url = baseUrl;
+
     if (searchQuery) {
-      url += '?' + searchQuery;
+      url += '?searchBy=title&search=' + searchQuery;
     }
+
+    if (searchParams) {
+      url += searchQuery ? '&' : '?';
+      url += searchParams;
+    }
+
     const response = await window.fetch(url);
     const data = await response.json();
     if (response.ok) {

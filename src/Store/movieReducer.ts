@@ -1,4 +1,4 @@
-import {createReducer, createAction, createAsyncThunk, configureStore} from '@reduxjs/toolkit';
+import {createReducer, createAsyncThunk, configureStore} from '@reduxjs/toolkit';
 import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi, getMovieApi} from '../Services/MovieService';
 import {Movie} from '../Components/App';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
@@ -15,8 +15,13 @@ const initialState : State = {
   movie: null,
 };
 
-export const getMovies = createAsyncThunk('getMovies', async (searchQuery : string) => {
-  return getMoviesApi(searchQuery ? searchQuery : '');
+export interface MovieRequest{
+  searchQuery: string,
+  searchParams: string
+}
+
+export const getMovies = createAsyncThunk('getMovies', async ({searchQuery, searchParams}: MovieRequest) => {
+  return getMoviesApi(searchQuery, searchParams);
 });
 
 export const getMovie = createAsyncThunk('getMovie', async (id : string) => {

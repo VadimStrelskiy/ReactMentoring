@@ -1,5 +1,5 @@
 import {useCallback, useState, useEffect, useRef} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
 import {Genres} from '../../../Store/genres';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 
@@ -7,17 +7,17 @@ const ALL = 'ALL';
 export const allGenres = [ALL, ...Genres.sort()];
 
 export const useGenres = () => {
-  let genresQuery = null;
-  const [genres, setGenres] = useState(genresQuery ? genresQuery : allGenres);
+  let genresFilter = null;
+  const [genres, setGenres] = useState(genresFilter ? genresFilter : allGenres);
   const navigate = useNavigateMovie();
   const mounted = useRef(null);
-  const params = useParams();
+  const {searchQuery} = useParams();
+  const [searchParams] = useSearchParams();
 
-  if (params.searchQuery) {
-    const filter = new URLSearchParams(params.searchQuery).get('filter');
-    if (filter) {
-      genresQuery = filter.split(',');
-    }
+  const filter = searchParams.get('filter');
+
+  if (filter) {
+    genresFilter = filter.split(',');
   }
 
   const updateGenres = useCallback((genre : string) => {
@@ -42,37 +42,24 @@ export const useGenres = () => {
 
     setGenres(newGenres);
 
-    let urlSearchParams;
-    if (params.searchQuery) {
-      urlSearchParams = new URLSearchParams(params.searchQuery);
-    } else {
-      urlSearchParams = new URLSearchParams();
-    }
-
     if (newGenres.includes(ALL) || newGenres.length == 0) {
-      if (!urlSearchParams.get('sortBy')) {
-        navigate('');
-      } else {
-        urlSearchParams.delete('filter');
-        navigate(urlSearchParams.toString());
-      }
+      searchParams.delete('filter');
+      navigate(searchQuery, searchParams);
     } else {
-      urlSearchParams.set('filter', newGenres.filter((g) => g !== ALL).join(','));
-      navigate(urlSearchParams.toString());
+      searchParams.set('filter', newGenres.filter((g) => g !== ALL).join(','));
+      navigate(searchQuery, searchParams);
     }
-  }, [genres]);
+  }, [genres, searchQuery, searchParams]);
 
   useEffect(() => {
-
     if (!mounted.current) {
       mounted.current = true;
-      setGenres(genresQuery ? genresQuery : allGenres);
     } else {
-      if (params.searchQuery) {
-        setGenres(genresQuery ? genresQuery : allGenres);
+      if (genres.length > 0) {
+        setGenres(genresFilter ? genresFilter : allGenres);
       }
     }
-  }, [params]);
+  }, [searchParams]);
 
   return [genres, updateGenres];
 };

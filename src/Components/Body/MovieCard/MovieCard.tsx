@@ -7,7 +7,8 @@ import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
-import {useSearchParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
+import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 
 
 interface MovieCardProps{
@@ -17,10 +18,14 @@ interface MovieCardProps{
 export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+
+  const {searchQuery} = useParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigateMovie();
 
   function movieClicked(id) {
-    setSearchParams({movie: id});
+    searchParams.set('movie', id);
+    navigate(searchQuery, searchParams);
   }
 
   const elements : ContextMenuElement[] = [

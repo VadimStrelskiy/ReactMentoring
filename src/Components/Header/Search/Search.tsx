@@ -1,28 +1,26 @@
 import './Search.scss';
-import {getMovies, useAppDispatch} from '../../../Store/movieReducer';
 import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 import Popup from 'reactjs-popup';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 
 export function Search() {
-  const dispatch = useAppDispatch();
   const {searchQuery} = useParams();
+  const [searchParams] = useSearchParams();
   const [editOpen, setEditOpen] = useState(false);
   const [searchValue, setSearchValue] = useState(searchQuery);
   const navigate = useNavigateMovie();
 
   useEffect(() => {
     setSearchValue(searchQuery);
-    dispatch(getMovies(searchQuery));
     if (!searchQuery) {
       setSearchValue('');
     }
   }, [searchQuery]);
 
   function search(query) {
-    navigate(query);
+    navigate(query, searchParams);
   }
 
   return (

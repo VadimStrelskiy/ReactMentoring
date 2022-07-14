@@ -1,15 +1,20 @@
 import {Search} from './Search/Search';
 import {SearchToggle} from './SearchToggle/SearchToggle';
 import {MovieDetails} from './MovieDetails/MovieDetails';
-import {getMovie, useAppDispatch, useAppSelector} from '../../Store/movieReducer';
+import {getMovie, getMovies, useAppDispatch, useAppSelector} from '../../Store/movieReducer';
 import './Header.scss';
-import {useSearchParams} from 'react-router-dom';
-
+import {useSearchParams, useParams} from 'react-router-dom';
+import {useEffect} from 'react';
 
 export function Header() {
-  const [searchParams] = useSearchParams();
   const movie = useAppSelector((state) => state.movie);
   const dispatch = useAppDispatch();
+  const {searchQuery} = useParams();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    dispatch(getMovies({searchQuery: searchQuery, searchParams: searchParams.toString()}));
+  }, [searchQuery, searchParams]);
 
   const movieId = searchParams.get('movie');
 

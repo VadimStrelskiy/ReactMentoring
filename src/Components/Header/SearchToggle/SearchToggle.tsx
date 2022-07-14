@@ -1,12 +1,15 @@
 import './SearchToggle.scss';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
+import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 
 export function SearchToggle() {
-  const navigate = useNavigate();
   const {searchQuery} = useParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigateMovie();
 
   function searchClicked() {
-    navigate('/search' + (searchQuery ? ('/' + searchQuery) : ''));
+    searchParams.delete('movie');
+    navigate(searchQuery, searchParams);
   }
 
   return (
