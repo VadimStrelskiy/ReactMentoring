@@ -2,6 +2,11 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true
-  }
+    "sourceMap": true,
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }

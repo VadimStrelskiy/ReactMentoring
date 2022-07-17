@@ -7,6 +7,7 @@ import * as router from 'react-router';
 import {Provider} from 'react-redux';
 import * as MovieService from '../../Services/MovieService';
 
+
 const renderComponent = (params) => render(
     <Provider store={store}>
         <MemoryRouter initialEntries={[`/search/test${params}`]}>
@@ -18,12 +19,6 @@ const renderComponent = (params) => render(
     </Provider>
 );
 
-
-// global.fetch = jest.fn(() =>
-//   Promise.resolve({
-//     json: () => Promise.resolve({ rates: { CAD: 1.42 } }),
-//   })
-// );
 
 const apiMock = jest.fn();
 beforeEach(() => {
