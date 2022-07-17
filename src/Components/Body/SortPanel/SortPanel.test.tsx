@@ -1,11 +1,12 @@
 import { SortPanel } from "./SortPanel";
-import {render, screen } from '@testing-library/react'
+import {render, fireEvent } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
 
-const renderComponent = (query) => render(
-    <MemoryRouter initialEntries={[`/search${query}`]}>
+import * as router from 'react-router';
+
+const renderComponent = (params) => render(
+    <MemoryRouter initialEntries={[`/search/test${params}`]}>
         <Routes>
             <Route path='/search' element={<SortPanel/>}/>
             <Route path='/search/:searchQuery' element={<SortPanel/>}/>
@@ -13,63 +14,48 @@ const renderComponent = (query) => render(
     </MemoryRouter>
 );
 
+const navigateMock = jest.fn();
+beforeEach(() => {
+    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigateMock)
+})
+
 it('initially rating desc selected', () =>{
     const {container, getByRole} = renderComponent('');
-    screen.debug();
     expect(getByRole('combobox')).toHaveValue('4');
-
-    //expect(container.getElementsByClassName('selected').length).toBe(10);
-    //expect(getByText('ALL')).toHaveClass('selected');
 });
 
-// it('applies genres from query', () =>{
-//     const {container, getByText} = renderComponent('/filter=Action,Adventure');
+it('changing option applies navigate',  async() =>{
+    const {container, getByRole} = renderComponent('');
 
-//     expect(container.getElementsByClassName('selected').length).toBe(2);
-//     expect(getByText('Action')).toHaveClass('selected');
-//     expect(getByText('Adventure')).toHaveClass('selected');
-// });
+    await fireEvent.change(getByRole('combobox'), {target: {value: '1'}})
+    expect(navigateMock).toBeCalledWith('/search/test?sortOrder=asc&sortBy=release_date');
 
-// it('update genre after click', async () =>{
+    await fireEvent.change(getByRole('combobox'), {target: {value: '2'}})
+    expect(navigateMock).toBeCalledWith('/search/test?sortOrder=desc&sortBy=release_date');
 
-//     const {container, getByText} = renderComponent('/filter=Action,Adventure');
+    await fireEvent.change(getByRole('combobox'), {target: {value: '3'}})
+    expect(navigateMock).toBeCalledWith('/search/test?sortOrder=asc&sortBy=vote_average');
 
-//     await userEvent.click(getByText('Romance'));
-//     expect(container.getElementsByClassName('selected').length).toBe(3);
-//     expect(getByText('Action')).toHaveClass('selected');
-//     expect(getByText('Adventure')).toHaveClass('selected');
-//     expect(getByText('Romance')).toHaveClass('selected');
-// });
+    await fireEvent.change(getByRole('combobox'), {target: {value: '4'}})
+    expect(navigateMock).toBeCalledWith('/search/test?sortOrder=desc&sortBy=vote_average');
+});
 
-// it('update genre after click ALL', async () =>{
+it('initially release date asc selected in query', () =>{
+    const {container, getByRole} = renderComponent('?sortOrder=asc&sortBy=release_date');
+    expect(getByRole('combobox')).toHaveValue('1');
+});
 
-//     const {container, getByText} = renderComponent('/filter=Action,Adventure');
+it('initially release date asc selected in query', () =>{
+    const {container, getByRole} = renderComponent('?sortOrder=desc&sortBy=release_date');
+    expect(getByRole('combobox')).toHaveValue('2');
+});
 
-//     await userEvent.click(getByText('ALL'));
-//     expect(container.getElementsByClassName('selected').length).toBe(10);
-// });
+it('initially rating asc selected in query', () =>{
+    const {container, getByRole} = renderComponent('?sortOrder=asc&sortBy=vote_average');
+    expect(getByRole('combobox')).toHaveValue('3');
+});
 
-// it('deselect all after click ALL', async () =>{
-
-//     const {container, getByText} = renderComponent('');
-
-//     await userEvent.click(getByText('ALL'));
-//     expect(container.getElementsByClassName('selected').length).toBe(0);
-// });
-
-// it('deselect genre after click', async () =>{
-
-//     const {container, getByText} = renderComponent('/filter=Action,Adventure');
-
-//     await userEvent.click(getByText('Action'));
-//     expect(container.getElementsByClassName('selected').length).toBe(1);
-//     expect(getByText('Adventure')).toHaveClass('selected');
-// });
-
-// it('select all after adding missing all', async () =>{
-
-//     const {container, getByText} = renderComponent('/filter=Action,Adventure,Drama,Romance,Animation,Family,Comedy,Fantasy');
-//     expect(container.getElementsByClassName('selected').length).toBe(8);
-//     await userEvent.click(getByText('Science Fiction'));
-//     expect(container.getElementsByClassName('selected').length).toBe(10);
-// });
+it('initially rating desc selected in query', () =>{
+    const {container, getByRole} = renderComponent('?sortOrder=desc&sortBy=vote_average');
+    expect(getByRole('combobox')).toHaveValue('4');
+});

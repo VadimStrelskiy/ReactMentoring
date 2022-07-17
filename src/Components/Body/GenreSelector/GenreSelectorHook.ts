@@ -8,17 +8,18 @@ export const allGenres = [ALL, ...Genres.sort()];
 
 export const useGenres = () => {
   let genresFilter = null;
-  const [genres, setGenres] = useState(genresFilter ? genresFilter : allGenres);
+  
   const navigate = useNavigateMovie();
   const mounted = useRef(null);
   const {searchQuery} = useParams();
   const [searchParams] = useSearchParams();
 
   const filter = searchParams.get('filter');
-
   if (filter) {
     genresFilter = filter.split(',');
   }
+
+  const [genres, setGenres] = useState(genresFilter ? genresFilter : allGenres);
 
   const updateGenres = useCallback((genre : string) => {
     let newGenres;
