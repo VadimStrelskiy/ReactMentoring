@@ -1,34 +1,18 @@
 import {Movie} from '../Components/App';
-import {SortOptionType} from '../Components/App';
 
 const baseUrl = 'http://localhost:4000/movies';
 
-export async function getMoviesApi(genres : string[], sortBy : SortOptionType) : Promise<Movie[]> {
+export async function getMoviesApi(searchQuery : string, searchParams : string) : Promise<Movie[]> {
   return await handleError(async () =>{
-    let sort;
-    switch (sortBy) {
-      case SortOptionType.RatingAsc:
-        sort = 'sortOrder=asc&sortBy=vote_average';
-        break;
-      case SortOptionType.RatingDesc:
-        sort = 'sortOrder=desc&sortBy=vote_average';
-        break;
-      case SortOptionType.ReleaseDateAsc:
-        sort = 'sortOrder=asc&sortBy=release_date';
-        break;
-      case SortOptionType.ReleaseDateDesc:
-        sort = 'sortOrder=desc&sortBy=release_date';
-        break;
+    let url = baseUrl;
+
+    if (searchQuery) {
+      url += '?searchBy=title&search=' + searchQuery;
     }
 
-    let url = baseUrl + '?' + sort;
-    let filter;
-    if (genres.length > 0) {
-      filter = '&filter=' + genres.join(',');
-    }
-
-    if (filter) {
-      url+= filter;
+    if (searchParams) {
+      url += searchQuery ? '&' : '?';
+      url += searchParams;
     }
 
     const response = await window.fetch(url);
@@ -41,6 +25,18 @@ export async function getMoviesApi(genres : string[], sortBy : SortOptionType) :
   });
 }
 
+export async function getMovieApi(id : string) : Promise<Movie> {
+  return await handleError(async () =>{
+    const url = baseUrl + '/' + id;
+    const response = await window.fetch(url);
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    }
+
+    throw new Error(response.statusText ? response.statusText : data);
+  });
+}
 
 export async function deleteMovieApi(id : number) {
   return await handleError(async () => {

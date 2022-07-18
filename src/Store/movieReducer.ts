@@ -1,27 +1,31 @@
-import {createReducer, createAction, createAsyncThunk, configureStore} from '@reduxjs/toolkit';
-import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi} from '../Services/MovieService';
-import {Movie, SortOptionType} from '../Components/App';
+import {createReducer, createAsyncThunk, configureStore} from '@reduxjs/toolkit';
+import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi, getMovieApi} from '../Services/MovieService';
+import {Movie} from '../Components/App';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 
 export interface State{
     error : string,
     movies : Movie[],
-    genres : string[],
-    sortBy : SortOptionType
-    movieDetails : Movie
+    movie : Movie
 };
 
 const initialState : State = {
   error: null,
   movies: [],
-  genres: [],
-  sortBy: SortOptionType.ReleaseDateAsc,
-  movieDetails: null,
+  movie: null,
 };
 
-export const getMovies = createAsyncThunk('getMovies', async (_, thunkAPI) => {
-  const state = thunkAPI.getState() as RootState;
-  return getMoviesApi(state.genres, state.sortBy);
+export interface MovieRequest{
+  searchQuery: string,
+  searchParams: string
+}
+
+export const getMovies = createAsyncThunk('getMovies', async ({searchQuery, searchParams}: MovieRequest) => {
+  return getMoviesApi(searchQuery, searchParams);
+});
+
+export const getMovie = createAsyncThunk('getMovie', async (id : string) => {
+  return getMovieApi(id);
 });
 
 export const deleteMovie = createAsyncThunk('deleteMovie', async (id : number) => {
@@ -32,10 +36,6 @@ export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie)
   return createOrUpdateMovieApi(movie);
 });
 
-export const setFilter = createAction<string[]>('setFilter');
-export const setSortBy = createAction<SortOptionType>('setSortBy');
-export const showMovieDetails = createAction<Movie>('showMovieDetails');
-
 export const movieReducer = createReducer(initialState, (builder) => {
   builder
       .addCase(getMovies.fulfilled, (state, action) => {
@@ -45,16 +45,12 @@ export const movieReducer = createReducer(initialState, (builder) => {
       .addCase(getMovies.rejected, (state, action) => {
         state.error = action.error.message;
       })
-      .addCase(setFilter, (state, action) => {
-        state.genres = action.payload;
+      .addCase(getMovie.fulfilled, (state, action) => {
+        state.movie = action.payload;
+        state.error = null;
       })
-      .addCase(setSortBy, (state, action) => {
-        state.sortBy = action.payload;
-      })
-      .addCase(deleteMovie.fulfilled, () => {
-      })
-      .addCase(showMovieDetails, (state, action) => {
-        state.movieDetails = action.payload;
+      .addCase(getMovie.rejected, (state, action) => {
+        state.error = action.error.message;
       });
 });
 
