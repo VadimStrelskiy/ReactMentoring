@@ -28,7 +28,7 @@ export function MultiSelectInput({label, placeholder, name, options} : MultiSele
         onChange={(e) => {
           setFieldValue(field.name, e.map((g) => g.value));
         }}
-        labelledBy={placeholder} />
+        labelledBy={placeholder}/>
       {
           touched && error ?
             (<div className="error">{error}</div>) :

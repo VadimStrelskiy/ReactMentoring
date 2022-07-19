@@ -8,7 +8,7 @@ export const allGenres = [ALL, ...Genres.sort()];
 
 export const useGenres = () => {
   let genresFilter = null;
-  
+
   const navigate = useNavigateMovie();
   const mounted = useRef(null);
   const {searchQuery} = useParams();
