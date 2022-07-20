@@ -1,5 +1,5 @@
 import {EditModal} from './EditModal';
-import {render, waitFor, fireEvent} from '@testing-library/react';
+import {render, waitFor, fireEvent, act} from '@testing-library/react';
 import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import '@testing-library/jest-dom';
 import {store} from '../../../Store/movieReducer';
@@ -36,6 +36,8 @@ beforeEach(() => {
 
 it('submit valid form', async () =>{
   const {getByText} = renderComponent('');
-  fireEvent.click(getByText('SUBMIT'));
+  await act(() => {
+    fireEvent.click(getByText('SUBMIT'));
+  });
   await waitFor(() => expect(apiMock).toBeCalledWith(movie), {timeout: 2000});
 });

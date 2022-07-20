@@ -1,5 +1,5 @@
 import {DeleteModal} from './DeleteModal';
-import {render, waitFor, fireEvent} from '@testing-library/react';
+import {render, waitFor, fireEvent, act} from '@testing-library/react';
 import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import '@testing-library/jest-dom';
 import {store} from '../../../Store/movieReducer';
@@ -24,6 +24,9 @@ beforeEach(() => {
 
 it('submit valid form', async () =>{
   const {getByText} = renderComponent('');
-  fireEvent.click(getByText('CONFIRM'));
+  await act(() => {
+    fireEvent.click(getByText('CONFIRM'));
+  });
+
   await waitFor(() => expect(apiMock).toBeCalledWith(5), {timeout: 2000});
 });

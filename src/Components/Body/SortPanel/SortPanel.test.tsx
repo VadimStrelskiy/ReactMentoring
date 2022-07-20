@@ -1,8 +1,7 @@
 import {SortPanel} from './SortPanel';
-import {render, fireEvent} from '@testing-library/react';
+import {render, fireEvent, act} from '@testing-library/react';
 import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import '@testing-library/jest-dom';
-
 import * as router from 'react-router';
 
 const renderComponent = (params) => render(
@@ -27,16 +26,25 @@ it('initially rating desc selected', () =>{
 it('changing option applies navigate', async () =>{
   const {getByRole} = renderComponent('');
 
-  await fireEvent.change(getByRole('combobox'), {target: {value: '1'}});
+  await act(() => {
+    fireEvent.change(getByRole('combobox'), {target: {value: '1'}});
+  });
+
   expect(navigateMock).toBeCalledWith('/search/test?sortOrder=asc&sortBy=release_date');
 
-  await fireEvent.change(getByRole('combobox'), {target: {value: '2'}});
+  await act(() => {
+    fireEvent.change(getByRole('combobox'), {target: {value: '2'}});
+  });
   expect(navigateMock).toBeCalledWith('/search/test?sortOrder=desc&sortBy=release_date');
 
-  await fireEvent.change(getByRole('combobox'), {target: {value: '3'}});
+  await act(() => {
+    fireEvent.change(getByRole('combobox'), {target: {value: '3'}});
+  });
   expect(navigateMock).toBeCalledWith('/search/test?sortOrder=asc&sortBy=vote_average');
 
-  await fireEvent.change(getByRole('combobox'), {target: {value: '4'}});
+  await act(() => {
+    fireEvent.change(getByRole('combobox'), {target: {value: '4'}});
+  });
   expect(navigateMock).toBeCalledWith('/search/test?sortOrder=desc&sortBy=vote_average');
 });
 

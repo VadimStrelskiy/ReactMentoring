@@ -1,5 +1,5 @@
 import {MovieCard} from './MovieCard';
-import {render} from '@testing-library/react';
+import {render, act} from '@testing-library/react';
 import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import '@testing-library/jest-dom';
 import {Movie} from '../../App';
@@ -33,6 +33,6 @@ beforeEach(() => {
 
 it('image click triggers navigate', async () =>{
   const {container} = renderComponent('?filter=Action');
-  await userEvent.click(container.getElementsByClassName('movie-image')[0]);
+  await act(() => userEvent.click(container.getElementsByClassName('movie-image')[0]));
   expect(navigateMock).toBeCalledWith('/search/test?filter=Action&movie=5');
 });
