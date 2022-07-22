@@ -4,7 +4,7 @@ import {NotFound} from './NotFound/NotFound';
 import {Footer} from './Footer/Footer';
 import {HashRouter} from 'react-router-dom';
 import {Routes, Route, Navigate} from 'react-router-dom';
-import './App.scss';
+import './App.module.scss';
 
 export interface Movie {
   id: number,

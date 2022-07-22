@@ -4,7 +4,7 @@ import {SortOptionType} from '../../App';
 import {useEffect, useRef, useState} from 'react';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
-import './SortPanel.scss';
+import './SortPanel.module.scss';
 
 export interface SortOption{
   value: SortOptionType,

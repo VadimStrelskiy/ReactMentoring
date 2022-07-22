@@ -1,4 +1,4 @@
-import './SearchToggle.scss';
+import './SearchToggle.module.scss';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 

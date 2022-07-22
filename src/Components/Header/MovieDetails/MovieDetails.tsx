@@ -1,4 +1,4 @@
-import './MovieDetails.scss';
+import './MovieDetails.module.scss';
 
 import {stringUtil} from '../../../Utils/stringUtil';
 import {Movie} from '../../App';

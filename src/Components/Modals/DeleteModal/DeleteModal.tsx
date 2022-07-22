@@ -1,4 +1,4 @@
-import './DeleteModal.scss';
+import './DeleteModal.module.scss';
 import {deleteMovie, getMovies, useAppDispatch} from '../../../Store/movieReducer';
 import {useParams, useSearchParams} from 'react-router-dom';
 

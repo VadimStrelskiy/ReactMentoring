@@ -1,4 +1,4 @@
-import './ContextMenu.scss';
+import './ContextMenu.module.scss';
 
 import {useState} from 'react';
 import Popup from 'reactjs-popup';

@@ -2,7 +2,7 @@ import {GenreSelector} from './GenreSelector/GenreSelector';
 import {SortPanel} from './SortPanel/SortPanel';
 import {MoviesList} from './MoviesList/MoviesList';
 import {ErrorBoundary} from './ErrorBoundary/ErrorBoundary';
-import './Body.scss';
+import './Body.module.scss';
 import {useAppSelector} from '../../Store/movieReducer';
 
 

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "next": "^12.2.2",
     "react": "^18.1.0",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.1.0",
@@ -11,7 +12,8 @@
     "build:dev": "cross-env NODE_ENV=development webpack --config webpack.dev.js",
     "build:prod": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
     "eslint": "npx eslint \"src/**\" --fix",
-    "test": "jest"
+    "test": "jest",
+    "next": "next"
   },
   "browserslist": {
     "production": [

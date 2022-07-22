@@ -2,7 +2,7 @@ import {Search} from './Search/Search';
 import {SearchToggle} from './SearchToggle/SearchToggle';
 import {MovieDetails} from './MovieDetails/MovieDetails';
 import {getMovie, getMovies, useAppDispatch, useAppSelector} from '../../Store/movieReducer';
-import './Header.scss';
+import './Header.module.scss';
 import {useSearchParams, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 
@@ -23,7 +23,7 @@ export function Header() {
   }
 
   return (
-    <header>
+    <header className='header'>
       <p className='netflix-roulett-text'><strong>netflix</strong>roulette</p>
 
       {movie == null || !movieId ?

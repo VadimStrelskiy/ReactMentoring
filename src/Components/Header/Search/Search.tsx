@@ -1,4 +1,4 @@
-import './Search.scss';
+import './Search.module.scss';
 import {useEffect, useState} from 'react';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';

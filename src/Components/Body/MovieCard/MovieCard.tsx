@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import './MovieCard.scss';
+import './MovieCard.module.scss';
 import Popup from 'reactjs-popup';
 import {useState} from 'react';
 import {Movie} from '../../App';

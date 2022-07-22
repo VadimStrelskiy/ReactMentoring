@@ -1,4 +1,4 @@
-import './GenreSelector.scss';
+import './GenreSelector.module.scss';
 import {useGenres, allGenres} from './GenreSelectorHook';
 
 export function GenreSelector() {

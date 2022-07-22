@@ -1,4 +1,4 @@
-import './EditModal.scss';
+import './EditModal.module.scss';
 import {Movie} from '../../App';
 import 'react-datepicker/dist/react-datepicker.css';
 import {Genres} from '../../../Store/genres';
