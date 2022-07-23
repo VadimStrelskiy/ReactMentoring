@@ -1,18 +1,18 @@
 @import '../../../common.scss';
 
-.movie-details-image{
+.movieDetailsImage{
     margin-left: 60px;
     margin-right: 60px;
     width: 322px;
     height: 455px;
 }
 
-.movie-details{
+.movieDetails{
     display: inline-block;
     vertical-align: top;
 }
 
-.movie-title{
+.movieTitle{
     @include white-text-large;
     text-transform: uppercase;
     display: inline-block;
@@ -20,7 +20,7 @@
     margin-bottom: 0px;
 }
 
-.movie-rating{
+.movieRating{
     @include white-text;
     display: inline-block;
     border-color: white;
@@ -34,24 +34,24 @@
     text-align: center;
 }
 
-.movie-genre{
+.movieGenre{
     @include white-text-small;
     opacity: 0.6;
     margin-bottom: 0px;
 }
 
-.movie-year{
+.movieYear{
     @include red-text;
     display: inline-block;
 }
 
-.movie-runtime{
+.movieRuntime{
     @include red-text;
     display: inline-block;
     margin-left: 40px;
 }
 
-.movie-description{
+.movieDescription{
     @include white-text;
     width: 600px;
     display: block;

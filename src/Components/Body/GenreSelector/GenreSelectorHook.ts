@@ -1,5 +1,4 @@
 import {useCallback, useState, useEffect, useRef} from 'react';
-import {useParams} from 'react-router-dom';
 import { useRouter } from 'next/router'
 import {Genres} from '../../../Store/genres';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';

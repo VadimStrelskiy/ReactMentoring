@@ -32,12 +32,12 @@ $grey: #232323;
     color: $red;
 }
 
-.popup-overlay[data-popup='modal']{
+.popupOverlay[data-popup='modal']{
     backdrop-filter: blur(4px);
     background: rgba(0, 0, 0, 0.8);
 }
 
-.transparent-button{
+.transparentButton{
     background: transparent;
     width: 180px;
     height: 60px;
@@ -46,7 +46,7 @@ $grey: #232323;
     @include red-text;
 }
 
-.red-button{
+.redButton{
     background: $red;
     width: 180px;
     height: 60px;

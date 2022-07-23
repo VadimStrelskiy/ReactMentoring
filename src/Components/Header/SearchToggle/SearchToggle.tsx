@@ -1,6 +1,6 @@
 import styles from './SearchToggle.module.scss';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 export function SearchToggle() {
   const router = useRouter();

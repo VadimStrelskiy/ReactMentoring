@@ -1,6 +1,7 @@
 import styles from './DeleteModal.module.scss';
 import {deleteMovie, getMovies, useAppDispatch} from '../../../Store/movieReducer';
 import { useRouter } from 'next/router';
+import { stringify } from 'querystring';
 
 interface DeleteModalProps{
   id: number,
@@ -13,15 +14,15 @@ export function DeleteModal({id, onClose} : DeleteModalProps) {
   const {searchQuery} = router.query;
 
   function onDelete() {
-    dispatch(deleteMovie(id)).then(() => dispatch(getMovies({searchQuery: searchQuery, searchParams: searchParams.toString()})));
+    dispatch(deleteMovie(id)).then(() => dispatch(getMovies({searchQuery: searchQuery as string, searchParams: stringify(router.query)})));
   }
 
   return (
-    <div className="delete-modal">
-      <button className='delete-close' onClick={onClose}>&times;</button>
+    <div className={styles.deleteModal}>
+      <button className={styles.deleteClose} onClick={onClose}>&times;</button>
       <h2>DELETE MOVIE</h2>
       <p>Are you sure you want to delete this movie?</p>
-      <button className='red-button' onClick={onDelete}>CONFIRM</button>
+      <button className={styles.redButton} onClick={onDelete}>CONFIRM</button>
     </div>
   );
 }

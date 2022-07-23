@@ -1,10 +1,7 @@
 import {Header} from './Header/Header';
 import {Body} from './Body/Body';
-import {NotFound} from './NotFound/NotFound';
 import {Footer} from './Footer/Footer';
 import styles from './App.module.scss';
-import { useRouter } from 'next/router';
-import { ParsedUrlQuery, stringify } from 'querystring';
 
 export interface Movie {
   id: number,
@@ -18,11 +15,6 @@ export interface Movie {
 }
 
 export function App() {
-
-  const router = useRouter();
-  const { searchQuery } = router.query;
-  console.log(searchQuery);
-
   return (
       <div className={styles.appContainer}>
         <Header/>

@@ -1,4 +1,4 @@
-//import './EditModal.module.scss';
+import styles from './EditModal.module.scss';
 import {Movie} from '../../App';
 import 'react-datepicker/dist/react-datepicker.css';
 import {Genres} from '../../../Store/genres';
@@ -9,7 +9,8 @@ import * as Yup from 'yup';
 import {DatePickerInput} from '../../Forms/DatePickerInput';
 import {MultiSelectInput} from '../../Forms/MultiSelectInput';
 import {TextAreaInput} from '../../Forms/TextAreaInput';
-import {useParams, useSearchParams} from 'react-router-dom';
+import { useRouter } from 'next/router';
+import { stringify } from 'querystring';
 
 interface EditModalProps{
   movie?: Movie,
@@ -18,13 +19,13 @@ interface EditModalProps{
 
 export function EditModal({onClose, movie} : EditModalProps) {
   const reduxDispatch = useAppDispatch();
-  const {searchQuery} = useParams();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const {searchQuery} = router.query;
 
 
   const onSave = async (form) => {
     try {
-      await reduxDispatch(updateMovie(form)).unwrap().then(() => reduxDispatch(getMovies({searchQuery: searchQuery, searchParams: searchParams.toString()})));
+      await reduxDispatch(updateMovie(form)).unwrap().then(() => reduxDispatch(getMovies({searchQuery: searchQuery as string, searchParams: stringify(router.query)})));
       onClose();
     } catch (err) {
       alert(err.message);
@@ -57,8 +58,8 @@ export function EditModal({onClose, movie} : EditModalProps) {
   };
 
   return (
-    <div className="edit-modal">
-      <button className='edit-close' onClick={onClose}>&times;</button>
+    <div className={styles.editModal}>
+      <button className={styles.editClose} onClick={onClose}>&times;</button>
       <h2>{isNew ? 'ADD MOVIE' : 'EDIT MOVIE'}</h2>
       <br/>
 
@@ -93,56 +94,56 @@ export function EditModal({onClose, movie} : EditModalProps) {
         {(formProps) =>{
           return (
             <Form>
-              <div className="first-column">
+              <div className={styles.firstColumn}>
                 <TextInput
                   label="TITLE"
                   name="title"
                   type="text"
                   placeholder="Movie title"/>
               </div>
-              <div className="second-column">
+              <div className={styles.secondColumn}>
                 <DatePickerInput
                   label="RELEASE DATE"
                   name="release_date"
                   placeholder="Select Date"/>
               </div>
-              <div className="first-column">
+              <div className={styles.firstColumn}>
                 <TextInput
                   label="POSTER URL"
                   name="poster_path"
                   type="text"
                   placeholder="https://"/>
               </div>
-              <div className="second-column">
+              <div className={styles.secondColumn}>
                 <TextInput
                   label="RATING"
                   name="vote_average"
                   type="number"
                   placeholder="7.8"/>
               </div>
-              <div className="first-column multiselect">
+              <div className={`${styles.firstColumn}, ${styles.multiselect}`}>
                 <MultiSelectInput
                   label="GENRE"
                   name="genres"
                   options={Genres}
                   placeholder="Select"/>
               </div>
-              <div className="second-column">
+              <div className={styles.secondColumn}>
                 <TextInput
                   label="RUNTIME"
                   name="runtime"
                   type="number"
                   placeholder="minutes"/>
               </div>
-              <div className="overview">
+              <div className={styles.overview}>
                 <TextAreaInput
                   label="OVERVIEW"
                   name="overview"
                   placeholder="Movie description"/>
               </div>
 
-              <button className='transparent-button reset-button' type='reset' onClick={() => formProps.resetForm({values: initialValues})}>RESET</button>
-              <button className='red-button submit-button' type='submit'>SUBMIT</button>
+              <button className={`${styles.transparentButton}, ${styles.resetButton}`} type='reset' onClick={() => formProps.resetForm({values: initialValues})}>RESET</button>
+              <button className={`${styles.redButton}, ${styles.submitButton}`} type='submit'>SUBMIT</button>
             </Form>
           );
         }

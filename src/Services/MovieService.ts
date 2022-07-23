@@ -1,4 +1,5 @@
 import {Movie} from '../Components/App';
+import axios from 'axios';
 
 const baseUrl = 'http://localhost:4000/movies';
 
@@ -15,13 +16,13 @@ export async function getMoviesApi(searchQuery : string, searchParams : string) 
       url += searchParams;
     }
 
-    const response = await window.fetch(url);
-    const data = await response.json();
-    if (response.ok) {
-      return data.data;
+    const response = await axios.get(url);
+
+    if (response.statusText == 'OK') {
+      return response.data.data;
     }
 
-    throw new Error(response.statusText ? response.statusText : data);
+    throw new Error(response.statusText ? response.statusText : response.data);
   });
 }
 
@@ -41,8 +42,8 @@ export async function getMovieApi(id : string) : Promise<Movie> {
 export async function deleteMovieApi(id : number) {
   return await handleError(async () => {
     const url = baseUrl + '/' + id;
-    const response = await window.fetch(url, {method: 'DELETE'});
-    if (response.ok) {
+    const response = await axios.delete(url);
+    if (response.statusText == 'OK') {
       return;
     }
 
@@ -63,12 +64,18 @@ export async function createOrUpdateMovieApi(movie : Movie) {
 
     const body = JSON.stringify(movie);
 
-    const response = await window.fetch(baseUrl, {method, body, headers});
-    if (response.ok) {
+    let response;
+    if(movie.id > 0){
+      response = await axios.put(baseUrl, {body, headers});
+    }else{
+      response = await axios.post(baseUrl, {body, headers});
+    }
+
+    if (response.statusText == 'OK') {
       return;
     }
 
-    const messages = (await response.json()).messages;
+    const messages = response.data.messages;
 
     throw new Error(messages.join('\r\n'));
   });

@@ -7,7 +7,22 @@ export const useNavigateMovie = () => {
 
   const doNavigate = useCallback((searchQuery : string, searchParams : ParsedUrlQuery) => {
     const queryPart = searchQuery ? ('/' + searchQuery) : '';
-    const paramPart = '?' + stringify(searchParams);
+
+    const params = new URLSearchParams(stringify(searchParams));
+    params.delete('searchQuery');
+    if(params.get('filter') == ''){
+      params.delete('filter');
+    }
+
+    if(params.get('movie') == ''){
+      params.delete('movie');
+    }
+
+    let paramPart = '';
+    if(params.toString() != ''){
+      paramPart = '?' + params.toString();
+    }
+
     router.push('/search' + queryPart + paramPart);
   }, []);
 

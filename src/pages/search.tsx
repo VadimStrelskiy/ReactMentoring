@@ -1,12 +1,20 @@
 import {App} from '../Components/App';
 import {Provider} from 'react-redux';
-import {store} from '../Store/movieReducer';
+import { wrapper, getMovies, useAppDispatch } from '../Store/movieReducer';
+
 import React from 'react';
 
-const index = () => (
-    <Provider store={store}>
-        <App />
-    </Provider>
-);
+const index = () => {
+    const dispatch = useAppDispatch();
+
+    return(<App />)
+};
+
+index.getInitialProps = wrapper.getInitialPageProps(
+    ({ dispatch }) =>
+      async () => {
+        await dispatch(getMovies({searchQuery: '', searchParams: ''}));
+      }
+  );
 
 export default index;
