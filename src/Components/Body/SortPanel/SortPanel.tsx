@@ -1,15 +1,20 @@
 /* eslint-disable no-unused-vars */
-
-import {SortOptionType} from '../../App';
 import {useEffect, useRef, useState} from 'react';
-import {useParams, useSearchParams} from 'react-router-dom';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
-import './SortPanel.module.scss';
+import styles from './SortPanel.module.scss';
+import { useRouter } from 'next/router';
 
 export interface SortOption{
   value: SortOptionType,
   label: string
 }
+
+enum SortOptionType {
+  ReleaseDateAsc = 1,
+  ReleaseDateDesc = 2,
+  RatingAsc = 3,
+  RatingDesc = 4
+};
 
 const sortOptions : SortOption[] =
 [
@@ -33,16 +38,16 @@ const sortOptions : SortOption[] =
 
 export function SortPanel() {
   const navigate = useNavigateMovie();
-
-  const {searchQuery} = useParams();
-  const [searchParams] = useSearchParams();
-
+  const router = useRouter();
+  const {searchQuery} = router.query;
+  
   const mounted = useRef(null);
 
   let parsedSortOption;
 
-  const sortBy = searchParams.get('sortBy');
-  const sortOrder = searchParams.get('sortOrder');
+  const sortBy = router.query.sortBy;
+  const sortOrder = router.query.sortOrder;
+
   if (sortBy && sortOrder) {
     if (sortBy == 'vote_average') {
       if (sortOrder == 'asc') {
@@ -60,43 +65,44 @@ export function SortPanel() {
   }
 
   const defaultSort = parsedSortOption != null ? parsedSortOption : SortOptionType.RatingDesc;
+
   const [sortOption, setSortOption] = useState(defaultSort);
 
   function sortByChanged(sortBy : SortOptionType) {
     switch (sortBy) {
       case SortOptionType.RatingAsc:
-        searchParams.set('sortOrder', 'asc');
-        searchParams.set('sortBy', 'vote_average');
+        router.query.sortOrder = 'asc';
+        router.query.sortBy = 'vote_average';
         break;
       case SortOptionType.RatingDesc:
-        searchParams.set('sortOrder', 'desc');
-        searchParams.set('sortBy', 'vote_average');
+        router.query.sortOrder = 'desc';
+        router.query.sortBy = 'vote_average';
         break;
       case SortOptionType.ReleaseDateAsc:
-        searchParams.set('sortOrder', 'asc');
-        searchParams.set('sortBy', 'release_date');
+        router.query.sortOrder = 'asc';
+        router.query.sortBy = 'release_date';
         break;
       case SortOptionType.ReleaseDateDesc:
-        searchParams.set('sortOrder', 'desc');
-        searchParams.set('sortBy', 'release_date');
+        router.query.sortOrder = 'desc';
+        router.query.sortBy = 'release_date';
         break;
     }
 
-    navigate(searchQuery, searchParams);
+    navigate(searchQuery, router.query);
   }
 
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
     } else {
-      if (searchParams && parsedSortOption) {
+      if (router.query && parsedSortOption) {
         setSortOption(defaultSort);
       }
     }
-  }, [searchParams]);
+  }, [router.query]);
 
 
-  return (<div className='sort-panel'>
+  return (<div className={styles.sortPanel}>
     <label>SORT BY</label>
     <select onChange={(e) => sortByChanged(+e.target.value)} value={sortOption}>
       {

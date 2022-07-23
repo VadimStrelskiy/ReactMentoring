@@ -3,7 +3,7 @@
 $element-height: 57px;
 $element-border-radius: 4px;
 
-.search-container{
+.searchContainer{
     width: 900px;
     position: absolute;
     margin: auto;
@@ -12,7 +12,7 @@ $element-border-radius: 4px;
     top: 250px;
 }
 
-.search-input{
+.searchInput{
     width: 70%;
     height: $element-height;
     display: inline-block;
@@ -34,7 +34,7 @@ $element-border-radius: 4px;
     }
 }
 
-.search-button{
+.searchButton{
     position: relative;
     width: 233px;
     height: $element-height;
@@ -43,7 +43,7 @@ $element-border-radius: 4px;
     @include white-text;
 }
 
-.add-movie{
+.addMovie{
     background: rgba(96, 96, 96, 0.68);
     border-radius: 4px;
     float:right;
@@ -56,7 +56,7 @@ $element-border-radius: 4px;
 
 }
 
-.find-your-movie{
+.findYourMovie{
     margin-left: 155px;
     font-weight: 300;
     font-size: 40px;
@@ -64,7 +64,7 @@ $element-border-radius: 4px;
     color: white;
 }
 
-.search-toggle{
+.searchToggle{
     display: inline-block;
     float: right;
     margin-top: 20px;

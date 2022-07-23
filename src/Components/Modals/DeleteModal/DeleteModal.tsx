@@ -1,6 +1,6 @@
-import './DeleteModal.module.scss';
+import styles from './DeleteModal.module.scss';
 import {deleteMovie, getMovies, useAppDispatch} from '../../../Store/movieReducer';
-import {useParams, useSearchParams} from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 interface DeleteModalProps{
   id: number,
@@ -9,8 +9,8 @@ interface DeleteModalProps{
 
 export function DeleteModal({id, onClose} : DeleteModalProps) {
   const dispatch = useAppDispatch();
-  const {searchQuery} = useParams();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const {searchQuery} = router.query;
 
   function onDelete() {
     dispatch(deleteMovie(id)).then(() => dispatch(getMovies({searchQuery: searchQuery, searchParams: searchParams.toString()})));

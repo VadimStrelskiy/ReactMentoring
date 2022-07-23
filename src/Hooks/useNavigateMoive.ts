@@ -1,13 +1,14 @@
-import {useNavigate} from 'react-router-dom';
 import {useCallback} from 'react';
+import { ParsedUrlQuery, stringify } from 'querystring';
+import { useRouter } from 'next/router'
 
 export const useNavigateMovie = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const doNavigate = useCallback((searchQuery : string, searchParams : URLSearchParams) => {
+  const doNavigate = useCallback((searchQuery : string, searchParams : ParsedUrlQuery) => {
     const queryPart = searchQuery ? ('/' + searchQuery) : '';
-    const paramPart = searchParams.toString() ? ('?' + searchParams.toString()) : '';
-    navigate('/search' + queryPart + paramPart);
+    const paramPart = '?' + stringify(searchParams);
+    router.push('/search' + queryPart + paramPart);
   }, []);
 
   return doNavigate;

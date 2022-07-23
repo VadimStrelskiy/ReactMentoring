@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import './MovieCard.module.scss';
+import styles from './MovieCard.module.scss';
 import Popup from 'reactjs-popup';
 import {useState} from 'react';
 import {Movie} from '../../App';
@@ -9,6 +9,7 @@ import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
 import {useParams, useSearchParams} from 'react-router-dom';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
+import { useRouter } from 'next/router';
 
 
 interface MovieCardProps{
@@ -20,12 +21,12 @@ export function MovieCard({movie}: MovieCardProps) {
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const {searchQuery} = useParams();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigateMovie();
+  const router = useRouter();
 
   function movieClicked(id) {
-    searchParams.set('movie', id);
-    navigate(searchQuery, searchParams);
+    router.query.movie = id;
+    navigate(searchQuery, router.query);
   }
 
   const elements : ContextMenuElement[] = [
@@ -40,12 +41,12 @@ export function MovieCard({movie}: MovieCardProps) {
   ];
 
   return (
-    <div className='movie-card-container'>
-      <img className='movie-image' src={movie.poster_path} onClick={() => movieClicked(movie.id)}/>
-      <p className='movie-title'>{movie.title}</p>
-      <p className='movie-year'>{new Date(movie.release_date).getFullYear()}</p>
-      <p className='movie-genre'>{movie.genres.join(', ')}</p>
-      <ContextMenu trigger={<svg className='movie-menu-button'>
+    <div className={styles.movieCardContainer}>
+      <img className={styles.movieImage} src={movie.poster_path} onClick={() => movieClicked(movie.id)}/>
+      <p className={styles.movieTitle}>{movie.title}</p>
+      <p className={styles.movieYear}>{new Date(movie.release_date).getFullYear()}</p>
+      <p className={styles.movieGenre}>{movie.genres.join(', ')}</p>
+      <ContextMenu trigger={<svg className={styles.movieMenuButton}>
         <circle fill="#2A202D" r="18px" cx="18px" cy="18px"/>
         <circle fill="white" r="2px" cx="18px" cy="10px"/>
         <circle fill="white" r="2px" cx="18px" cy="18px"/>
