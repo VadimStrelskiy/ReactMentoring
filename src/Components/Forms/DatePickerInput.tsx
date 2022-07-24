@@ -5,9 +5,11 @@ interface DatePickerInputProps{
   label: string,
   placeholder: string,
   name: string,
+  className: string,
+  errorClassName: string,
 }
 
-export function DatePickerInput({label, placeholder, name} : DatePickerInputProps) {
+export function DatePickerInput({label, placeholder, name, className, errorClassName} : DatePickerInputProps) {
   const {setFieldValue} = useFormikContext();
   const [field, {error, touched}] = useField({
     name: name,
@@ -16,13 +18,13 @@ export function DatePickerInput({label, placeholder, name} : DatePickerInputProp
   return (
     <>
       <label htmlFor={name}>{label}</label>
-      <DatePicker className='form-input' selected={(field.value && new Date(field.value)) || null}
+      <DatePicker className={className} selected={(field.value && new Date(field.value)) || null}
         onChange={(v) => {
           setFieldValue(field.name, v);
         }} placeholder={placeholder} />
       {
           touched && error ?
-            (<div className="error">{error}</div>) :
+            (<div className={errorClassName}>{error}</div>) :
            null
       }
     </>

@@ -29,13 +29,12 @@ export async function getMoviesApi(searchQuery : string, searchParams : string) 
 export async function getMovieApi(id : string) : Promise<Movie> {
   return await handleError(async () =>{
     const url = baseUrl + '/' + id;
-    const response = await window.fetch(url);
-    const data = await response.json();
-    if (response.ok) {
-      return data;
+    const response = await axios.get(url);
+    if (response.statusText == 'OK') {
+      return response.data;
     }
 
-    throw new Error(response.statusText ? response.statusText : data);
+    throw new Error(response.statusText ? response.statusText : response.data);
   });
 }
 
@@ -53,22 +52,15 @@ export async function deleteMovieApi(id : number) {
 
 export async function createOrUpdateMovieApi(movie : Movie) {
   return await handleError(async () => {
-    const method = movie.id > 0 ? 'PUT' : 'POST';
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-
     if (movie.id <= 0) {
       movie.id = undefined;
     }
 
-    const body = JSON.stringify(movie);
-
     let response;
     if(movie.id > 0){
-      response = await axios.put(baseUrl, {body, headers});
+      response = await axios.put(baseUrl, movie);
     }else{
-      response = await axios.post(baseUrl, {body, headers});
+      response = await axios.post(baseUrl, movie);
     }
 
     if (response.statusText == 'OK') {

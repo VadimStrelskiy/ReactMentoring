@@ -1,6 +1,5 @@
 import styles from './EditModal.module.scss';
 import {Movie} from '../../App';
-import 'react-datepicker/dist/react-datepicker.css';
 import {Genres} from '../../../Store/genres';
 import {TextInput} from '../../Forms/TextInput';
 import {updateMovie, getMovies, useAppDispatch} from '../../../Store/movieReducer';
@@ -99,51 +98,71 @@ export function EditModal({onClose, movie} : EditModalProps) {
                   label="TITLE"
                   name="title"
                   type="text"
-                  placeholder="Movie title"/>
+                  placeholder="Movie title"
+                  className={styles.formInput}
+                  errorClassName={styles.error}
+                  />
               </div>
               <div className={styles.secondColumn}>
                 <DatePickerInput
                   label="RELEASE DATE"
                   name="release_date"
-                  placeholder="Select Date"/>
+                  placeholder="Select Date"
+                  className={styles.formInput}
+                  errorClassName={styles.error}
+                  />
               </div>
               <div className={styles.firstColumn}>
                 <TextInput
                   label="POSTER URL"
                   name="poster_path"
                   type="text"
-                  placeholder="https://"/>
+                  placeholder="https://"
+                  className={styles.formInput}
+                  errorClassName={styles.error}
+                  />
               </div>
               <div className={styles.secondColumn}>
                 <TextInput
                   label="RATING"
                   name="vote_average"
                   type="number"
-                  placeholder="7.8"/>
+                  placeholder="7.8"
+                  className={styles.formInput}
+                  errorClassName={styles.error}
+                  />
               </div>
               <div className={`${styles.firstColumn}, ${styles.multiselect}`}>
                 <MultiSelectInput
                   label="GENRE"
                   name="genres"
                   options={Genres}
-                  placeholder="Select"/>
+                  placeholder="Select"
+                  errorClassName={styles.error}
+                  />
               </div>
               <div className={styles.secondColumn}>
                 <TextInput
                   label="RUNTIME"
                   name="runtime"
                   type="number"
-                  placeholder="minutes"/>
+                  placeholder="minutes"
+                  className={styles.formInput}
+                  errorClassName={styles.error}
+                  />
               </div>
               <div className={styles.overview}>
                 <TextAreaInput
                   label="OVERVIEW"
                   name="overview"
-                  placeholder="Movie description"/>
+                  placeholder="Movie description"
+                  className={styles.formInput}
+                  errorClassName={styles.error}
+                  />
               </div>
 
-              <button className={`${styles.transparentButton}, ${styles.resetButton}`} type='reset' onClick={() => formProps.resetForm({values: initialValues})}>RESET</button>
-              <button className={`${styles.redButton}, ${styles.submitButton}`} type='submit'>SUBMIT</button>
+              <button className={`${styles.transparentButton} ${styles.resetButton}`} type='reset' onClick={() => formProps.resetForm({values: initialValues})}>RESET</button>
+              <button className={`${styles.redButton} ${styles.submitButton}`} type='submit'>SUBMIT</button>
             </Form>
           );
         }

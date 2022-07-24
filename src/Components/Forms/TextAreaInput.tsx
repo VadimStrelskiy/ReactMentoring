@@ -4,9 +4,11 @@ interface TextAreInputProps{
   label: string,
   placeholder: string,
   name: string,
+  className: string,
+  errorClassName: string
 }
 
-export function TextAreaInput({label, placeholder, name} : TextAreInputProps) {
+export function TextAreaInput({label, placeholder, name, className, errorClassName} : TextAreInputProps) {
   const [field, {error, touched}] = useField({
     name: name,
   });
@@ -14,10 +16,10 @@ export function TextAreaInput({label, placeholder, name} : TextAreInputProps) {
   return (
     <>
       <label htmlFor={name}>{label}</label>
-      <textarea className="form-input" {...field} placeholder={placeholder} />
+      <textarea className={className} {...field} placeholder={placeholder} />
       {
           touched && error ?
-            (<div className="error">{error}</div>) :
+            (<div className={errorClassName}>{error}</div>) :
            null
       }
     </>

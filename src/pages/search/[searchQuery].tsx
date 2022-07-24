@@ -1,12 +1,22 @@
 import {App} from '../../Components/App';
-import {Provider} from 'react-redux';
-import {store} from '../../Store/movieReducer';
-import React from 'react';
+import { wrapper, getMovies, getMovie, resetMovie } from '../../Store/movieReducer';
+import { stringUtil } from '../../Utils/stringUtil';
+const index = () => {
+    return(<App />)
+};
 
-const index = () => (
-    <Provider store={store}>
-        <App />
-    </Provider>
-);
+index.getInitialProps = wrapper.getInitialPageProps(
+    ({ dispatch }) =>
+      async (context) => {
+        const params = stringUtil.createQueryParamString(context.query);
+        await dispatch(getMovies({searchQuery: context.query.searchQuery as string, searchParams: params}));
+        if(context.query.movie){
+          await dispatch(getMovie(context.query.movie as string));
+        }
+        else{
+          dispatch(resetMovie());
+        }
+      }
+  );
 
 export default index;

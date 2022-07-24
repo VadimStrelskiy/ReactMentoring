@@ -1,4 +1,4 @@
-import {createReducer, createAsyncThunk, configureStore, AnyAction, ThunkAction, Action} from '@reduxjs/toolkit';
+import {createReducer, createAsyncThunk, configureStore, AnyAction, ThunkAction, Action, createAction} from '@reduxjs/toolkit';
 import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi, getMovieApi} from '../Services/MovieService';
 import {Movie} from '../Components/App';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
@@ -37,6 +37,8 @@ export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie)
   return createOrUpdateMovieApi(movie);
 });
 
+export const resetMovie = createAction('resetMovie')
+
 export const movieReducer = createReducer(initialState, (builder) => {
   builder
       .addCase(getMovies.fulfilled, (state, action) => {
@@ -52,6 +54,9 @@ export const movieReducer = createReducer(initialState, (builder) => {
       })
       .addCase(getMovie.rejected, (state, action) => {
         state.error = action.error.message;
+      })
+      .addCase(resetMovie, (state) => {
+        state.movie = null;
       });
 });
 
@@ -59,8 +64,8 @@ export const movieReducer = createReducer(initialState, (builder) => {
 const reducer = (state: ReturnType<typeof movieReducer>, action: AnyAction) => {
   if (action.type === HYDRATE) {
     const nextState = {
-      ...state, // use previous state
-      ...action.payload, // apply delta from hydration
+      ...state,
+      ...action.payload,
     };
     return nextState;
   } else {
@@ -70,7 +75,7 @@ const reducer = (state: ReturnType<typeof movieReducer>, action: AnyAction) => {
 
 export const makeStore = () =>
   configureStore({
-    reducer,
+    reducer
   });
 
 type Store = ReturnType<typeof makeStore>;
@@ -85,12 +90,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 
 export const wrapper = createWrapper(makeStore, { debug: true });
-
-// export const store = configureStore({
-//   reducer: movieReducer,
-// });
-
-// export type RootState = ReturnType<typeof store.getState>
-// export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

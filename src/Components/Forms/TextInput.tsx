@@ -5,9 +5,11 @@ interface TextInputProps{
   placeholder: string,
   type: string,
   name: string,
+  className: string,
+  errorClassName: string
 }
 
-export function TextInput({label, placeholder, type, name} : TextInputProps) {
+export function TextInput({label, placeholder, type, name, className, errorClassName} : TextInputProps) {
   const [field, {error, touched}] = useField({
     name: name,
     type: type,
@@ -16,10 +18,10 @@ export function TextInput({label, placeholder, type, name} : TextInputProps) {
   return (
     <>
       <label htmlFor={name}>{label}</label>
-      <input className="form-input" {...field} placeholder={placeholder} type={type} />
+      <input className={className} {...field} placeholder={placeholder} type={type} />
       {
           touched && error ?
-            (<div className="error">{error}</div>) :
+            (<div className={errorClassName}>{error}</div>) :
            null
       }
     </>
