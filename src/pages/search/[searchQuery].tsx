@@ -8,7 +8,7 @@ const index = () => {
 index.getInitialProps = wrapper.getInitialPageProps(
     ({ dispatch }) =>
       async (context) => {
-        const params = stringUtil.createQueryParamString(context.query);
+        const params = stringUtil.createQueryParamString(context.query, null, false);
         await dispatch(getMovies({searchQuery: context.query.searchQuery as string, searchParams: params}));
         if(context.query.movie){
           await dispatch(getMovie(context.query.movie as string));

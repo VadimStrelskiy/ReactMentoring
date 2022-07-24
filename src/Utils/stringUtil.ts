@@ -8,7 +8,7 @@ export class stringUtil {
     return `${hours}h ${minutes}min`;
   }
 
-  static createQueryParamString(query : ParsedUrlQuery){
+  static createQueryParamString(query : ParsedUrlQuery, movieId : string, removeMovieParam : boolean){
     let params = '';
     if(query.filter){
       params += 'filter=' + query.filter;
@@ -28,11 +28,17 @@ export class stringUtil {
         params += 'sortOrder=' + query.sortOrder;
     }
 
-    if(query.movie){
-        if(params != ''){
-            params += '&';
-        }
-        params += 'movie=' + query.movie;
+    if(!removeMovieParam){
+      if(!movieId){
+        movieId = query.movie as string;
+      }
+  
+      if(movieId){
+          if(params != ''){
+              params += '&';
+          }
+          params += 'movie=' + movieId;
+      }
     }
 
     return params;

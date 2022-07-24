@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 import Popup from 'reactjs-popup';
 import {EditModal} from '../../Modals/EditModal/EditModal';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 export function Search() {
   const [editOpen, setEditOpen] = useState(false);

@@ -74,27 +74,7 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
         .multiSelect{
             display: block;
             width: 100%;
-            
-            .dropdownContainer{
-                background: $input-backgroupnd;
-                @include white-text;
-                height: $input-height;
-                padding-top: 7px;
-    
-                span{
-                    opacity: $input-opacity;
-                }
-            }
-    
-            .selectPanel{
-                background: $input-backgroupnd;
-                @include white-text;
-                
-                .select-item:hover, .select-item.selected{
-                    background: $red;
-                }
-            }
-    
+
             label{
                 @include white-text;
             }

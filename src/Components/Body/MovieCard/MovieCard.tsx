@@ -7,8 +7,8 @@ import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
-import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 import { useRouter } from 'next/router';
+import { stringUtil } from '../../../Utils/stringUtil';
 
 
 interface MovieCardProps{
@@ -19,14 +19,8 @@ export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   
-  const navigate = useNavigateMovie();
   const router = useRouter();
   const {searchQuery} = router.query;
-
-  function movieClicked(id) {
-    router.query.movie = id;
-    navigate(searchQuery as string, router.query);
-  }
 
   const elements : ContextMenuElement[] = [
     {
@@ -39,9 +33,14 @@ export function MovieCard({movie}: MovieCardProps) {
     },
   ];
 
+  function getMovieLink(id){
+    const queryPart = searchQuery ? ('/' + searchQuery) : '';
+    return '/search' + queryPart + '?' + stringUtil.createQueryParamString(router.query, id, false);
+  }
+
   return (
     <div className={styles.movieCardContainer}>
-      <img className={styles.movieImage} src={movie.poster_path} onClick={() => movieClicked(movie.id)}/>
+      <a href={getMovieLink(movie.id)}><img className={styles.movieImage} src={movie.poster_path} /></a>
       <p className={styles.movieTitle}>{movie.title}</p>
       <p className={styles.movieYear}>{new Date(movie.release_date).getFullYear()}</p>
       <p className={styles.movieGenre}>{movie.genres.join(', ')}</p>

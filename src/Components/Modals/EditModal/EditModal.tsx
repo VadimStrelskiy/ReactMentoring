@@ -10,6 +10,7 @@ import {MultiSelectInput} from '../../Forms/MultiSelectInput';
 import {TextAreaInput} from '../../Forms/TextAreaInput';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface EditModalProps{
   movie?: Movie,
