@@ -6,7 +6,7 @@ import styles from './Header.module.scss';
 
 export function Header() {
   const movie = useAppSelector((state) => state.movie);
-  
+
   return (
     <header className={styles.header}>
       <p className={styles.netflixRoulettText}><strong>netflix</strong>roulette</p>

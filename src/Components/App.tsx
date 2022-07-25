@@ -16,10 +16,10 @@ export interface Movie {
 
 export function App() {
   return (
-      <div className={styles.appContainer}>
-        <Header/>
-        <Body />
-        <Footer><p className='netflix-roulett-text'><b>netflix</b>roulette</p></Footer>
-      </div>
+    <div className={styles.appContainer}>
+      <Header/>
+      <Body />
+      <Footer><p className='netflix-roulett-text'><b>netflix</b>roulette</p></Footer>
+    </div>
   );
 }

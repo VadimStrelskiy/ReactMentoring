@@ -2,7 +2,7 @@ import {createReducer, createAsyncThunk, configureStore, AnyAction, ThunkAction,
 import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi, getMovieApi} from '../Services/MovieService';
 import {Movie} from '../Components/App';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import {createWrapper, HYDRATE} from 'next-redux-wrapper';
 
 export interface State{
     error : string,
@@ -37,7 +37,7 @@ export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie)
   return createOrUpdateMovieApi(movie);
 });
 
-export const resetMovie = createAction('resetMovie')
+export const resetMovie = createAction('resetMovie');
 
 export const movieReducer = createReducer(initialState, (builder) => {
   builder
@@ -73,12 +73,12 @@ const reducer = (state: ReturnType<typeof movieReducer>, action: AnyAction) => {
   }
 };
 
-export const makeStore = () =>
+export const store = () =>
   configureStore({
-    reducer
+    reducer,
   });
 
-type Store = ReturnType<typeof makeStore>;
+type Store = ReturnType<typeof store>;
 
 export type AppDispatch = Store['dispatch'];
 export type RootState = ReturnType<Store['getState']>;
@@ -89,6 +89,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper(store, {debug: true});
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

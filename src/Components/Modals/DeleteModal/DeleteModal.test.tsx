@@ -1,29 +1,29 @@
 import {DeleteModal} from './DeleteModal';
 import {render, waitFor, fireEvent, act} from '@testing-library/react';
-import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import '@testing-library/jest-dom';
-import {store} from '../../../Store/movieReducer';
 import {Provider} from 'react-redux';
 import * as MovieService from '../../../Services/MovieService';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import mockRouter from 'next-router-mock';
 
-const renderComponent = (params) => render(
-    <Provider store={store}>
-      <MemoryRouter initialEntries={[`/search/test${params}`]}>
-        <Routes>
-          <Route path='/search' element={<DeleteModal onClose={() => {}} id={5}/>}/>
-          <Route path='/search/:searchQuery' element={<DeleteModal onClose={() => {}} id={5}/>}/>
-        </Routes>
-      </MemoryRouter>
+const mockStore = configureMockStore([thunk]);
+jest.mock('next/router', () => require('next-router-mock'));
+
+const renderComponent = () => render(
+    <Provider store={mockStore(() => {})}>
+      <DeleteModal onClose={() => {}} id={5}/>
     </Provider>,
 );
 
 const apiMock = jest.fn();
 beforeEach(() => {
+  mockRouter.setCurrentUrl('/search');
   jest.spyOn(MovieService, 'deleteMovieApi').mockImplementation(apiMock);
 });
 
 it('submit valid form', async () =>{
-  const {getByText} = renderComponent('');
+  const {getByText} = renderComponent();
   await act(() => {
     fireEvent.click(getByText('CONFIRM'));
   });

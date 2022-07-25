@@ -1,68 +1,54 @@
 import {Header} from './Header';
-import {render, act, RenderResult} from '@testing-library/react';
-import {MemoryRouter, Route, Routes} from 'react-router-dom';
+import {Movie} from './../App';
+import {render} from '@testing-library/react';
 import '@testing-library/jest-dom';
-import {store} from '../../Store/movieReducer';
+import {State} from '../../Store/movieReducer';
 import {Provider} from 'react-redux';
-import * as MovieService from '../../Services/MovieService';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import mockRouter from 'next-router-mock';
 
-const renderComponent = (params, appStore) => render(
+jest.mock('next/router', () => require('next-router-mock'));
+const renderComponent = (appStore) => render(
     <Provider store={appStore}>
-      <MemoryRouter initialEntries={[`/search/test${params}`]}>
-        <Routes>
-          <Route path='/search' element={<Header/>}/>
-          <Route path='/search/:searchQuery' element={<Header/>}/>
-        </Routes>
-      </MemoryRouter>
+      <Header/>
     </Provider>,
 );
 
-const getMoviesApiMock = jest.fn();
-const getMovieApiMock = jest.fn();
 beforeEach(() => {
-  jest.spyOn(MovieService, 'getMoviesApi').mockImplementation(getMoviesApiMock);
-  jest.spyOn(MovieService, 'getMovieApi').mockImplementation(getMovieApiMock);
+  mockRouter.setCurrentUrl('/search/test');
 });
 
-const state = {
-  movie: {
-    id: 5,
-    genres: [],
-    overview: '',
-    release_date: null,
-    runtime: 0,
-    title: 'test-title',
-    vote_average: 0,
-    poster_path: '',
-  },
+const movie : Movie = {
+  id: 5,
+  genres: [],
+  overview: '',
+  release_date: null,
+  runtime: 0,
+  title: 'test-title',
+  vote_average: 0,
+  poster_path: '',
 };
 
+const emptyState = {
+  movie: null,
+};
+
+const stateWithMove : State = {
+  movie: movie,
+  error: null,
+  movies: [],
+};
+
+const mockStore = configureMockStore([thunk]);
+
 it('search mode without movie initially', () =>{
-  const {getByText} = renderComponent('', store);
+  const {getByText} = renderComponent(mockStore(() => emptyState));
   expect(getByText('SEARCH')).toBeInTheDocument();
 });
 
-it('movies request performed', async () =>{
-  renderComponent('?filter=Action', store);
-  await expect(getMoviesApiMock).toBeCalledWith('test', 'filter=Action');
+it('details mode initially if movie set', async () =>{
+  const {getByText} = renderComponent(mockStore(() => stateWithMove));
+  expect(getByText('test-title')).toBeInTheDocument();
 });
 
-it('movie request performed', async () =>{
-  await act(() => {
-    renderComponent('?movie=5', store);
-  });
-
-  await expect(getMovieApiMock).toBeCalledWith('5');
-});
-
-it('switch to details mode', async () =>{
-  const mockStore = configureMockStore([thunk]);
-  let renderResult : RenderResult;
-  await act(() => {
-    renderResult = renderComponent('?movie=5', mockStore(() => state));
-  });
-
-  expect(renderResult.getByText('test-title')).toBeInTheDocument();
-});

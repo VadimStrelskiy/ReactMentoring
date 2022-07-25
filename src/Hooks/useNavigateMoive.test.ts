@@ -1,21 +1,23 @@
 import {renderHook, act} from '@testing-library/react-hooks';
 import {useNavigateMovie} from './useNavigateMoive';
-import * as router from 'react-router';
+import {parse} from 'querystring';
+import mockRouter from 'next-router-mock';
 
-const navigateMock = jest.fn();
+jest.mock('next/router', () => require('next-router-mock'));
+
+let routerSpy;
 beforeEach(() => {
-  jest.spyOn(router, 'useNavigate').mockImplementation(() => navigateMock);
+  mockRouter.setCurrentUrl('/search');
+  routerSpy = jest.spyOn(mockRouter, 'push');
 });
+
 
 test('should call navigate with proper query and params', () => {
   const {result} = renderHook(() => useNavigateMovie());
-
-  const params = new URLSearchParams();
-  params.set('p1', 'v1');
-
+  const params = parse('p1=v1');
   act(() => {
     result.current('query', params);
   });
 
-  expect(navigateMock).toBeCalledWith('/search/query?p1=v1');
+  expect(routerSpy).toBeCalledWith('/search/query?p1=v1');
 });

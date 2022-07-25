@@ -1,34 +1,29 @@
 import {GenreSelector} from './GenreSelector';
 import {render} from '@testing-library/react';
-import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import * as router from 'react-router';
 import {act} from 'react-dom/test-utils';
+import mockRouter from 'next-router-mock';
 
-const renderComponent = (params) => render(
-    <MemoryRouter initialEntries={[`/search/test${params}`]}>
-      <Routes>
-        <Route path='/search' element={<GenreSelector/>}/>
-        <Route path='/search/:searchQuery' element={<GenreSelector/>}/>
-      </Routes>
-    </MemoryRouter>,
-);
 
-const navigateMock = jest.fn();
+jest.mock('next/router', () => require('next-router-mock'));
+
+let routerSpy;
 beforeEach(() => {
-  jest.spyOn(router, 'useNavigate').mockImplementation(() => navigateMock);
+  mockRouter.setCurrentUrl('/search');
+  routerSpy = jest.spyOn(mockRouter, 'push');
 });
 
 
 it('initially all genres are selected', () =>{
-  const {container, getByText} = renderComponent('');
+  const {container, getByText} = render(<GenreSelector/>);
   expect(container.getElementsByClassName('selected').length).toBe(10);
   expect(getByText('ALL')).toHaveClass('selected');
 });
 
 it('applies genres from query', async () =>{
-  const {container, getByText} = renderComponent('?filter=Action,Adventure');
+  mockRouter.setCurrentUrl('/search?filter=Action,Adventure');
+  const {container, getByText} = render(<GenreSelector/>);
 
   expect(container.getElementsByClassName('selected').length).toBe(2);
   expect(getByText('Action')).toHaveClass('selected');
@@ -36,32 +31,35 @@ it('applies genres from query', async () =>{
 });
 
 it('update genre after click', async () =>{
-  const {container, getByText} = renderComponent('?filter=Action,Adventure');
+  mockRouter.setCurrentUrl('/search?filter=Action,Adventure');
+  const {container, getByText} = render(<GenreSelector/>);
 
   await act(() => userEvent.click(getByText('Romance')));
   expect(container.getElementsByClassName('selected').length).toBe(3);
   expect(getByText('Action')).toHaveClass('selected');
   expect(getByText('Adventure')).toHaveClass('selected');
   expect(getByText('Romance')).toHaveClass('selected');
-  expect(navigateMock).toBeCalledWith('/search/test?filter=Action%2CAdventure%2CRomance');
+  expect(routerSpy).toBeCalledWith('/search?filter=Action%2CAdventure%2CRomance');
 });
 
 it('update genre after click ALL', async () =>{
-  const {container, getByText} = renderComponent('?filter=Action,Adventure');
+  mockRouter.setCurrentUrl('/search?filter=Action,Adventure');
+  const {container, getByText} = render(<GenreSelector/>);
 
   await act(() => userEvent.click(getByText('ALL')));
   expect(container.getElementsByClassName('selected').length).toBe(10);
 });
 
 it('deselect all after click ALL', async () =>{
-  const {container, getByText} = renderComponent('');
+  const {container, getByText} = render(<GenreSelector/>);
 
   await act(() => userEvent.click(getByText('ALL')));
   expect(container.getElementsByClassName('selected').length).toBe(0);
 });
 
 it('deselect genre after click', async () =>{
-  const {container, getByText} = renderComponent('?filter=Action,Adventure');
+  mockRouter.setCurrentUrl('/search?filter=Action,Adventure');
+  const {container, getByText} = render(<GenreSelector/>);
 
   await act(() => userEvent.click(getByText('Action')));
   expect(container.getElementsByClassName('selected').length).toBe(1);
@@ -69,16 +67,19 @@ it('deselect genre after click', async () =>{
 });
 
 it('select all after adding missing all', async () =>{
-  const {container, getByText} = renderComponent('?filter=Action,Adventure,Drama,Romance,Animation,Family,Comedy,Fantasy');
+  mockRouter.setCurrentUrl('/search?filter=Action,Adventure,Drama,Romance,Animation,Family,Comedy,Fantasy');
+  const {container, getByText} = render(<GenreSelector/>);
+
   expect(container.getElementsByClassName('selected').length).toBe(8);
 
   await act(() => userEvent.click(getByText('Science Fiction')));
   expect(container.getElementsByClassName('selected').length).toBe(10);
-  expect(navigateMock).toBeCalledWith('/search/test');
+  expect(routerSpy).toBeCalledWith('/search');
 });
 
 it('remove filter as part of query string', async () =>{
-  const {getByText} = renderComponent('?filter=Action,Adventure,Drama,Romance,Animation,Family,Comedy,Fantasy&sortBy=release_date');
+  mockRouter.setCurrentUrl('/search?filter=Action,Adventure,Drama,Romance,Animation,Family,Comedy,Fantasy&sortBy=release_date');
+  const {getByText} = render(<GenreSelector/>);
   await act(() => userEvent.click(getByText('Science Fiction')));
-  expect(navigateMock).toBeCalledWith('/search/test?sortBy=release_date');
+  expect(routerSpy).toBeCalledWith('/search?sortBy=release_date');
 });

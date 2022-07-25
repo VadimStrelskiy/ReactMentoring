@@ -1,11 +1,12 @@
 import {EditModal} from './EditModal';
 import {render, waitFor, fireEvent, act} from '@testing-library/react';
-import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import '@testing-library/jest-dom';
-import {store} from '../../../Store/movieReducer';
+import {State} from '../../../Store/movieReducer';
 import {Provider} from 'react-redux';
 import * as MovieService from '../../../Services/MovieService';
 import {Movie} from '../../App';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
 const movie : Movie = {
   id: 0,
@@ -18,14 +19,17 @@ const movie : Movie = {
   overview: 'test overview',
 };
 
-const renderComponent = (params) => render(
-    <Provider store={store}>
-      <MemoryRouter initialEntries={[`/search/test${params}`]}>
-        <Routes>
-          <Route path='/search' element={<EditModal onClose={() => {}} movie={movie}/>}/>
-          <Route path='/search/:searchQuery' element={<EditModal onClose={() => {}} movie={movie}/>}/>
-        </Routes>
-      </MemoryRouter>
+const stateWithMove : State = {
+  movie: movie,
+  error: null,
+  movies: [],
+};
+
+const mockStore = configureMockStore([thunk]);
+jest.mock('next/router', () => require('next-router-mock'));
+const renderComponent = () => render(
+    <Provider store={mockStore(() => stateWithMove)}>
+      <EditModal onClose={() => {}} movie={movie}/>
     </Provider>,
 );
 
@@ -35,7 +39,7 @@ beforeEach(() => {
 });
 
 it('submit valid form', async () =>{
-  const {getByText} = renderComponent('');
+  const {getByText} = renderComponent();
   await act(() => {
     fireEvent.click(getByText('SUBMIT'));
   });

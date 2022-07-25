@@ -7,8 +7,8 @@ import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
-import { useRouter } from 'next/router';
-import { stringUtil } from '../../../Utils/stringUtil';
+import {useRouter} from 'next/router';
+import {stringUtil} from '../../../Utils/stringUtil';
 
 
 interface MovieCardProps{
@@ -18,7 +18,7 @@ interface MovieCardProps{
 export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  
+
   const router = useRouter();
   const {searchQuery} = router.query;
 
@@ -33,7 +33,7 @@ export function MovieCard({movie}: MovieCardProps) {
     },
   ];
 
-  function getMovieLink(id){
+  function getMovieLink(id) {
     const queryPart = searchQuery ? ('/' + searchQuery) : '';
     return '/search' + queryPart + '?' + stringUtil.createQueryParamString(router.query, id, false);
   }

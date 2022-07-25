@@ -1,5 +1,5 @@
 import {useCallback, useState, useEffect, useRef} from 'react';
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router';
 import {Genres} from '../../../Store/genres';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 
@@ -12,7 +12,7 @@ export const useGenres = () => {
   const navigate = useNavigateMovie();
   const mounted = useRef(null);
   const router = useRouter();
-  const { searchQuery } = router.query
+  const {searchQuery} = router.query;
 
   const filter = router.query.filter as string;
   if (filter) {

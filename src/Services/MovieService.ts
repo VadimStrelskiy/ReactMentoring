@@ -57,9 +57,9 @@ export async function createOrUpdateMovieApi(movie : Movie) {
     }
 
     let response;
-    if(movie.id > 0){
+    if (movie.id > 0) {
       response = await axios.put(baseUrl, movie);
-    }else{
+    } else {
       response = await axios.post(baseUrl, movie);
     }
 

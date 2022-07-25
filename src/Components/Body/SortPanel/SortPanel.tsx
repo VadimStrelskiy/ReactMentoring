@@ -2,7 +2,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 import styles from './SortPanel.module.scss';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
 export interface SortOption{
   value: SortOptionType,
@@ -40,7 +40,7 @@ export function SortPanel() {
   const navigate = useNavigateMovie();
   const router = useRouter();
   const {searchQuery} = router.query;
-  
+
   const mounted = useRef(null);
 
   let parsedSortOption;
@@ -88,7 +88,7 @@ export function SortPanel() {
         break;
     }
 
-    navigate(searchQuery, router.query);
+    navigate(searchQuery as string, router.query);
   }
 
   useEffect(() => {

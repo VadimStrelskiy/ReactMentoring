@@ -1,7 +1,7 @@
 import styles from './DeleteModal.module.scss';
 import {deleteMovie, getMovies, useAppDispatch} from '../../../Store/movieReducer';
-import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
+import {useRouter} from 'next/router';
+import {stringify} from 'querystring';
 
 interface DeleteModalProps{
   id: number,

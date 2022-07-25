@@ -1,7 +1,7 @@
 import styles from './SearchToggle.module.scss';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
-import { useRouter } from 'next/router';
-import { stringUtil } from '../../../Utils/stringUtil';
+import {useRouter} from 'next/router';
+import {stringUtil} from '../../../Utils/stringUtil';
 
 export function SearchToggle() {
   const router = useRouter();
@@ -13,10 +13,10 @@ export function SearchToggle() {
     navigate(searchQuery as string, router.query);
   }
 
-  function createLink(){
+  function createLink() {
     const queryPart = searchQuery ? ('/' + searchQuery) : '';
     let paramPart = stringUtil.createQueryParamString(router.query, null, true);
-    if(paramPart != ''){
+    if (paramPart != '') {
       paramPart = '?' + paramPart;
     }
     return '/search' + queryPart + paramPart;

@@ -8,8 +8,8 @@ import * as Yup from 'yup';
 import {DatePickerInput} from '../../Forms/DatePickerInput';
 import {MultiSelectInput} from '../../Forms/MultiSelectInput';
 import {TextAreaInput} from '../../Forms/TextAreaInput';
-import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
+import {useRouter} from 'next/router';
+import {stringify} from 'querystring';
 import 'react-datepicker/dist/react-datepicker.css';
 
 interface EditModalProps{
@@ -102,7 +102,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
                   placeholder="Movie title"
                   className={styles.formInput}
                   errorClassName={styles.error}
-                  />
+                />
               </div>
               <div className={styles.secondColumn}>
                 <DatePickerInput
@@ -111,7 +111,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
                   placeholder="Select Date"
                   className={styles.formInput}
                   errorClassName={styles.error}
-                  />
+                />
               </div>
               <div className={styles.firstColumn}>
                 <TextInput
@@ -121,7 +121,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
                   placeholder="https://"
                   className={styles.formInput}
                   errorClassName={styles.error}
-                  />
+                />
               </div>
               <div className={styles.secondColumn}>
                 <TextInput
@@ -131,16 +131,16 @@ export function EditModal({onClose, movie} : EditModalProps) {
                   placeholder="7.8"
                   className={styles.formInput}
                   errorClassName={styles.error}
-                  />
+                />
               </div>
-              <div className={`${styles.firstColumn}, ${styles.multiselect}`}>
+              <div className={`${styles.firstColumn} ${styles.multiselect}`}>
                 <MultiSelectInput
                   label="GENRE"
                   name="genres"
                   options={Genres}
                   placeholder="Select"
                   errorClassName={styles.error}
-                  />
+                />
               </div>
               <div className={styles.secondColumn}>
                 <TextInput
@@ -150,7 +150,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
                   placeholder="minutes"
                   className={styles.formInput}
                   errorClassName={styles.error}
-                  />
+                />
               </div>
               <div className={styles.overview}>
                 <TextAreaInput
@@ -159,7 +159,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
                   placeholder="Movie description"
                   className={styles.formInput}
                   errorClassName={styles.error}
-                  />
+                />
               </div>
 
               <button className={`${styles.transparentButton} ${styles.resetButton}`} type='reset' onClick={() => formProps.resetForm({values: initialValues})}>RESET</button>
