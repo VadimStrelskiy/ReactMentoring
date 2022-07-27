@@ -1,0 +1,26 @@
+$input-backgroupnd: rgba(50, 50, 50, 0.948044);
+
+.dropdown-container{
+    background: $input-backgroupnd !important;
+    font-size: 20px;
+    line-height: 24px;
+    color: white;
+    height: 57px;
+    padding-top: 7px;
+
+    span{
+        opacity: 0.8;
+    }
+}
+
+.select-panel{
+    background: $input-backgroupnd !important;
+    font-size: 20px;
+    line-height: 24px;
+    color: white;
+    
+    .select-item:hover, .select-item.selected{
+        background: #F65261 !important;
+        color: white;
+    }
+}

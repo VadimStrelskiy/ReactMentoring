@@ -1,10 +1,8 @@
 import {MovieCard} from './MovieCard';
-import {render, act} from '@testing-library/react';
-import {MemoryRouter, Route, Routes} from 'react-router-dom';
+import {render} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {Movie} from '../../App';
-import userEvent from '@testing-library/user-event';
-import * as router from 'react-router';
+import mockRouter from 'next-router-mock';
 
 const movie : Movie = {
   id: 5,
@@ -17,22 +15,14 @@ const movie : Movie = {
   overview: 'test overview',
 };
 
-const renderComponent = (params) => render(
-    <MemoryRouter initialEntries={[`/search/test${params}`]}>
-      <Routes>
-        <Route path='/search' element={<MovieCard movie={movie}/>}/>
-        <Route path='/search/:searchQuery' element={<MovieCard movie={movie}/>}/>
-      </Routes>
-    </MemoryRouter>,
-);
+jest.mock('next/router', () => require('next-router-mock'));
 
-const navigateMock = jest.fn();
 beforeEach(() => {
-  jest.spyOn(router, 'useNavigate').mockImplementation(() => navigateMock);
+  mockRouter.setCurrentUrl('/search');
 });
 
-it('image click triggers navigate', async () =>{
-  const {container} = renderComponent('?filter=Action');
-  await act(() => userEvent.click(container.getElementsByClassName('movie-image')[0]));
-  expect(navigateMock).toBeCalledWith('/search/test?filter=Action&movie=5');
+it('contains proper details link', async () =>{
+  mockRouter.setCurrentUrl('/search?filter=Action');
+  const {getByRole} = render(<MovieCard movie={movie}/>);
+  expect(getByRole('link')).toHaveAttribute('href', '/search?filter=Action&movie=5');
 });

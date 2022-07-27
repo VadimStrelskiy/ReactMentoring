@@ -5,10 +5,11 @@ interface MultiSelectInputProps{
   label: string,
   placeholder: string,
   name: string,
-  options: string[]
+  options: string[],
+  errorClassName: string
 }
 
-export function MultiSelectInput({label, placeholder, name, options} : MultiSelectInputProps) {
+export function MultiSelectInput({label, placeholder, name, options, errorClassName} : MultiSelectInputProps) {
   const {setFieldValue} = useFormikContext();
   const [field, {error, touched}] = useField({
     name: name,
@@ -31,7 +32,7 @@ export function MultiSelectInput({label, placeholder, name, options} : MultiSele
         labelledBy={placeholder}/>
       {
           touched && error ?
-            (<div className="error">{error}</div>) :
+            (<div className={errorClassName}>{error}</div>) :
            null
       }
     </>

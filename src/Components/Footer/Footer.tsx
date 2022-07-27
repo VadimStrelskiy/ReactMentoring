@@ -1,4 +1,4 @@
-import './Footer.scss';
+import styles from './Footer.module.scss';
 
 type FooterProps = {
     children: React.ReactNode
@@ -6,7 +6,7 @@ type FooterProps = {
 
 export function Footer(props : FooterProps) {
   return (
-    <footer>{props.children}</footer>
+    <footer className={styles.footer}>{props.children}</footer>
   );
 }
 

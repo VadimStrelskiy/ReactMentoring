@@ -1,7 +1,7 @@
 @import '../../common.scss';
 
-.page-body {
-    margin: 20 auto 0 auto;
+.pageBody {
+    margin: 20px auto 0px auto;
     width: 1200px;
     background: $grey;
     min-height: 2000px;
@@ -10,7 +10,7 @@
         margin: 0;
     }
 
-    .movie-count{
+    .movieCount{
         font-weight: 600;
         @include white-text;
         margin-left: 30px;

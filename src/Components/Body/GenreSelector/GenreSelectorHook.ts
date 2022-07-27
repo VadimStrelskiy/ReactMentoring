@@ -1,5 +1,5 @@
 import {useCallback, useState, useEffect, useRef} from 'react';
-import {useParams, useSearchParams} from 'react-router-dom';
+import {useRouter} from 'next/router';
 import {Genres} from '../../../Store/genres';
 import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
 
@@ -11,10 +11,10 @@ export const useGenres = () => {
 
   const navigate = useNavigateMovie();
   const mounted = useRef(null);
-  const {searchQuery} = useParams();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const {searchQuery} = router.query;
 
-  const filter = searchParams.get('filter');
+  const filter = router.query.filter as string;
   if (filter) {
     genresFilter = filter.split(',');
   }
@@ -34,7 +34,7 @@ export const useGenres = () => {
       newGenres = [...genres.filter((g) => g !== genre && g !== ALL)];
     } else {
       genres.push(genre);
-      if (genres.length == allGenres.length - 1) {
+      if (genres.length === allGenres.length - 1) {
         genres.push(ALL);
       }
 
@@ -43,14 +43,14 @@ export const useGenres = () => {
 
     setGenres(newGenres);
 
-    if (newGenres.includes(ALL) || newGenres.length == 0) {
-      searchParams.delete('filter');
-      navigate(searchQuery, searchParams);
+    if (newGenres.includes(ALL) || newGenres.length === 0) {
+      router.query.filter = null;
+      navigate(searchQuery as string, router.query);
     } else {
-      searchParams.set('filter', newGenres.filter((g) => g !== ALL).join(','));
-      navigate(searchQuery, searchParams);
+      router.query.filter = newGenres.filter((g) => g !== ALL).join(',');
+      navigate(searchQuery as string, router.query);
     }
-  }, [genres, searchQuery, searchParams]);
+  }, [genres, searchQuery, router.query]);
 
   useEffect(() => {
     if (!mounted.current) {
@@ -60,7 +60,7 @@ export const useGenres = () => {
         setGenres(genresFilter ? genresFilter : allGenres);
       }
     }
-  }, [searchParams]);
+  }, [router.query]);
 
   return [genres, updateGenres];
 };

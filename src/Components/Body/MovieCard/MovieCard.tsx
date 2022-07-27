@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 
-import './MovieCard.scss';
+import styles from './MovieCard.module.scss';
 import Popup from 'reactjs-popup';
 import {useState} from 'react';
 import {Movie} from '../../App';
 import {DeleteModal} from '../../Modals/DeleteModal/DeleteModal';
 import {EditModal} from '../../Modals/EditModal/EditModal';
 import {ContextMenu, ContextMenuElement} from '../../Common/ContextMenu/ContextMenu';
-import {useParams, useSearchParams} from 'react-router-dom';
-import {useNavigateMovie} from '../../../Hooks/useNavigateMoive';
+import {useRouter} from 'next/router';
+import {stringUtil} from '../../../Utils/stringUtil';
 
 
 interface MovieCardProps{
@@ -19,14 +19,8 @@ export function MovieCard({movie}: MovieCardProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const {searchQuery} = useParams();
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigateMovie();
-
-  function movieClicked(id) {
-    searchParams.set('movie', id);
-    navigate(searchQuery, searchParams);
-  }
+  const router = useRouter();
+  const {searchQuery} = router.query;
 
   const elements : ContextMenuElement[] = [
     {
@@ -39,13 +33,18 @@ export function MovieCard({movie}: MovieCardProps) {
     },
   ];
 
+  function getMovieLink(id) {
+    const queryPart = searchQuery ? ('/' + searchQuery) : '';
+    return '/search' + queryPart + '?' + stringUtil.createQueryParamString(router.query, id, false);
+  }
+
   return (
-    <div className='movie-card-container'>
-      <img className='movie-image' src={movie.poster_path} onClick={() => movieClicked(movie.id)}/>
-      <p className='movie-title'>{movie.title}</p>
-      <p className='movie-year'>{new Date(movie.release_date).getFullYear()}</p>
-      <p className='movie-genre'>{movie.genres.join(', ')}</p>
-      <ContextMenu trigger={<svg className='movie-menu-button'>
+    <div className={styles.movieCardContainer}>
+      <a href={getMovieLink(movie.id)}><img className={styles.movieImage} src={movie.poster_path} /></a>
+      <p className={styles.movieTitle}>{movie.title}</p>
+      <p className={styles.movieYear}>{new Date(movie.release_date).getFullYear()}</p>
+      <p className={styles.movieGenre}>{movie.genres.join(', ')}</p>
+      <ContextMenu trigger={<svg className={styles.movieMenuButton}>
         <circle fill="#2A202D" r="18px" cx="18px" cy="18px"/>
         <circle fill="white" r="2px" cx="18px" cy="10px"/>
         <circle fill="white" r="2px" cx="18px" cy="18px"/>

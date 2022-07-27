@@ -5,7 +5,7 @@ $input-height: 57px;
 $input-opacity: 0.8;
 $input-backgroupnd: rgba(50, 50, 50, 0.948044);
 
-.edit-modal{
+.editModal{
     background: $grey;
     width: 915px;
     height: 975px;
@@ -22,7 +22,7 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
         display: inline-block;
     }
 
-    .edit-close{
+    .editClose{
         background: transparent;
         border: none;
         outline: none;
@@ -31,22 +31,22 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
         float: right;
     }
 
-    .first-column{
+    .firstColumn{
         margin-left: $margin-left;
         grid-column: 1;
     }
 
-    .second-column{
+    .secondColumn{
         grid-column: 2;
         margin-left: 30px;
     }
 
-    .first-column, .second-column{
+    .firstColumn, .secondColumn{
         margin-top: 20px;
         height: 105px;
     }
 
-    .first-column.multiselect{
+    .firstColumn.multiselect{
         margin-top: 0px;
 
         label{
@@ -55,7 +55,7 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
         }
     }
 
-    .form-input{
+    .formInput{
         display: block;
         width: 100%;
         background: $input-backgroupnd;
@@ -71,30 +71,10 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
             margin-top: 15px;
         }
 
-        .multi-select{
+        .multiSelect{
             display: block;
             width: 100%;
-            
-            .dropdown-container{
-                background: $input-backgroupnd;
-                @include white-text;
-                height: $input-height;
-                padding-top: 7px;
-    
-                span{
-                    opacity: $input-opacity;
-                }
-            }
-    
-            .select-panel{
-                background: $input-backgroupnd;
-                @include white-text;
-                
-                .select-item:hover, .select-item.selected{
-                    background: $red;
-                }
-            }
-    
+
             label{
                 @include white-text;
             }
@@ -120,15 +100,15 @@ $input-backgroupnd: rgba(50, 50, 50, 0.948044);
         }
     }
 
-    .reset-button{
+    .resetButton{
         margin-left: 50px;
     }
 
-    .submit-button{
+    .submitButton{
         margin-left: 250px;
     }
 
-    .reset-button, .submit-button{
+    .resetButton, .submitButton{
         margin-top: 50px;
         grid-column: 2;
         grid-row: 5;

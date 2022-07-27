@@ -1,13 +1,13 @@
 @import '../../../common.scss';
 
-.genre-selector{
+.genreSelector{
     display: inline-block;
     margin: 10px;
     opacity: 0.8;
     width: 70%;
 
     a{
-        margin: 5 15 0 15;
+        margin: 5px 15px 0px 15px;
         @include white-text;    
         text-transform: uppercase;
         display: inline-block;

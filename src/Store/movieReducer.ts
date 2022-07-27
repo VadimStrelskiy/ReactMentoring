@@ -1,7 +1,8 @@
-import {createReducer, createAsyncThunk, configureStore} from '@reduxjs/toolkit';
+import {createReducer, createAsyncThunk, configureStore, AnyAction, ThunkAction, Action, createAction} from '@reduxjs/toolkit';
 import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi, getMovieApi} from '../Services/MovieService';
 import {Movie} from '../Components/App';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {createWrapper, HYDRATE} from 'next-redux-wrapper';
 
 export interface State{
     error : string,
@@ -36,6 +37,8 @@ export const updateMovie = createAsyncThunk('updateMovie', async (movie : Movie)
   return createOrUpdateMovieApi(movie);
 });
 
+export const resetMovie = createAction('resetMovie');
+
 export const movieReducer = createReducer(initialState, (builder) => {
   builder
       .addCase(getMovies.fulfilled, (state, action) => {
@@ -51,14 +54,41 @@ export const movieReducer = createReducer(initialState, (builder) => {
       })
       .addCase(getMovie.rejected, (state, action) => {
         state.error = action.error.message;
+      })
+      .addCase(resetMovie, (state) => {
+        state.movie = null;
       });
 });
 
-export const store = configureStore({
-  reducer: movieReducer,
-});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch;
+const reducer = (state: ReturnType<typeof movieReducer>, action: AnyAction) => {
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state,
+      ...action.payload,
+    };
+    return nextState;
+  } else {
+    return movieReducer(state, action);
+  }
+};
+
+export const store = () =>
+  configureStore({
+    reducer,
+  });
+
+type Store = ReturnType<typeof store>;
+
+export type AppDispatch = Store['dispatch'];
+export type RootState = ReturnType<Store['getState']>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
+
+export const wrapper = createWrapper(store, {debug: true});
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

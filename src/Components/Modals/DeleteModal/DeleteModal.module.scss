@@ -1,12 +1,12 @@
 @import '../../../common.scss';
 
-.delete-modal{
+.deleteModal{
     width: 690px;
     height: 350px;
     background: $grey;
     position: relative;
 
-    .delete-close{
+    .deleteClose{
         background: transparent;
         border: none;
         outline: none;
@@ -30,7 +30,7 @@
         top: 150px;
     }
 
-    .red-button{
+    .redButton{
         position: absolute;
         left: 480px;
         top: 250px;

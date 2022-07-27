@@ -1,4 +1,4 @@
-import './ContextMenu.scss';
+import styles from './ContextMenu.module.scss';
 
 import {useState} from 'react';
 import Popup from 'reactjs-popup';
@@ -18,8 +18,8 @@ export function ContextMenu({trigger, elements} : ContextMenuProps) {
 
   return (
     <Popup arrow={false} trigger={trigger} open={menuOpenState} onOpen={() => setMenuOpen(true)}>
-      <div className="context-menu">
-        <button className='context-menu-close' onClick={() => setMenuOpen(false)}>&times;</button>
+      <div className={styles.contextMenu}>
+        <button className={styles.contextMenuClose} onClick={() => setMenuOpen(false)}>&times;</button>
         <br/>
         <ul>
           {

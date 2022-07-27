@@ -1,13 +1,13 @@
 @import '../../common.scss';
 
-header{
+.header{
     width: 1200px;
     height: 596px;
     top: 50px;
     margin: auto;
     background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(../../../public/header.png);
 
-    .netflix-roulett-text{
+    .netflixRoulettText{
         display: inline-block;
         margin-left: 60px;
         margin-top: 30px;
