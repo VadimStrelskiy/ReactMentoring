@@ -11,7 +11,7 @@ export function Header() {
     <header className={styles.header}>
       <p className={styles.netflixRoulettText}><strong>netflix</strong>roulette</p>
 
-      {movie == null ?
+      {movie === null ?
         (<Search/>) :
         (<>
           <SearchToggle/>

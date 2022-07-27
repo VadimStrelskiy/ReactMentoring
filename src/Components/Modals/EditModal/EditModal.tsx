@@ -34,7 +34,7 @@ export function EditModal({onClose, movie} : EditModalProps) {
 
   const isNew = movie === null;
 
-  if (movie == null) {
+  if (movie === null) {
     movie = {
       release_date: new Date(),
       overview: '',

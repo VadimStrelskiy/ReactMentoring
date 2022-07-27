@@ -34,7 +34,7 @@ export const useGenres = () => {
       newGenres = [...genres.filter((g) => g !== genre && g !== ALL)];
     } else {
       genres.push(genre);
-      if (genres.length == allGenres.length - 1) {
+      if (genres.length === allGenres.length - 1) {
         genres.push(ALL);
       }
 
@@ -43,12 +43,12 @@ export const useGenres = () => {
 
     setGenres(newGenres);
 
-    if (newGenres.includes(ALL) || newGenres.length == 0) {
+    if (newGenres.includes(ALL) || newGenres.length === 0) {
       router.query.filter = null;
-      navigate(searchQuery, router.query);
+      navigate(searchQuery as string, router.query);
     } else {
       router.query.filter = newGenres.filter((g) => g !== ALL).join(',');
-      navigate(searchQuery, router.query);
+      navigate(searchQuery as string, router.query);
     }
   }, [genres, searchQuery, router.query]);
 

@@ -49,16 +49,16 @@ export function SortPanel() {
   const sortOrder = router.query.sortOrder;
 
   if (sortBy && sortOrder) {
-    if (sortBy == 'vote_average') {
-      if (sortOrder == 'asc') {
+    if (sortBy === 'vote_average') {
+      if (sortOrder === 'asc') {
         parsedSortOption = SortOptionType.RatingAsc;
-      } else if (sortOrder == 'desc') {
+      } else if (sortOrder === 'desc') {
         parsedSortOption = SortOptionType.RatingDesc;
       }
-    } else if (sortBy == 'release_date') {
-      if (sortOrder == 'asc') {
+    } else if (sortBy === 'release_date') {
+      if (sortOrder === 'asc') {
         parsedSortOption = SortOptionType.ReleaseDateAsc;
-      } else if (sortOrder == 'desc') {
+      } else if (sortOrder === 'desc') {
         parsedSortOption = SortOptionType.ReleaseDateDesc;
       }
     }

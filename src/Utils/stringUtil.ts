@@ -9,23 +9,17 @@ export class stringUtil {
   }
 
   static createQueryParamString(query : ParsedUrlQuery, movieId : string, removeMovieParam : boolean) {
-    let params = '';
+    let params = [];
     if (query.filter) {
-      params += 'filter=' + query.filter;
+      params.push('filter=' + query.filter);
     }
 
     if (query.sortBy) {
-      if (params != '') {
-        params += '&';
-      }
-      params += 'sortBy=' + query.sortBy;
+      params.push('sortBy=' + query.sortBy);
     }
 
     if (query.sortOrder) {
-      if (params != '') {
-        params += '&';
-      }
-      params += 'sortOrder=' + query.sortOrder;
+      params.push('sortOrder=' + query.sortOrder);
     }
 
     if (!removeMovieParam) {
@@ -34,13 +28,10 @@ export class stringUtil {
       }
 
       if (movieId) {
-        if (params != '') {
-          params += '&';
-        }
-        params += 'movie=' + movieId;
+        params.push('movie=' + movieId);
       }
     }
 
-    return params;
+    return params.join('&');;
   }
 }

@@ -18,7 +18,7 @@ export async function getMoviesApi(searchQuery : string, searchParams : string) 
 
     const response = await axios.get(url);
 
-    if (response.statusText == 'OK') {
+    if (response.statusText === 'OK') {
       return response.data.data;
     }
 
@@ -30,7 +30,7 @@ export async function getMovieApi(id : string) : Promise<Movie> {
   return await handleError(async () =>{
     const url = baseUrl + '/' + id;
     const response = await axios.get(url);
-    if (response.statusText == 'OK') {
+    if (response.statusText === 'OK') {
       return response.data;
     }
 
@@ -42,7 +42,7 @@ export async function deleteMovieApi(id : number) {
   return await handleError(async () => {
     const url = baseUrl + '/' + id;
     const response = await axios.delete(url);
-    if (response.statusText == 'OK') {
+    if (response.statusText === 'OK') {
       return;
     }
 
@@ -63,7 +63,7 @@ export async function createOrUpdateMovieApi(movie : Movie) {
       response = await axios.post(baseUrl, movie);
     }
 
-    if (response.statusText == 'OK') {
+    if (response.statusText === 'OK') {
       return;
     }
 
