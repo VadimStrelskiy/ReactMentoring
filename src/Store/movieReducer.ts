@@ -3,6 +3,7 @@ import {getMoviesApi, deleteMovieApi, createOrUpdateMovieApi, getMovieApi} from 
 import {Movie} from '../Components/App';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {createWrapper, HYDRATE} from 'next-redux-wrapper';
+import { enhancer } from 'addon-redux-strh';
 
 export interface State{
     error : string,
@@ -75,7 +76,7 @@ const reducer = (state: ReturnType<typeof movieReducer>, action: AnyAction) => {
 
 export const store = () =>
   configureStore({
-    reducer,
+    reducer, enhancers: [enhancer],
   });
 
 type Store = ReturnType<typeof store>;
