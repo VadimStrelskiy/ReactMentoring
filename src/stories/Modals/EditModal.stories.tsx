@@ -1,12 +1,13 @@
 import React from 'react';
 import {ComponentMeta} from '@storybook/react';
-import {MovieDetails} from '../../Components/Header/MovieDetails/MovieDetails';
+import {EditModal} from '../../Components/Modals/EditModal/EditModal';
 import {Movie} from '../../Components/App';
 
+
 export default {
-  title: 'Header/MovieDetails',
-  component: MovieDetails,
-} as ComponentMeta<typeof MovieDetails>;
+  title: 'Modals/EditModal',
+  component: EditModal,
+} as ComponentMeta<typeof EditModal>;
 
 const movie : Movie = {
   id: 5,
@@ -19,4 +20,5 @@ const movie : Movie = {
   overview: 'test overview',
 };
 
-export const movieDetails = () => <MovieDetails movie={movie}/>;
+export const editModal = () => <EditModal movie={movie} onClose={()=>{}}/>;
+

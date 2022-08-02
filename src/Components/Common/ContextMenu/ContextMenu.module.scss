@@ -2,7 +2,7 @@
 
 .contextMenu{
     background: $grey;
-    padding-right: 10px;
+    
 
     .contextMenuClose{
         background: transparent;
@@ -23,6 +23,7 @@
         padding-left: 30px;
         @include white-text;
         list-style-type: none;
+        padding-right: 10px;
         
         &:hover{
             background: $red;

@@ -1,6 +1,7 @@
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import {store} from '../src/Store/movieReducer';
 import {Provider} from 'react-redux';
+import '../src/pages/global.scss';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

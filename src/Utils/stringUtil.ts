@@ -9,7 +9,7 @@ export class stringUtil {
   }
 
   static createQueryParamString(query : ParsedUrlQuery, movieId : string, removeMovieParam : boolean) {
-    let params = [];
+    const params = [];
     if (query.filter) {
       params.push('filter=' + query.filter);
     }
@@ -32,6 +32,6 @@ export class stringUtil {
       }
     }
 
-    return params.join('&');;
+    return params.join('&');
   }
 }

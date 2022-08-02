@@ -1,12 +1,12 @@
 import React from 'react';
 import {ComponentMeta} from '@storybook/react';
-import {MovieDetails} from '../../Components/Header/MovieDetails/MovieDetails';
+import {MovieCard} from '../../Components/Body/MovieCard/MovieCard';
 import {Movie} from '../../Components/App';
 
 export default {
-  title: 'Header/MovieDetails',
-  component: MovieDetails,
-} as ComponentMeta<typeof MovieDetails>;
+  title: 'Body/MovieCard',
+  component: MovieCard,
+} as ComponentMeta<typeof MovieCard>;
 
 const movie : Movie = {
   id: 5,
@@ -19,4 +19,4 @@ const movie : Movie = {
   overview: 'test overview',
 };
 
-export const movieDetails = () => <MovieDetails movie={movie}/>;
+export const movieCard = () => <MovieCard movie={movie}/>;
