@@ -14,7 +14,7 @@ export function Header() {
       {movie === null ?
         (<Search/>) :
         (<>
-          <SearchToggle/>
+          <div className={styles.searchToggleContainer}><SearchToggle/></div>
           <br/>
           <MovieDetails movie={movie}/>
         </>)
